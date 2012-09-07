@@ -1,17 +1,52 @@
-<section>
+<section id="body">
   <h1><%= h(title) %></h1>
-  <p><a href="<%= h(pdf_base_name) %>">PDF</a></p>
-  <div id="viewer"></div>
-  <section class="images">
-  <% @pdf.each_with_index do |page, i| %>
-    <img id="page-<%= i %>" src="<%= i %>.png"/>
-  <% end %>
-  </section>
-  <section class="transcript">
-    <h2><%= h("Transcript") %></h2>
-  <% @pdf.each_with_index do |page, i| %>
-    <h3><%= i + 1 %>th page</h3>
-    <pre><%= h(page.get_text) %></pre>
-  <% end %>
-  </section>
-</section>
+
+  <div id="main">
+    <section class="content">
+      <div id="viewer">
+        <div id="viewer-header"></div>
+        <div id="viewer-content"></div>
+        <div id="viewer-footer"></div>
+      </div>
+      <section class="images">
+      <% @pdf.each_with_index do |page, i| %>
+        <img id="page-<%= i %>" src="<%= i %>.png" class="page">
+      <% end %>
+      </section>
+      <section class="transcript">
+        <h2><%= h("Transcript") %></h2>
+      <% @pdf.each_with_index do |page, i| %>
+        <h3><%= i + 1 %>th page</h3>
+        <pre><%= h(page.get_text) %></pre>
+      <% end %>
+      </section>
+    </section>
+  </div>
+
+  <nav id="sidebar">
+    <section>
+      <h3><a href="../"><%= h(@config.author.name) %></a></h3>
+      <p>
+        <img src="<%= gravatar_url(@config.author.email) %>" class="avatar">
+      </p>
+      <% if @config.author.slideshare_user %>
+      <p>
+        <a href="http://slideshare.net/<%= h(@config.author.slideshare_user) %>">SlideShare</a>
+      </p>
+      <% end %>
+      <% if @config.author.speaker_deck_user %>
+      <p>
+        <a href="http://speakerdeck.com/u<%= h(@config.author.speaker_deck_user) %>">Speaker Deck</a>
+      </p>
+      <% end %>
+    </section>
+    <section>
+      <h3>Download</h3>
+      <p><a href="<%= h(pdf_base_name) %>">PDF</a></p>
+    </section>
+    <section>
+      <h3>Other slides</h3>
+    </section>
+  </nav>
+</div>
+

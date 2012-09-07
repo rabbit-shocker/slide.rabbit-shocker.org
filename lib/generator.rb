@@ -15,6 +15,7 @@
 
 require "erb"
 require "pathname"
+require "digest/md5"
 
 require "rubygems/format"
 
@@ -79,6 +80,15 @@ class Generator
     end
   end
 
+  module HTMLHelper
+    include ERB::Util
+
+    def gravatar_url(email)
+      hash = Digest::MD5.hexdigest(email.downcase)
+      "http://www.gravatar.com/avatar/#{hash}"
+    end
+  end
+
   class Author
     attr_reader :rubygems_user, :slides
     def initialize(rubygems_user)
@@ -97,7 +107,7 @@ class Generator
 
   class Slide
     include Rake::DSL
-    include ERB::Util
+    include HTMLHelper
 
     extend TemplateRenderer
     template("layout", "layout.html.erb")
@@ -109,6 +119,8 @@ class Generator
       @spec = nil
       @config = Rabbit::SlideConfiguration.new
       @pdf = nil
+      @image_width = 640
+      @image_height = 480
     end
 
     def available?
@@ -188,8 +200,15 @@ class Generator
     def generate_images(slide_dir_path)
       @pdf.each_with_index do |page, i|
         width, height = page.size
-        Cairo::ImageSurface.new(:argb32, width, height) do |surface|
+        Cairo::ImageSurface.new(:argb32,
+                                @image_width, @image_height) do |surface|
           Cairo::Context.new(surface) do |context|
+            context.set_source_rgb(1, 1, 1)
+            context.rectangle(0, 0, @image_width, @image_height)
+            context.fill
+
+            scale = @image_width / width.to_f
+            context.scale(scale, scale)
             context.render_poppler_page(page)
             surface.write_to_png((slide_dir_path + "#{i}.png").to_s)
           end

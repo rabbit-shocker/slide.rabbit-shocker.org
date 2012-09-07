@@ -22,6 +22,9 @@ jQuery(function($) {
 	if (this.$viewer.length == 0) {
             return;
 	}
+	this.$viewerHeader  = $("#viewer-header");
+	this.$viewerContent = $("#viewer-content");
+	this.$viewerFooter  = $("#viewer-footer");
 	this.collectImages();
 	this.currentPage = 0;
         if (this.images.length > 0) {
@@ -50,8 +53,8 @@ jQuery(function($) {
                 var $image = this.images[i];
                 if (i == n) {
                     this.currentPage = n;
-                    this.$viewer.empty();
-                    this.$viewer.append($image);
+                    this.$viewerContent.empty();
+                    this.$viewerContent.append($image);
                     $image.show();
                 } else {
                     $image.hide();

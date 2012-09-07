@@ -1,0 +1,106 @@
+/* -*- indent-tabs-mode: nil -*- */
+/*
+ Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* color:
+ *   * dark: #aa0202
+ *   * medium: #d26364
+ *   * light: #feced1
+ */
+
+body
+{
+    color: black;
+    background-color: #feced1;
+    background-image: url(../images/background.png);
+    background-repeat: repeat-x;
+    padding: 0;
+    margin: 0;
+}
+
+section#body
+{
+    margin: 0 auto;
+    padding: 0;
+    width: 920px;
+}
+
+section#body div#main
+{
+    float: left;
+    width: 640px;
+}
+
+section#body nav#sidebar,
+section.transcript
+{
+    display: block;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: #aa0202 2px solid;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+}
+
+section#body nav#sidebar
+{
+    float: right;
+    width: 200px;
+}
+
+div#viewer
+{
+    width: 640px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+div#viewer-header
+{
+    height: 20px;
+    background-color: #feced1;
+    border-radius: 5px 5px 0 0;
+}
+
+div#viewer-content
+{
+    background-color: #aa0202;
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+div#viewer-footer
+{
+    height: 20px;
+    background-color: #aa0202;
+    border-radius: 0 0 5px 5px;
+}
+
+h1
+{
+    color: white;
+}
+
+img.avatar
+{
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2),
+                0 1px 3px rgba(0, 0, 0, 0.3);
+}
