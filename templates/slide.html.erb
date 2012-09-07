@@ -1,0 +1,17 @@
+<section>
+  <h1><%= h(title) %></h1>
+  <p><a href="<%= h(pdf_base_name) %>">PDF</a></p>
+  <div id="viewer"></div>
+  <section class="images">
+  <% @pdf.each_with_index do |page, i| %>
+    <img id="page-<%= i %>" src="<%= i %>.png"/>
+  <% end %>
+  </section>
+  <section class="transcript">
+    <h2><%= h("Transcript") %></h2>
+  <% @pdf.each_with_index do |page, i| %>
+    <h3><%= i + 1 %>th page</h3>
+    <pre><%= h(page.get_text) %></pre>
+  <% end %>
+  </section>
+</section>
