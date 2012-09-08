@@ -63,12 +63,13 @@ jQuery(function($) {
             this.$panoramaImages = $("<div/>")
                 .css("position", "relative")
                 .css("left", "0px");
-            var i, width = 0
+            var i;
             for (i = 0; i < this.images.length; i++) {
                 var $pageImage = this.images[i];
-                width += $pageImage.width();
                 this.$panoramaImages.append($pageImage);
             }
+
+            var width = this.$viewerContent.width() * this.images.length;
             this.$panoramaImages.width(width);
             this.$panoramaImages.draggable({
                 axis: "x",
