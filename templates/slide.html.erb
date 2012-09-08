@@ -8,13 +8,17 @@
         <div id="viewer-content"></div>
         <div id="viewer-footer"></div>
       </div>
-      <section class="images">
-      <% @pdf.each_with_index do |page, i| %>
-        <img id="page-<%= i %>" src="<%= i %>.png" class="page">
-      <% end %>
+      <section class="description">
+        <h2><%= h(_("Description")) %></h2>
+        <p><%= h(description) %></p>
       </section>
+      <div class="images">
+        <% @pdf.each_with_index do |page, i| %>
+        <img id="page-<%= i %>" src="<%= i %>.png" class="page">
+        <% end %>
+      </div>
       <section class="transcript">
-        <h2><%= h("Transcript") %></h2>
+        <h2><%= h(_("Transcript")) %></h2>
       <% @pdf.each_with_index do |page, i| %>
         <h3><%= i + 1 %>th page</h3>
         <pre><%= h(page.get_text) %></pre>

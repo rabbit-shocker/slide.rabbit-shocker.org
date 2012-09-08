@@ -19,6 +19,7 @@ require "digest/md5"
 
 require "rubygems/format"
 
+require "gettext"
 require "poppler"
 
 require "rabbit/slide-configuration"
@@ -108,6 +109,9 @@ class Generator
   class Slide
     include Rake::DSL
     include HTMLHelper
+    include GetText
+
+    bindtextdomain("generator")
 
     extend TemplateRenderer
     template("layout", "layout.html.erb")
@@ -154,6 +158,10 @@ class Generator
 
     def title
       @spec.summary
+    end
+
+    def description
+      @spec.description
     end
 
     def pdf_base_name

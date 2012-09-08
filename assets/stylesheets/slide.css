@@ -46,12 +46,14 @@ section#body div#main
 }
 
 section#body nav#sidebar,
+section.description,
 section.transcript
 {
     display: block;
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-bottom: 10px;
     border: #aa0202 2px solid;
     background-color: white;
     border-radius: 10px;
