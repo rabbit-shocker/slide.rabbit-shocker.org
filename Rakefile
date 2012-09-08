@@ -15,13 +15,33 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "rake/clean"
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "generator"
 
 task :default => :generate
 
-task :generate do
+namespace :images do
+  generated_images = []
+  Dir.glob("assets/images/go-*.svg").each do |go_svg|
+    go_mini_png = go_svg.gsub(/\.svg/, "-mini.png")
+    file go_mini_png => go_svg do |task|
+      sh("inkscape",
+         "--export-png=#{go_mini_png}",
+         "--export-width=16",
+         "--export-height=16",
+         "--export-background-opacity=0",
+         go_svg)
+    end
+    generated_images << go_mini_png
+  end
+  CLOBBER.concat(generated_images)
+  task :generate => generated_images
+end
+
+task :generate => "images:generate" do
   generator = Generator.new
   generator.generate
 end

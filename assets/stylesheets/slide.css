@@ -103,6 +103,41 @@ div#viewer-page-slider
     margin: 0 15px;
 }
 
+div#viewer-move-control
+{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+div#viewer-move-control span
+{
+    margin-left: 5px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+span#viewer-move-to-first
+{
+    background-image: url(../images/go-first-mini.png);
+}
+
+span#viewer-move-to-previous
+{
+    background-image: url(../images/go-previous-mini.png);
+}
+
+span#viewer-move-to-next
+{
+    background-image: url(../images/go-next-mini.png);
+}
+
+span#viewer-move-to-last
+{
+    background-image: url(../images/go-last-mini.png);
+}
+
 h1
 {
     color: white;
