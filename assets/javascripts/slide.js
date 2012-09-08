@@ -25,16 +25,30 @@ jQuery(function($) {
 	this.$viewerHeader  = $("#viewer-header");
 	this.$viewerContent = $("#viewer-content");
 	this.$viewerFooter  = $("#viewer-footer");
+	this.$viewerCurrentPage  = $("#viewer-current-page");
 	this.collectImages();
 	this.currentPage = 0;
-        if (this.images.length > 0) {
-            this.moveTo(0);
-        }
+        this.$viewerPageSlider = $("#viewer-page-slider");
+        this.$viewerPageSlider.slider({
+            min: 0,
+            max: this.nPages(),
+            value: this.currentPage,
+            slide: $.proxy(this.onSlide, this)
+        });
+        this.moveTo(this.currentPage);
         this.$viewer.click($.proxy(this.onClick, this));
     };
 
     Slide.prototype = {
-        collectImages: function () {
+        nPages: function() {
+            if (this.images.length == 0) {
+                return 0;
+            } else {
+                return this.images.length - 1;
+            }
+        },
+
+        collectImages: function() {
             this.images = [];
             var i = 0;
             while (true) {
@@ -48,6 +62,9 @@ jQuery(function($) {
         },
 
         moveTo: function(n) {
+            if (n < 0) {return;}
+            if (n >= this.images.length) {return;}
+
             var i;
             for (i = 0; i < this.images.length; i++) {
                 var $image = this.images[i];
@@ -55,6 +72,7 @@ jQuery(function($) {
                     this.currentPage = n;
                     this.$viewerContent.empty();
                     this.$viewerContent.append($image);
+                    this.$viewerCurrentPage.text(this.currentPage);
                     $image.show();
                 } else {
                     $image.hide();
@@ -82,6 +100,10 @@ jQuery(function($) {
             } else {
                 this.moveToPrevious();
             }
+        },
+
+        onSlide: function(event, ui) {
+            this.moveTo(ui.value);
         }
     };
 

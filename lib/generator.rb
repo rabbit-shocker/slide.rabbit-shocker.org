@@ -164,6 +164,10 @@ class Generator
       @spec.description
     end
 
+    def n_pages
+      @pdf.size
+    end
+
     def pdf_base_name
       "#{id}.pdf"
     end

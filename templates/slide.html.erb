@@ -6,7 +6,12 @@
       <div id="viewer">
         <div id="viewer-header"></div>
         <div id="viewer-content"></div>
-        <div id="viewer-footer"></div>
+        <div id="viewer-footer">
+          <div id="viewer-page-slider"></div>
+          <span id="viewer-current-page">0</span>
+          /
+          <span id="viewer-n-pages"><%= h(n_pages) %></span>
+        </div>
       </div>
       <section class="description">
         <h2><%= h(_("Description")) %></h2>
@@ -19,10 +24,10 @@
       </div>
       <section class="transcript">
         <h2><%= h(_("Transcript")) %></h2>
-      <% @pdf.each_with_index do |page, i| %>
+        <% @pdf.each_with_index do |page, i| %>
         <h3><%= i + 1 %>th page</h3>
         <pre><%= h(page.get_text) %></pre>
-      <% end %>
+        <% end %>
       </section>
     </section>
   </div>
