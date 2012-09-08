@@ -47,16 +47,22 @@ jQuery(function($) {
 
         collectImages: function() {
             this.images = [];
-            var i = 0;
+            this.$images = $("<div/>")
+                .css("position", "relative")
+                .css("left", "0px");
+            var i = 0, width = 0;
             while (true) {
-                var $page = $("#page-" + i);
-                if ($page.length == 0) {
-                    return;
+                var $pageImage = $("#page-" + i);
+                if ($pageImage.length == 0) {
+                    break;
                 }
-                this.images.push($page);
-                $page.hide();
+                this.images.push($pageImage);
+                width += $pageImage.width();
+                this.$images.append($pageImage);
                 i++;
             }
+            this.$images.width(width);
+            this.$viewerContent.append(this.$images);
         },
 
         moveTo: function(n) {
@@ -65,15 +71,15 @@ jQuery(function($) {
                 return;
             }
 
+            this.$images.clearQueue();
+            this.$images.animate({
+                left: -$image.width() * (n - 1)
+            });
+
             this.currentPage = n;
-            this.$viewerContent.children().hide();
-            this.$viewerContent.empty();
-            this.$viewerContent.append($image);
 
             this.$viewerCurrentPage.text(this.currentPage);
             this.$viewerPageSlider.slider("value", n);
-
-            $image.show();
         },
 
         moveToFirst: function() {
@@ -94,25 +100,23 @@ jQuery(function($) {
 
         bindMoveControls: function() {
             $("#viewer-move-to-first").click($.proxy(function(event) {
-                console.log("first");
                 this.moveToFirst();
             }, this));
             $("#viewer-move-to-previous").click($.proxy(function(event) {
-                console.log("previous");
                 this.moveToPrevious();
             }, this));
             $("#viewer-move-to-next").click($.proxy(function(event) {
-                console.log("next");
                 this.moveToNext();
             }, this));
             $("#viewer-move-to-last").click($.proxy(function(event) {
-                console.log("last");
                 this.moveToLast();
             }, this));
         },
 
         onContentClick: function(event) {
-            if (event.target.x + (event.target.width / 2) < event.clientX) {
+            var halfX = this.$viewerContent.offset().left +
+                    (this.$viewerContent.width() / 2);
+            if (halfX < event.clientX) {
                 this.moveToNext();
             } else {
                 this.moveToPrevious();
