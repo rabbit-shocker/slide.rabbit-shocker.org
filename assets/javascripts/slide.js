@@ -27,6 +27,7 @@ jQuery(function($) {
 	this.$viewerFooter  = $("#viewer-footer");
 	this.$viewerCurrentPage = $("#viewer-current-page");
 	this.collectImages();
+	this.createPanoramaImages();
 	this.currentPage = 1;
         this.$viewerPageSlider = $("#viewer-page-slider");
         this.$viewerPageSlider.slider({
@@ -47,33 +48,45 @@ jQuery(function($) {
 
         collectImages: function() {
             this.images = [];
-            this.$images = $("<div/>")
-                .css("position", "relative")
-                .css("left", "0px");
-            var i = 0, width = 0;
+            var i = 0;
             while (true) {
                 var $pageImage = $("#page-" + i);
                 if ($pageImage.length == 0) {
-                    break;
+                    return;
                 }
                 this.images.push($pageImage);
-                width += $pageImage.width();
-                this.$images.append($pageImage);
                 i++;
             }
-            this.$images.width(width);
-            this.$viewerContent.append(this.$images);
+        },
+
+        createPanoramaImages: function() {
+            this.$panoramaImages = $("<div/>")
+                .css("position", "relative")
+                .css("left", "0px");
+            var i, width = 0
+            for (i = 0; i < this.images.length; i++) {
+                var $pageImage = this.images[i];
+                width += $pageImage.width();
+                this.$panoramaImages.append($pageImage);
+            }
+            this.$panoramaImages.width(width);
+            this.$panoramaImages.draggable({
+                axis: "x",
+                stop: $.proxy(this.onPanoramaImagesStop, this)
+            });
+            this.$viewerContent.append(this.$panoramaImages);
         },
 
         moveTo: function(n) {
-            var $image = this.images[n - 1];
-            if (!$image) {
+            var $pageImage = this.images[n - 1];
+            if (!$pageImage) {
                 return;
             }
 
-            this.$images.clearQueue();
-            this.$images.animate({
-                left: -$image.width() * (n - 1)
+            this.$panoramaImages.clearQueue();
+            this.$panoramaImages.animate({
+                top: 0,
+                left: -$pageImage.width() * (n - 1)
             });
 
             this.currentPage = n;
@@ -120,6 +133,19 @@ jQuery(function($) {
                 this.moveToNext();
             } else {
                 this.moveToPrevious();
+            }
+        },
+
+        onPanoramaImagesStop: function(event, ui) {
+            var draggedPageNumber =
+                    -ui.position.left / this.$viewerContent.width() + 1;
+            draggedPageNumber = Math.round(draggedPageNumber);
+            if (draggedPageNumber >= this.nPages()) {
+                this.moveToLast();
+            } else if (draggedPageNumber <= 0) {
+                this.moveToFirst();
+            } else {
+                this.moveTo(draggedPageNumber);
             }
         },
 
