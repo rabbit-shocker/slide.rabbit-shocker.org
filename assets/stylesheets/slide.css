@@ -116,6 +116,7 @@ div#viewer-move-control span
     height: 16px;
     background-repeat: no-repeat;
     display: inline-block;
+    cursor: pointer;
 }
 
 span#viewer-move-to-first
