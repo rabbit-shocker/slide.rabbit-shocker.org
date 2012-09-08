@@ -93,7 +93,8 @@ div#viewer-content
 
 div#viewer-footer
 {
-    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     color: white;
     background-color: #aa0202;
     border-radius: 0 0 5px 5px;
