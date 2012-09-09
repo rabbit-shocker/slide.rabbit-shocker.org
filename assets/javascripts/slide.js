@@ -141,10 +141,24 @@ jQuery(function($) {
             var draggedPageNumber =
                     -ui.position.left / this.$viewerContent.width() + 1;
             draggedPageNumber = Math.round(draggedPageNumber);
-            if (draggedPageNumber >= this.nPages()) {
-                this.moveToLast();
-            } else if (draggedPageNumber <= 0) {
-                this.moveToFirst();
+            if (draggedPageNumber <= 1) {
+                if (ui.originalPosition.left < ui.position.left) {
+                    this.moveToFirst();
+                } else {
+                    this.moveToNext();
+                }
+            } else if (draggedPageNumber >= this.nPages()) {
+                if (ui.originalPosition.left < ui.position.left) {
+                    this.moveToPrevious();
+                } else {
+                    this.moveToLast();
+                }
+            } else if (draggedPageNumber == this.currentPage) {
+                if (ui.originalPosition.left < ui.position.left) {
+                    this.moveToPrevious();
+                } else {
+                    this.moveToNext();
+                }
             } else {
                 this.moveTo(draggedPageNumber);
             }
