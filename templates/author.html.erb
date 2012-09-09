@@ -1,0 +1,35 @@
+<section id="body">
+  <h1><%= h(title) %></h1>
+  <div class="profile">
+    <p>
+      <img src="<%= gravatar_url(config.email) %>"
+           alt=""
+           class="avatar">
+    </p>
+  </div>
+
+  <div id="slides">
+    <% slides.sort_by(&:first).each do |id, slide| %>
+    <section class="slide">
+      <h2>
+        <a href="<%= h(id) %>/">
+          <img src="<%= h(slide.id) %>/<%= h(slide.thumbnail_base_name) %>"
+             alt="<%= h(slide.title) %>"
+             title="<%= h(slide.title) %>">
+        </a>
+      </h2>
+      <p class="slide-title">
+        <a href="<%= h(id) %>/">
+          <%= h(slide.title) %>
+        </a>
+      </p>
+      <p class="slide-description"><%= h(slide.description) %></p>
+      <ul class="tags">
+        <% slide.tags.each do |tag| %>
+        <li><%= h(tag) %></li>
+        <% end %>
+      </ul>
+    </section>
+    <% end %>
+  </div>
+</section>

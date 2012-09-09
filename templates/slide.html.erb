@@ -42,7 +42,9 @@
     <section>
       <h3><a href="../"><%= h(@config.author.name) %></a></h3>
       <p>
-        <img src="<%= gravatar_url(@config.author.email) %>" class="avatar">
+        <img src="<%= gravatar_url(@config.author.email) %>"
+             alt=""
+             class="avatar">
       </p>
       <% if @config.author.slideshare_user %>
       <p>

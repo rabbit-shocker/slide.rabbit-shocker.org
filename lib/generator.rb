@@ -22,6 +22,7 @@ require "rubygems/format"
 require "gettext"
 require "poppler"
 
+require "rabbit/author-configuration"
 require "rabbit/slide-configuration"
 
 class Generator
@@ -52,7 +53,7 @@ class Generator
       author.slides.each do |slide_id, slide|
         slide.generate_html(author_dir_path)
       end
-      author_index_html_path = author_dir_path + "index.html"
+      author.generate_html(author_dir_path)
     end
   end
 
@@ -63,7 +64,7 @@ class Generator
       next unless slide.available?
 
       rubygems_user = slide.config.author.rubygems_user
-      @authors[rubygems_user] ||= Author.new(rubygems_user)
+      @authors[rubygems_user] ||= Author.new
       author = @authors[rubygems_user]
       author.add_slide(slide)
     end
@@ -91,10 +92,21 @@ class Generator
   end
 
   class Author
-    attr_reader :rubygems_user, :slides
-    def initialize(rubygems_user)
-      @rubygems_user = rubygems_user
+    include Rake::DSL
+    include HTMLHelper
+    include GetText
+
+    bindtextdomain("generator")
+
+    extend TemplateRenderer
+    template("layout", "layout.html.erb")
+    template("content", "author.html.erb")
+
+    attr_reader :config, :slides, :tags
+    def initialize
       @slides = {}
+      @config = Rabbit::AuthorConfiguration.new
+      @tags = {}
     end
 
     def add_slide(slide)
@@ -103,6 +115,45 @@ class Generator
         return
       end
       @slides[slide.config.id] = slide
+      extract_slide_config(slide)
+    end
+
+    def generate_html(author_dir_path)
+      mkdir_p(author_dir_path.to_s)
+      generate_index_html(author_dir_path)
+    end
+
+    def to_html
+      layout do
+        content
+      end
+    end
+
+    def top_path
+      "../"
+    end
+
+    def title
+      @config.name || @config.rubygems_user
+    end
+
+    def descrition
+      nil
+    end
+
+    private
+    def extract_slide_config(slide)
+      @config.merge!(slide.config.author.to_hash)
+      slide.config.tags.each do |tag|
+        @tags[tag] ||= 0
+        @tags[tag] += 1
+      end
+    end
+
+    def generate_index_html(author_dir_path)
+      (author_dir_path + "index.html").open("w") do |author_html|
+        author_html.print(to_html)
+      end
     end
   end
 
@@ -125,6 +176,8 @@ class Generator
       @pdf = nil
       @image_width = 640
       @image_height = 480
+      @thumbnail_width = 200
+      @thumbnail_height = 150
     end
 
     def available?
@@ -140,6 +193,7 @@ class Generator
       generate_index_html(slide_dir_path)
       generate_pdf(slide_dir_path)
       generate_images(slide_dir_path)
+      generate_thumbnail(slide_dir_path)
     end
 
     def to_html
@@ -168,8 +222,16 @@ class Generator
       @pdf.size
     end
 
+    def tags
+      @config.tags
+    end
+
     def pdf_base_name
-      "#{id}.pdf"
+      "#{@config.base_name}.pdf"
+    end
+
+    def thumbnail_base_name
+      "thumbnail.png"
     end
 
     private
@@ -188,13 +250,17 @@ class Generator
 
       @pdf_content = nil
       @format.file_entries.each do |info, content|
-        if info["path"] == "pdf/#{pdf_base_name}"
-          @pdf_content = content
-          break
+        path = info["path"]
+        next unless path.start_with?("pdf/")
+        @pdf_content = content
+        begin
+          @pdf = Poppler::Document.new(@pdf_content)
+            break
+        rescue GLib::Error
+          @pdf_content = nil
+          puts("Failed to parse PDF: #{path}: #{$!.class}: #{$!}")
         end
       end
-
-      @pdf = Poppler::Document.new(@pdf_content) if @pdf_content
     end
 
     def generate_index_html(slide_dir_path)
@@ -205,25 +271,35 @@ class Generator
 
     def generate_pdf(slide_dir_path)
       (slide_dir_path + pdf_base_name).open("w:ascii-8bit") do |slide_pdf|
-        slide_pdf.print(@pdf)
+        slide_pdf.print(@pdf_content)
       end
     end
 
     def generate_images(slide_dir_path)
       @pdf.each_with_index do |page, i|
-        width, height = page.size
-        Cairo::ImageSurface.new(:argb32,
-                                @image_width, @image_height) do |surface|
-          Cairo::Context.new(surface) do |context|
-            context.set_source_rgb(1, 1, 1)
-            context.rectangle(0, 0, @image_width, @image_height)
-            context.fill
+        image_path = slide_dir_path + "#{i}.png"
+        save_page(page, @image_width, @image_height, image_path.to_s)
+      end
+    end
 
-            scale = @image_width / width.to_f
-            context.scale(scale, scale)
-            context.render_poppler_page(page)
-            surface.write_to_png((slide_dir_path + "#{i}.png").to_s)
-          end
+    def generate_thumbnail(slide_dir_path)
+      image_path = slide_dir_path + thumbnail_base_name
+      save_page(@pdf[0], @thumbnail_width, @thumbnail_height, image_path.to_s)
+    end
+
+    def save_page(page, image_width, image_height, output_file_name)
+      Cairo::ImageSurface.new(:argb32, image_width, image_height) do |surface|
+        Cairo::Context.new(surface) do |context|
+          context.set_source_rgb(1, 1, 1)
+          context.rectangle(0, 0, image_width, image_height)
+          context.fill
+
+          width, height = page.size
+          x_scale = image_width / width.to_f
+          y_scale = image_height / height.to_f
+          context.scale(x_scale, y_scale)
+          context.render_poppler_page(page)
+          surface.write_to_png(output_file_name)
         end
       end
     end
