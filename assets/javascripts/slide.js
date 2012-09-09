@@ -50,7 +50,7 @@ jQuery(function($) {
             this.images = [];
             var i = 0;
             while (true) {
-                var $pageImage = $("#page-" + i);
+                var $pageImage = $("#page-image-" + i);
                 if ($pageImage.length == 0) {
                     return;
                 }
@@ -60,7 +60,7 @@ jQuery(function($) {
         },
 
         createPanoramaImages: function() {
-            this.$panoramaImages = $("<div/>")
+            this.$panoramaImages = $("#page-images")
                 .css("position", "relative")
                 .css("left", "0px");
             var i;
