@@ -94,6 +94,8 @@ jQuery(function($) {
 
             this.$viewerCurrentPage.text(this.currentPage);
             this.$viewerPageSlider.slider("value", n);
+
+            this.focusSlider();
         },
 
         moveToFirst: function() {
@@ -110,6 +112,10 @@ jQuery(function($) {
 
         moveToLast: function() {
             this.moveTo(this.nPages());
+        },
+
+        focusSlider: function() {
+            this.$viewerPageSlider.children("a").focus();
         },
 
         bindMoveControls: function() {
