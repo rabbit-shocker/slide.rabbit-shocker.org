@@ -86,6 +86,10 @@ class Generator
   module HTMLHelper
     include ERB::Util
 
+    def base_url
+      "http://slide.rabbit-shocker.org/"
+    end
+
     def gravatar_url(email)
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
@@ -143,8 +147,8 @@ class Generator
       name || rubygems_user
     end
 
-    def descrition
-      nil
+    def description
+      _("%{author}'s slides") % {:author => title}
     end
 
     def slideshare_user
@@ -157,6 +161,10 @@ class Generator
 
     def rubygems_user
       @config.rubygems_user
+    end
+
+    def url
+      "#{base_url}#{h(rubygems_user)}/"
     end
 
     private
@@ -319,7 +327,11 @@ class Generator
     end
 
     def thumbnail_path
-      "#{id}/#{thumbnail_base_name}"
+      "#{h(id)}/#{thumbnail_base_name}"
+    end
+
+    def url
+      "#{@author.url}#{h(id)}"
     end
 
     private
