@@ -16,69 +16,227 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* color:
- *   * dark: #aa0202
- *   * medium: #d26364
- *   * light: #feced1
- */
-
 body
 {
     color: black;
-    background-color: #feced1;
-    background-image: url(../images/background.png);
-    background-repeat: repeat-x;
+    background-color: #feeded;
+    background-image: url(../images/background-stripe-pink.png);
     padding: 0;
     margin: 0;
+    font-size: 90%;
+    line-height: 160%;
+    color: #230000;
+    letter-spacing: 1px;
+}
+
+a:link
+{
+    color: #8d3919;
+}
+
+a:hover
+{
+    color: #c16c4b;
+}
+
+a:visited
+{
+    color: #5b2727;
+}
+
+div#header
+{
+    margin: 0 auto;
+    padding: 0;
+    width: 920px;
+    height: 70px;
+    border-bottom: solid 2px #5e382a;
+}
+
+div#header img
+{
+    margin-top: 18px;
 }
 
 section#body
 {
     margin: 0 auto;
     padding: 0;
+    padding-top: 20px;
+    padding-bottom: 40px;
     width: 920px;
+    overflow: hidden;
 }
 
 section#body div#main
 {
     float: left;
     width: 640px;
+    position: relative;
 }
 
 section#body nav#sidebar,
 section.description,
 section.transcript,
+section.other-slides,
 section.slide
 {
     display: block;
-    padding: 20px;
-    padding-top: 10px;
+    padding: 0;
     padding-bottom: 10px;
     margin-bottom: 10px;
-    border: #aa0202 2px solid;
-    background-color: white;
-    border-radius: 10px;
     position: relative;
+}
+
+section.description h2,
+section.transcript h2,
+section.other-slides h2
+{
+    padding-bottom: 8px;
+    border-bottom: solid 2px #eb8989;
+    font-family: Verdana;
+    font-weight: lighter;
+    letter-spacing: 1px;
+}
+
+section.description p,
+section.transcript p,
+section.other-slides p
+{
+    padding: 14px;
+    padding-top: 0px;
+}
+
+section.other-slides div.other-slide
+{
+    float: left;
+    width: 198px;
+    height: 220px;
+    margin-left: 11px;
+    font-size: 80%;
+}
+
+section.other-slides div.other-slide p.slide-publish-date
+{
+    font-size: 80%;
 }
 
 section#body nav#sidebar
 {
     float: right;
-    width: 200px;
+    margin: 0;
+    width: 250px;
+    background-color: #ffffff;
+    background: -moz-linear-gradient(left top 315deg, #ffffff, #f1f1f1);
+    background: -webkit-gradient(linear, left top, right bottom,
+                                 from(#ffffff), to(#f1f1f1));
+    filter: alpha(opacity=90);
+    -moz-opacity:0.9;
+    opacity:0.9;
+    border-top: solid 10px #bb3434;
 }
+
+section#body nav#sidebar section
+{
+    clear: both;
+    margin: 0px 5px;
+    padding: 0px 8px;
+    border-top: solid 1px #ffd9d9;
+}
+
+section#body nav#sidebar section#author-info
+{
+    margin: 0px;
+    padding: 0px 20px;
+    width: 100%;
+    overflow: hidden;
+    border-top: solid 1px #dbdbdb;
+}
+
+section#body nav#sidebar section h3
+{
+    font-family: Verdana;
+    font-weight: lighter;
+}
+
+section#body nav#sidebar section#author-info h3 a
+{
+    text-decoration: none;
+    font-size: 120%;
+}
+
+section#body nav#sidebar section#author-info div.avatar
+{
+    padding: 0px;
+    margin: 0px;
+    float: left;
+    width: 80px;
+}
+
+section#body nav#sidebar section#author-info div.other-sites
+{
+    padding: 0px;
+    margin: 0px;
+    float: left;
+    padding-left: 14px;
+    width: 120px;
+}
+
+section#body nav#sidebar section#author-info div.other-sites ul
+{
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+section#body nav#sidebar section#author-info div.other-sites ul a
+{
+    display: block;
+    padding: 0px 0px 0px 5px;
+}
+
+section#body nav#sidebar section#author-info div.other-sites ul a.slideshare
+{
+    color: #0b8648;
+    border-left: solid 5px #0b8648;
+}
+
+section#body nav#sidebar section#author-info div.other-sites ul a.speaker-deck
+{
+    color: #0b8648;
+    border-left: solid 5px #0b8648;
+}
+
+section#body nav#sidebar section#author-info div.other-sites ul a.rubygems
+{
+    color: #ca1616;
+    border-left: solid 5px #ca1616;
+}
+
+section#body nav#sidebar a.download
+{
+    display: block;
+    padding: 5px 5px 5px 45px;
+    background-color: #5e382a;
+    background-image: url(../images/icon-download-white.png);
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: #ffffff;
+    background-color: #5e382a;
+}
+
 
 div#viewer
 {
     width: 640px;
     margin: 0 auto;
-    margin-bottom: 30px;
+    margin-bottom: 160px;
 }
 
 div#viewer-header
 {
-    height: 20px;
-    background-color: #feced1;
-    border-radius: 5px 5px 0 0;
+    height: 1px;
+    background-color: #e2c7c7;
 }
 
 div#viewer-content
@@ -144,9 +302,24 @@ span#viewer-move-to-last
     background-image: url(../images/go-last-mini.png);
 }
 
-h1
+div#slide-info
 {
-    color: white;
+    position: absolute;
+    top: 540px;
+    left: 0px;
+    width: 610px;
+    padding: 15px;
+    background-color: #ffaeae;
+    color: #5e382a;
+    border-radius: 5px;
+
+}
+
+div#slide-info h1
+{
+    margin: 0px;
+    padding: 0px;
+    font-size: 160%;
 }
 
 img.avatar

@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "time"
 require "erb"
 require "pathname"
 require "digest/md5"
@@ -63,7 +64,7 @@ class Generator
       slide = Slide.new(slide_gem_path)
       next unless slide.available?
 
-      rubygems_user = slide.config.author.rubygems_user
+      rubygems_user = slide.rubygems_user
       @authors[rubygems_user] ||= Author.new
       author = @authors[rubygems_user]
       author.add_slide(slide)
@@ -110,6 +111,7 @@ class Generator
     end
 
     def add_slide(slide)
+      slide.author = self
       existing_slide = @slides[slide.config.id]
       if existing_slide and existing_slide.config.version >= slide.config.version
         return
@@ -133,12 +135,28 @@ class Generator
       "../"
     end
 
+    def name
+      @config.name
+    end
+
     def title
-      @config.name || @config.rubygems_user
+      name || rubygems_user
     end
 
     def descrition
       nil
+    end
+
+    def slideshare_user
+      @config.slideshare_user
+    end
+
+    def speaker_deck_user
+      @config.spearker_deck_user
+    end
+
+    def rubygems_user
+      @config.rubygems_user
     end
 
     private
@@ -166,13 +184,18 @@ class Generator
 
     extend TemplateRenderer
     template("layout", "layout.html.erb")
+    template("header", "header.html.erb")
     template("content", "slide.html.erb")
+    template("thumbnail_link(slide, author_path)",
+             "slide-thumbnail-link.html.erb")
 
     attr_reader :spec, :config
+    attr_accessor :author
     def initialize(gem_path)
       @gem_path = gem_path
       @spec = nil
       @config = Rabbit::SlideConfiguration.new
+      @author = nil
       @pdf = nil
       @image_width = 640
       @image_height = 480
@@ -182,7 +205,7 @@ class Generator
 
     def available?
       load
-      return false if @config.author.rubygems_user.nil?
+      return false if rubygems_user.nil?
       return false if @pdf.nil?
       true
     end
@@ -218,6 +241,61 @@ class Generator
       @spec.description
     end
 
+    def presentation_date
+      date = @config.presentation_date
+      return nil if date.nil?
+
+      begin
+        Time.parse(date)
+      rescue ArgumentError
+        nil
+      end
+    end
+
+    def slideshare_user
+      @author.slideshare_user
+    end
+
+    def slideshare_id
+      @config.slideshare_id
+    end
+
+    def have_slideshare_id?
+      slideshare_user and slideshare_id
+    end
+
+    def slideshare_url
+      "http://slideshare.net/#{h(slideshare_user)}/#{h(slideshare_id)}"
+    end
+
+    def speaker_deck_user
+      @config.author.speaker_deck_user
+    end
+
+    def speaker_deck_id
+      @config.speaker_deck_id
+    end
+
+    def have_speaker_deck_id?
+      speaker_deck_user and speaker_deck_id
+    end
+
+    def speaker_deck_url
+      "http://speakerdeck.com/u/#{h(speaker_deck_user)}/p/#{h(speaker_deck_id)}"
+    end
+
+    def rubygems_user
+      @config.author.rubygems_user
+    end
+
+    def have_rubygems_id?
+      rubygems_user and id
+    end
+
+    def rubygems_url
+      "https://rubygems.org/gems/#{@config.gem_name}"
+    end
+
     def n_pages
       @pdf.size
     end
@@ -226,12 +304,22 @@ class Generator
       @config.tags
     end
 
+    def other_slides
+      @author.slides.values.reject do |slide|
+        id == slide.id
+      end
+    end
+
     def pdf_base_name
       "#{@config.base_name}.pdf"
     end
 
     def thumbnail_base_name
       "thumbnail.png"
+    end
+
+    def thumbnail_path
+      "#{id}/#{thumbnail_base_name}"
     end
 
     private
