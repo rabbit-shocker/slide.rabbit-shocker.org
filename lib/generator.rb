@@ -260,6 +260,10 @@ class Generator
       end
     end
 
+    def licenses
+      @config.licenses
+    end
+
     def slideshare_user
       @author.slideshare_user
     end

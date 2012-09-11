@@ -140,6 +140,14 @@
                  alt="このエントリーをはてなブックマークに追加" /></a>
       </div>
     </section>
+    <section>
+      <h3><%= h(_("Licennse")) %></h3>
+      <ul>
+        <% licenses.each do |license| %>
+        <li><%= h(license) %></li>
+        <% end %>
+      </ul>
+    </section>
   </nav>
 </section>
 
