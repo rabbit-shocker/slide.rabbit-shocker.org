@@ -78,9 +78,11 @@
     <section id="author-info">
       <h3><a href="../"><%= h(@author.title) %></a></h3>
       <div class="avatar">
-        <img src="<%= gravatar_url(@config.author.email) %>"
-             alt=""
-             class="avatar"/>
+        <a href="../">
+          <img src="<%= gravatar_url(@config.author.email) %>"
+               alt=""
+               class="avatar"/>
+        </a>
       </div>
       <div class="other-sites">
         <ul>
