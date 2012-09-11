@@ -107,6 +107,11 @@ section.other-slides p
     padding-top: 0px;
 }
 
+section.transcript div.page
+{
+    margin: 14px;
+}
+
 section.transcript div.page pre.transcript
 {
     border: solid 1px #eb8989;
