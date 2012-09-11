@@ -42,8 +42,10 @@
       <section class="transcript">
         <h2><%= h(_("Transcript")) %></h2>
         <% @pdf.each_with_index do |page, i| %>
-        <h3><%= i + 1 %>th page</h3>
-        <pre><%= h(page.get_text) %></pre>
+        <div class="page">
+          <h3>Page: <%= i + 1 %></h3>
+          <pre class="transcript"><%= h(page.get_text) %></pre>
+        </div>
         <% end %>
       </section>
       <section class="other-slides">

@@ -107,6 +107,19 @@ section.other-slides p
     padding-top: 0px;
 }
 
+section.transcript div.page pre.transcript
+{
+    border: solid 1px #eb8989;
+    border-radius: 5px;
+    background-color: white;
+    padding: 14px;
+}
+
+section.other-slides
+{
+    clear: both;
+}
+
 section.other-slides div.other-slide
 {
     float: left;
