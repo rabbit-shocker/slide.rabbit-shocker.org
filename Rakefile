@@ -49,21 +49,24 @@ end
 def download_gem(spec, source_uri=nil)
   source_uri ||= Gem.sources.first
 
+  if spec.respond_to?(:cache_file)
+    gem_base_name = File.basename(spec.cache_file)
+  else
+    gem_base_name = spec.file_name
+  end
+  gem_path = File.join(@gems_dir, gem_base_name)
+  return if File.exist?(gem_path)
+
   tmp_dir = "tmp"
   rm_rf(tmp_dir)
   mkdir_p(tmp_dir)
 
   remote_fetcher = Gem::RemoteFetcher.fetcher
   remote_fetcher.download(spec, source_uri, tmp_dir)
-  if spec.respond_to?(:cache_file)
-    gem_base_name = File.basename(spec.cache_file)
-  else
-    gem_base_name = spec.file_name
-  end
   downloaded_gem_path = File.join(tmp_dir, "cache", gem_base_name)
 
   mkdir_p(@gems_dir)
-  mv(downloaded_gem_path, @gems_dir)
+  mv(downloaded_gem_path, gem_path)
 
   rm_rf(tmp_dir)
 end
