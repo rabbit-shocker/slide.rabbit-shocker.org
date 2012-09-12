@@ -65,12 +65,14 @@ header img
 footer
 {
     border-top: solid 2px #5e382a;
+    padding-top: 8px;
 }
 
 footer p
 {
     text-align: center;
-    margin-top: 8px;
+    margin: 0;
+    padding: 0;
 }
 
 div#welcome
