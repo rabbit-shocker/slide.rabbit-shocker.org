@@ -18,7 +18,7 @@
 base_dir=`dirname $0`
 
 git pull --rebase
-cd ../rabbit && git pull --rebase
+(cd ../rabbit && git pull --rebase)
 
 PATH="/var/lib/gems/1.9.1/bin:$PATH"
 
