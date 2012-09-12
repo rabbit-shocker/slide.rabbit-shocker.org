@@ -6,7 +6,22 @@
 
 == Author
 
+=== Except design
+
 Kouhei Sutou
+
+Program, HTML, CSS and so on.
+
+=== Design
+
+nossan
+
+Logo and site design.
+
+== Copyright
+
+  * Copyright (C) 2012 Kouhei Sutou
+  * Copyright (C) 2012 nossan
 
 == License
 
