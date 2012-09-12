@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "rubygems/remote_fetcher"
 require "rake/clean"
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
@@ -44,4 +45,46 @@ end
 task :generate => "images:generate" do
   generator = Generator.new
   generator.generate
+end
+
+@gems_dir = "gems"
+
+def download_gem(spec, source_uri=nil)
+  source_uri ||= Gem.sources.first
+
+  tmp_dir = "tmp"
+  rm_rf(tmp_dir)
+  mkdir_p(tmp_dir)
+
+  remote_fetcher = Gem::RemoteFetcher.fetcher
+  remote_fetcher.download(spec, source_uri, tmp_dir)
+  gem_base_name = File.basename(spec.cache_file)
+  downloaded_gem_path = File.join(tmp_dir, "cache", gem_base_name)
+
+  mkdir_p(@gems_dir)
+  mv(downloaded_gem_path, @gems_dir)
+
+  rm_rf(tmp_dir)
+end
+
+namespace :gems do
+  task :fetch do
+    dependency = Gem::Dependency.new(/\Arabbit-slide-/)
+    spec_fetcher = Gem::SpecFetcher.fetcher
+    spec_and_sources = spec_fetcher.fetch(dependency)
+    spec_and_sources.each do |spec, source_uri|
+      download_gem(spec, source_uri)
+    end
+  end
+
+  task :update do
+    updated_gems = {}
+    Dir.glob(File.join(@gems_dir, "*.gem")).each do |gem_path|
+      format = Gem::Format.from_file_by_path(gem_path.to_s)
+      spec = format.spec
+      next if updated_gems.has_key?(spec.name)
+      download_gem(spec)
+      updated_gems[spec.name] = true
+    end
+  end
 end
