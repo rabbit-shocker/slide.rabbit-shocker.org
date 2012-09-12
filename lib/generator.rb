@@ -105,7 +105,10 @@ class Generator
 
     extend TemplateRenderer
     template("layout", "layout.html.erb")
+    template("header", "header.html.erb")
     template("content", "author.html.erb")
+    template("thumbnail_link(slide, author_path='')",
+             "slide-thumbnail-link.html.erb")
 
     attr_reader :config, :slides, :tags
     def initialize
@@ -143,6 +146,10 @@ class Generator
       @config.name
     end
 
+    def email
+      @config.email
+    end
+
     def title
       name || rubygems_user
     end
@@ -155,12 +162,36 @@ class Generator
       @config.slideshare_user
     end
 
+    def have_slideshare_user?
+      not slideshare_user.nil?
+    end
+
+    def slideshare_url
+      "http://slideshare.net/#{u(slideshare_user)}/"
+    end
+
     def speaker_deck_user
-      @config.spearker_deck_user
+      @config.speaker_deck_user
+    end
+
+    def have_speaker_deck_user?
+      not speaker_deck_user.nil?
+    end
+
+    def speaker_deck_url
+      "http://speakerdeck.com/u/#{u(speaker_deck_user)}/"
     end
 
     def rubygems_user
       @config.rubygems_user
+    end
+
+    def have_rubygems_user?
+      not rubygems_user.nil?
+    end
+
+    def rubygems_url
+      "https://rubygems.org/profile/profiles/#{u(rubygems_user)}"
     end
 
     def url
@@ -277,7 +308,7 @@ class Generator
     end
 
     def slideshare_url
-      "http://slideshare.net/#{h(slideshare_user)}/#{h(slideshare_id)}"
+      "#{@config.author.slideshare_url}#{u(slideshare_id)}"
     end
 
     def speaker_deck_user
@@ -293,7 +324,7 @@ class Generator
     end
 
     def speaker_deck_url
-      "http://speakerdeck.com/u/#{h(speaker_deck_user)}/p/#{h(speaker_deck_id)}"
+      "#{@config.author.speaker_deck_url}p/#{u(speaker_deck_id)}"
     end
 
     def rubygems_user
@@ -305,7 +336,7 @@ class Generator
     end
 
     def rubygems_url
-      "https://rubygems.org/gems/#{@config.gem_name}"
+      "https://rubygems.org/gems/#{u(@config.gem_name)}"
     end
 
     def n_pages

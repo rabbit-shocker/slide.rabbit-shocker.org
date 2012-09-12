@@ -1,35 +1,94 @@
+<%= header %>
+
 <section id="body">
-  <h1><%= h(title) %></h1>
-  <div class="profile">
-    <p>
-      <img src="<%= gravatar_url(config.email) %>"
-           alt=""
-           class="avatar">
-    </p>
+  <div id="main">
+    <div id="author-title">
+      <h1><%= h(_("%{author}'s slides") % {:author => title}) %></h1>
+    </div>
+
+    <div class="content">
+      <div id="slides">
+        <% slides.sort_by(&:first).each do |slide_id, slide| %>
+        <div class="slide">
+          <div class="slide-info">
+            <h2><a href="<%= h(slide_id) %>/"><%= h(slide.title) %></a></h2>
+            <p class="slide-description"><%= h(slide.description) %></p>
+            <ul class="tags">
+              <% slide.tags.each do |tag| %>
+              <li><%= h(tag) %></li>
+              <% end %>
+            </ul>
+          </div>
+          <%= thumbnail_link(slide) %>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div id="slides">
-    <% slides.sort_by(&:first).each do |id, slide| %>
-    <section class="slide">
-      <h2>
-        <a href="<%= h(id) %>/">
-          <img src="<%= h(slide.id) %>/<%= h(slide.thumbnail_base_name) %>"
-               alt="<%= h(slide.title) %>"
-               title="<%= h(slide.title) %>">
+  <nav id="sidebar">
+    <section id="author-info">
+      <h3><a href="../"><%= h(title) %></a></h3>
+      <div class="avatar">
+        <a href="../">
+          <img src="<%= gravatar_url(email) %>"
+               alt=""
+               class="avatar"/>
         </a>
-      </h2>
-      <p class="slide-title">
-        <a href="<%= h(id) %>/">
-          <%= h(slide.title) %>
-        </a>
-      </p>
-      <p class="slide-description"><%= h(slide.description) %></p>
-      <ul class="tags">
-        <% slide.tags.each do |tag| %>
-        <li><%= h(tag) %></li>
-        <% end %>
-      </ul>
+      </div>
+      <div class="other-sites">
+        <ul>
+          <% if have_slideshare_user? %>
+          <li>
+            <a href="<%= slideshare_url %>" class="slideshare">
+              SlideShare
+            </a>
+          </li>
+          <% end %>
+          <% if have_speaker_deck_user? %>
+          <li>
+            <a href="<%= speaker_deck_url %>" class="speaker-deck">
+              Speaker Deck
+            </a>
+          </li>
+          <% end %>
+          <% if have_rubygems_user? %>
+          <li>
+            <a href="<%= rubygems_url %>" class="rubygems">
+              RubyGems.org
+            </a>
+          </li>
+          <% end %>
+        </ul>
+      </div>
     </section>
-    <% end %>
-  </div>
+    <section>
+      <h3><%= h(_("Share")) %></h3>
+      <div class="social-widgets">
+        <a href="http://twitter.com/share"
+           class="twitter-share-button"
+           data-lang="<%= h(_('en')) %>"
+           data-url="<%= url %>"
+           data-text="<%= h(title) %>">
+          <%= h(_("Tweet")) %>
+        </a>
+        <div class="fb-like"
+             data-href="<%= url %>"
+             data-send="false"
+             data-layhout="button_count"
+             data-width="100"
+             data-show-faces="false"></div>
+        <g:plusone href="<%= url %>" size="medium"></g:plusone>
+        <a href="http://b.hatena.ne.jp/entry/<%= url %>"
+           class="hatena-bookmark-button"
+           data-hatena-bookmark-layout="standard"
+           title="このエントリーをはてなブックマークに追加"
+           ><img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+                 width="20"
+                 height="20"
+                 style="border: none;"
+                 alt="このエントリーをはてなブックマークに追加" /></a>
+      </div>
+    </section>
+  </nav>
 </section>

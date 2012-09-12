@@ -320,20 +320,25 @@ span#viewer-move-to-last
     background-image: url(../images/go-last-mini.png);
 }
 
-div#slide-info
+div#slide-info,
+div#author-title
 {
-    position: absolute;
-    top: 540px;
-    left: 0px;
     width: 610px;
     padding: 15px;
     background-color: #ffaeae;
     color: #5e382a;
     border-radius: 5px;
-
 }
 
-div#slide-info h1
+div#slide-info
+{
+    position: absolute;
+    top: 540px;
+    left: 0px;
+}
+
+div#slide-info h1,
+div#author-title h1
 {
     margin: 0px;
     padding: 0px;
@@ -348,21 +353,43 @@ img.avatar
 }
 
 /* Author page */
-section.slide h2
+div#slides
 {
-    float: left;
-    margin: 0;
-    margin-right: 20px;
+    margin-left: 15px;
 }
 
-section.slide h2 img
+div#slides div.slide
+{
+    position: relative;
+    margin-top: 20px;
+    min-height: 160px;
+}
+
+div#slides div.slide div.slide-info h2
+{
+    margin: 0;
+}
+
+div#slides div.slide div.slide-info
+{
+    width: 396px;
+    float: right;
+}
+
+div#slides div.slide div.slide-info ul.tags
+{
+    padding: 0;
+    margin: 0;
+}
+
+div#slides div.slide div.slide-info ul.tags li
+{
+    display: inline-block;
+}
+
+div#slides div.slide img
 {
     border-radius: 5px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2),
                 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-section.slide ul.tags
-{
-    clear: both;
 }
