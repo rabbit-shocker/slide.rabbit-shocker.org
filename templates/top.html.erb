@@ -10,10 +10,10 @@
     <div class="slide">
       <%= thumbnail_link(slide, slide.author.path) %>
       <div class="slide-title">
-        <a href="<%= slide.path %>/"><%= h(slide.title) %></a>
+        <a href="<%= slide.path %>"><%= h(slide.title) %></a>
       </div>
       <div class="slide-author">
-        <a href="<%= slide.author.path %>/"><%= h(slide.author.title) %></a>
+        <a href="<%= slide.author.path %>"><%= h(slide.author.title) %></a>
       </div>
       <% if slide.presentation_date %>
       <div class="slide-presenation-date">
