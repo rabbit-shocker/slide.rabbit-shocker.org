@@ -55,7 +55,11 @@ def download_gem(spec, source_uri=nil)
 
   remote_fetcher = Gem::RemoteFetcher.fetcher
   remote_fetcher.download(spec, source_uri, tmp_dir)
-  gem_base_name = File.basename(spec.cache_file)
+  if spec.respond_to?(:cache_file)
+    gem_base_name = File.basename(spec.cache_file)
+  else
+    gem_base_name = spec.file_name
+  end
   downloaded_gem_path = File.join(tmp_dir, "cache", gem_base_name)
 
   mkdir_p(@gems_dir)
