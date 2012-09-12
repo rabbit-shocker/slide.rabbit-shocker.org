@@ -84,14 +84,17 @@ div#top
     margin: 40px auto;
 }
 
-div#welcome h1
+div#welcome
 {
-    height: 0px;
-    overflow: hidden;
     background-image: url(../images/logo-large.png);
     background-repeat: no-repeat;
-    background-position: center center;
-    padding-top: 200px;
+    background-position: center 25px;
+}
+
+div#welcome h1
+{
+    height: 215px;
+    visibility: hidden;
 }
 
 div#welcome div.catch-phrase
