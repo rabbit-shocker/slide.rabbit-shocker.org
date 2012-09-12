@@ -49,7 +49,7 @@ class Generator
   def generate_author_html
     collect_slides
     @authors.each do |rubygems_user, author|
-      author_dir_path = @html_dir_path + rubygems_user
+      author_dir_path = @html_dir_path + "authors" + rubygems_user
       mkdir_p(author_dir_path.to_s)
       author.generate_html(author_dir_path)
       author.slides.each do |slide_id, slide|
@@ -192,7 +192,7 @@ class Generator
     end
 
     def top_path
-      "../"
+      "../../"
     end
 
     def name
@@ -248,7 +248,7 @@ class Generator
     end
 
     def url
-      "#{base_url}#{h(rubygems_user)}/"
+      "#{base_url}authors/#{h(rubygems_user)}/"
     end
 
     private
