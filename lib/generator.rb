@@ -318,7 +318,7 @@ class Generator
     end
 
     def top_path
-      "../../"
+      "../#{@author.top_path}"
     end
 
     def id
