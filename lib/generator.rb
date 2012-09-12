@@ -431,6 +431,12 @@ class Generator
       end
     end
 
+    def tweet_text
+      text = "#{@author.title}: #{title}"
+      hash_tags = tags.collect {|tag| "\##{tag}"}
+      [text, *hash_tags].join(" ")
+    end
+
     def pdf_base_name
       "#{@config.base_name}.pdf"
     end
