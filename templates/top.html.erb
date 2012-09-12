@@ -1,3 +1,29 @@
-<div id="welcome">
-  <img src="images/logo-large.png" alt="Rabbit Slide Show" />
+<div id="top">
+  <div id="welcome">
+    <h1>Rabbit Slide Show</h1>
+    <div class="catch-phrase">Let's showtime! Love it?</div>
+  </div>
+
+  <section id="new-slides">
+    <h2><%= h(_("New!")) %></h2>
+    <% new_slides.each do |slide| %>
+    <div class="slide">
+      <%= thumbnail_link(slide, slide.author.path) %>
+      <div class="slide-title">
+        <a href="<%= slide.path %>/"><%= h(slide.title) %></a>
+      </div>
+      <div class="slide-author">
+        <a href="<%= slide.author.path %>/"><%= h(slide.author.title) %></a>
+      </div>
+      <% if slide.presentation_date %>
+      <div class="slide-presenation-date">
+        <a href="<%= slide.presentation_date %>/">
+          <%= h(slide.presentation_date.strftime(_("%Y-%m-%d"))) %>
+        </a>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+    </div>
+  </section>
 </div>

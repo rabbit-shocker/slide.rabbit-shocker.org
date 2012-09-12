@@ -8,10 +8,10 @@
 
     <div class="content">
       <div id="slides">
-        <% slides.sort_by(&:first).each do |slide_id, slide| %>
+        <% slides.sort_by(&:id).each do |slide| %>
         <div class="slide">
           <div class="slide-info">
-            <h2><a href="<%= h(slide_id) %>/"><%= h(slide.title) %></a></h2>
+            <h2><a href="<%= h(slide.id) %>/"><%= h(slide.title) %></a></h2>
             <p class="slide-description"><%= h(slide.description) %></p>
             <ul class="tags">
               <% slide.tags.each do |tag| %>

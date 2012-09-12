@@ -52,14 +52,15 @@ class Generator
       author_dir_path = @html_dir_path + "authors" + rubygems_user
       mkdir_p(author_dir_path.to_s)
       author.generate_html(author_dir_path)
-      author.slides.each do |slide_id, slide|
+      author.slides.each do |slide|
         slide.generate_html(author_dir_path)
       end
     end
   end
 
   def generate_index_html
-    TopPage.new.generate_html(@html_dir_path)
+    top_page = TopPage.new(@authors.values)
+    top_page.generate_html(@html_dir_path)
   end
 
   def collect_slides
@@ -110,8 +111,11 @@ class Generator
     extend TemplateRenderer
     template("layout", "layout.html.erb")
     template("content", "top.html.erb")
+    template("thumbnail_link(slide, author_path)",
+             "slide-thumbnail-link.html.erb")
 
-    def initialize
+    def initialize(authors)
+      @authors = authors
     end
 
     def generate_html(html_dir_path)
@@ -131,6 +135,19 @@ class Generator
 
     def description
       _("Share your slides created by Rabbit!")
+    end
+
+    def slides
+      @authors.inject([]) do |result, author|
+        result + author.slides
+      end
+    end
+
+    def new_slides
+      sorted_slides = slides.sort_by do |slide|
+        -slide.spec.date.to_i
+      end
+      sorted_slides[0, 9]
     end
 
     def top_path
@@ -163,11 +180,15 @@ class Generator
     template("thumbnail_link(slide, author_path='')",
              "slide-thumbnail-link.html.erb")
 
-    attr_reader :config, :slides, :tags
+    attr_reader :config, :tags
     def initialize
       @slides = {}
       @config = Rabbit::AuthorConfiguration.new
       @tags = {}
+    end
+
+    def slides
+      @slides.values
     end
 
     def add_slide(slide)
@@ -248,7 +269,11 @@ class Generator
     end
 
     def url
-      "#{base_url}authors/#{h(rubygems_user)}/"
+      "#{base_url}#{path}"
+    end
+
+    def path
+      "authors/#{u(rubygems_user)}/"
     end
 
     private
@@ -401,7 +426,7 @@ class Generator
     end
 
     def other_slides
-      @author.slides.values.reject do |slide|
+      @author.slides.reject do |slide|
         id == slide.id
       end
     end
@@ -420,6 +445,10 @@ class Generator
 
     def url
       "#{@author.url}#{h(id)}"
+    end
+
+    def path
+      "#{@author.path}#{h(id)}"
     end
 
     private
