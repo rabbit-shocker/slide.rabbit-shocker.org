@@ -10,7 +10,7 @@ Kouhei Sutou
 
 == License
 
-Licensed under AGPLv3 or later.
+Licensed under GPLv3 or later.
 
 Provided patches, codes and so on are also licensed under AGPLv3 or
 later. Kouhei Sutou can change the license of them. He considers that
