@@ -134,7 +134,7 @@ class Generator
     end
 
     def description
-      _("Share your slides created by Rabbit! Let's showtime! Love it?") # "
+      _("Share your slides created by Rabbit! It's showtime! Love it?") # "
     end
 
     def slides
