@@ -73,6 +73,13 @@ footer p
     margin-top: 8px;
 }
 
+div#welcome
+{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
 section#body
 {
     margin: 0 auto;

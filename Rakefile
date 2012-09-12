@@ -40,7 +40,7 @@ namespace :images do
 end
 
 task :generate => "images:generate" do
-  generator = Generator.new
+  generator = Generator.new(ENV["HTML_DIR"] || "html")
   generator.generate
 end
 

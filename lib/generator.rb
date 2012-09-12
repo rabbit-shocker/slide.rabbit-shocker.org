@@ -29,16 +29,17 @@ require "rabbit/slide-configuration"
 class Generator
   include Rake::DSL
 
-  def initialize
+  def initialize(html_dir_path)
     @gems_dir_path = Pathname("gems")
     @assets_dir_path = Pathname("assets")
-    @html_dir_path = Pathname("html")
+    @html_dir_path = Pathname(html_dir_path)
   end
 
   def generate
     rm_rf(@html_dir_path.to_s)
     copy_assets
-    generate_slide_html
+    generate_author_html
+    generate_index_html
   end
 
   private
@@ -46,16 +47,20 @@ class Generator
     cp_r("#{@assets_dir_path}/.", @html_dir_path.to_s)
   end
 
-  def generate_slide_html
+  def generate_author_html
     collect_slides
     @authors.each do |rubygems_user, author|
       author_dir_path = @html_dir_path + rubygems_user
       mkdir_p(author_dir_path.to_s)
+      author.generate_html(author_dir_path)
       author.slides.each do |slide_id, slide|
         slide.generate_html(author_dir_path)
       end
-      author.generate_html(author_dir_path)
     end
+  end
+
+  def generate_index_html
+    TopPage.new.generate_html(@html_dir_path)
   end
 
   def collect_slides
@@ -93,6 +98,55 @@ class Generator
     def gravatar_url(email)
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
+    end
+  end
+
+  class TopPage
+    include Rake::DSL
+    include HTMLHelper
+    include GetText
+
+    bindtextdomain("generator")
+
+    extend TemplateRenderer
+    template("layout", "layout.html.erb")
+    template("content", "top.html.erb")
+
+    def initialize
+    end
+
+    def generate_html(html_dir_path)
+      mkdir_p(html_dir_path.to_s)
+      generate_index_html(html_dir_path)
+    end
+
+    def to_html
+      layout do
+        content
+      end
+    end
+
+    def title
+      "Rabbit Slide Show"
+    end
+
+    def description
+      _("Share your slides created by Rabbit!")
+    end
+
+    def top_path
+      ""
+    end
+
+    def url
+      base_url
+    end
+
+    private
+    def generate_index_html(html_dir_path)
+      (html_dir_path + "index.html").open("w") do |top_html|
+        top_html.print(to_html)
+      end
     end
   end
 
@@ -308,11 +362,11 @@ class Generator
     end
 
     def slideshare_url
-      "#{@config.author.slideshare_url}#{u(slideshare_id)}"
+      "#{@author.slideshare_url}#{u(slideshare_id)}"
     end
 
     def speaker_deck_user
-      @config.author.speaker_deck_user
+      @author.speaker_deck_user
     end
 
     def speaker_deck_id
@@ -324,7 +378,7 @@ class Generator
     end
 
     def speaker_deck_url
-      "#{@config.author.speaker_deck_url}p/#{u(speaker_deck_id)}"
+      "#{@author.speaker_deck_url}p/#{u(speaker_deck_id)}"
     end
 
     def rubygems_user
