@@ -267,6 +267,16 @@ section#body nav#sidebar a.download
     background-color: #5e382a;
 }
 
+section#body nav#sidebar div.social-widgets ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+section#body nav#sidebar div.social-widgets ul li
+{
+    display: block;
+}
 
 div#viewer
 {

@@ -65,29 +65,39 @@
     <section>
       <h3><%= h(_("Share")) %></h3>
       <div class="social-widgets">
-        <a href="http://twitter.com/share"
-           class="twitter-share-button"
-           data-lang="<%= h(_('en')) %>"
-           data-url="<%= url %>"
-           data-text="<%= h(title) %>">
-          <%= h(_("Tweet")) %>
-        </a>
-        <div class="fb-like"
-             data-href="<%= url %>"
-             data-send="false"
-             data-layhout="button_count"
-             data-width="100"
-             data-show-faces="false"></div>
-        <g:plusone href="<%= url %>" size="medium"></g:plusone>
-        <a href="http://b.hatena.ne.jp/entry/<%= url %>"
-           class="hatena-bookmark-button"
-           data-hatena-bookmark-layout="standard"
-           title="このエントリーをはてなブックマークに追加"
-           ><img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
-                 width="20"
-                 height="20"
-                 style="border: none;"
-                 alt="このエントリーをはてなブックマークに追加" /></a>
+        <ul>
+          <li>
+            <a href="http://twitter.com/share"
+               class="twitter-share-button"
+               data-lang="<%= h(_('en')) %>"
+               data-url="<%= url %>"
+               data-text="<%= h(title) %>">
+              <%= h(_("Tweet")) %>
+            </a>
+          </li>
+          <li>
+            <div class="fb-like"
+                 data-href="<%= url %>"
+                 data-send="false"
+                 data-layhout="button_count"
+                 data-width="100"
+                 data-show-faces="false"></div>
+          </li>
+          <li>
+            <g:plusone href="<%= url %>" size="medium"></g:plusone>
+          </li>
+          <li>
+            <a href="http://b.hatena.ne.jp/entry/<%= url %>"
+               class="hatena-bookmark-button"
+               data-hatena-bookmark-layout="standard"
+               title="このエントリーをはてなブックマークに追加"
+               ><img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+                     width="20"
+                     height="20"
+                     style="border: none;"
+                     alt="このエントリーをはてなブックマークに追加" /></a>
+          </li>
+        </ul>
       </div>
     </section>
   </nav>
