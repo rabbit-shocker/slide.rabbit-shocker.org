@@ -36,7 +36,6 @@ class Generator
   end
 
   def generate
-    rm_rf(@html_dir_path.to_s)
     copy_assets
     generate_author_html
     generate_index_html
