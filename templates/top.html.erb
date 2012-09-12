@@ -17,9 +17,7 @@
       </div>
       <% if slide.presentation_date %>
       <div class="slide-presenation-date">
-        <a href="<%= slide.presentation_date %>/">
-          <%= h(slide.presentation_date.strftime(_("%Y-%m-%d"))) %>
-        </a>
+        <%= h(slide.presentation_date.strftime(_("%Y-%m-%d"))) %>
       </div>
       <% end %>
     </div>
