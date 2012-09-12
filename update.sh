@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 base_dir=`dirname $0`
+cd $base_dir
 
 git pull --rebase
 (cd ../rabbit && git pull --rebase)
