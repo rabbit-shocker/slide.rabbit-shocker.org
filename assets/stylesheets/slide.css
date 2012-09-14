@@ -115,6 +115,8 @@ section#new-slides div.slide
     float: left;
     margin-left: 11px;
     width: 200px;
+    height: 300px;
+    overflow: hidden;
     font-size: 80%;
     text-align: left;
 }
