@@ -12,12 +12,48 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+require "json"
+
 class WebHookReceiver
   def initialize
   end
 
   def call(env)
+    request = Rack::Request.new(env)
+    process(request) if request.post?
     [200, {"Content-Type" => "text/plain"}, [""]]
+  end
+
+  private
+  def process(request)
+    gem_info = JSON.parse(request.body.read)
+    return unless rabbit_slide_gem?(gem_info)
+    update_html
+  end
+
+  def rabbit_slide_gem?(gem_info)
+    /\Arabbit-slide-/ =~ gem_info["name"]
+  end
+
+  def update_html
+    env = {}
+    options = {
+      :in  => "/dev/null",
+      [:out, :err] => [log_path, "w"],
+    }
+    Process.spwan(env, update_sh, options)
+  end
+
+  def base_dir
+    File.dirname(__FILE__)
+  end
+
+  def update_sh
+    File.join(base_dir, "..", "update.sh")
+  end
+
+  def log_path
+    File.join(base_dir, "tmp", "log")
   end
 end
 
