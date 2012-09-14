@@ -141,7 +141,7 @@ section#body div#main
 section#body nav#sidebar,
 section#new-slides,
 section.description,
-section.transcript,
+section.text,
 section.other-slides,
 section.slide
 {
@@ -154,7 +154,7 @@ section.slide
 
 section#new-slides h2,
 section.description h2,
-section.transcript h2,
+section.text h2,
 section.other-slides h2
 {
     padding-bottom: 8px;
@@ -165,19 +165,19 @@ section.other-slides h2
 }
 
 section.description p,
-section.transcript p,
+section.text p,
 section.other-slides p
 {
     padding: 14px;
     padding-top: 0px;
 }
 
-section.transcript div.page
+section.text div.page
 {
     margin: 14px;
 }
 
-section.transcript div.page pre.transcript
+section.text div.page pre.text
 {
     border: solid 1px #eb8989;
     border-radius: 5px;

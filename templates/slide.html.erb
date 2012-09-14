@@ -45,12 +45,12 @@
            data-num-posts="20"
            data-width="640">
       </div>
-      <section class="transcript">
-        <h2><%= h(_("Transcript")) %></h2>
+      <section class="text">
+        <h2><%= h(_("Text")) %></h2>
         <% @pdf.each_with_index do |page, i| %>
         <div class="page">
           <h3>Page: <%= i + 1 %></h3>
-          <pre class="transcript"><%= h(page.get_text) %></pre>
+          <pre class="text"><%= h(normalize_text(page.get_text)) %></pre>
         </div>
         <% end %>
       </section>

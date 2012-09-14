@@ -510,6 +510,10 @@ class Generator
       save_page(@pdf[0], @thumbnail_width, @thumbnail_height, image_path.to_s)
     end
 
+    def normalize_text(text)
+      text.gsub(/\uFFFD/, " ")
+    end
+
     def save_page(page, image_width, image_height, output_file_name)
       Cairo::ImageSurface.new(:argb32, image_width, image_height) do |surface|
         Cairo::Context.new(surface) do |context|
