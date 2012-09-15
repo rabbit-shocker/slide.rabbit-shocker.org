@@ -20,8 +20,8 @@ body
 {
     background-color: #feeded;
     background-image: url(../images/background-stripe-pink.png);
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
     font-size: 90%;
     line-height: 160%;
     color: #230000;
@@ -46,8 +46,8 @@ a:visited
 header,
 footer
 {
-    margin: 0 auto;
-    padding: 0;
+    margin: 0px auto;
+    padding: 0px;
     width: 920px;
 }
 
@@ -66,15 +66,15 @@ footer
 {
     clear: both;
     border-top: solid 2px #5e382a;
-    padding-top: 8px;
+    padding: 8px 0px;
     margin-top: 20px;
 }
 
 footer p
 {
     text-align: center;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 div#top
@@ -123,8 +123,8 @@ section#new-slides div.slide
 
 section#body
 {
-    margin: 0 auto;
-    padding: 0;
+    margin: 0px auto;
+    padding: 0px;
     padding-top: 20px;
     padding-bottom: 40px;
     width: 920px;
@@ -146,7 +146,7 @@ section.other-slides,
 section.slide
 {
     display: block;
-    padding: 0;
+    padding: 0px;
     padding-bottom: 10px;
     margin-bottom: 10px;
     position: relative;
@@ -199,15 +199,33 @@ section.other-slides div.other-slide
     font-size: 80%;
 }
 
-section.other-slides div.other-slide p.slide-presentation-date
+div.slide-title
 {
-    font-size: 80%;
+    line-height: 120%;
+}
+
+div.slide-author,
+div.slide-presentation-date
+{
+    line-height: 120%;
+    margin-top: 8px;
+    color: #444444;
+}
+
+div.slide-author a
+{
+    color: #444444;
+}
+
+div.slide-presentation-date
+{
+    font-size: 90%;
 }
 
 section#body nav#sidebar
 {
     float: right;
-    margin: 0;
+    margin: 0px;
     width: 250px;
     background-color: #ffffff;
     background: -moz-linear-gradient(left top 315deg, #ffffff, #f1f1f1);
@@ -222,14 +240,13 @@ section#body nav#sidebar
 section#body nav#sidebar section
 {
     clear: both;
-    margin: 0px 5px;
+    margin: 0px 5px 20px 5px;
     padding: 0px 8px;
     border-top: solid 1px #ffd9d9;
 }
 
 section#body nav#sidebar section#author-info
 {
-    margin: 0px;
     padding: 0px 20px;
     width: 100%;
     overflow: hidden;
@@ -261,21 +278,22 @@ section#body nav#sidebar section#author-info div.other-sites
     padding: 0px;
     margin: 0px;
     float: left;
-    padding-left: 14px;
+    padding-left: 10px;
     width: 120px;
 }
 
 section#body nav#sidebar section#author-info div.other-sites ul
 {
     list-style-type: none;
-    padding-left: 0;
-    margin-left: 0;
+    padding: 0px;
+    margin: 0px;
 }
 
 section#body nav#sidebar section#author-info div.other-sites ul a
 {
     display: block;
     padding: 0px 0px 0px 5px;
+    margin-bottom: 5px;
 }
 
 section#body nav#sidebar section#author-info div.other-sites ul a.slideshare
@@ -305,13 +323,17 @@ section#body nav#sidebar a.download
     background-repeat: no-repeat;
     background-position: 10px center;
     color: #ffffff;
-    background-color: #5e382a;
+    border-top: solid 1px #835f52;
+    border-left: solid 1px #835f52;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2),
+                0px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
 }
 
 section#body nav#sidebar div.social-widgets ul
 {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 section#body nav#sidebar div.social-widgets ul li
@@ -322,8 +344,8 @@ section#body nav#sidebar div.social-widgets ul li
 div#viewer
 {
     width: 640px;
-    margin: 0 auto;
-    margin-bottom: 160px;
+    margin: 0px auto;
+    margin-bottom: 180px;
 }
 
 div#viewer-header
@@ -335,9 +357,9 @@ div#viewer-header
 div#viewer-content
 {
     background-color: #aa0202;
-    border-width: 0;
-    margin: 0;
-    padding: 0;
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
     height: 480px;
     overflow: hidden;
     cursor: pointer;
@@ -349,14 +371,14 @@ div#viewer-footer
     padding-bottom: 10px;
     color: white;
     background-color: #aa0202;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0px 0px 5px 5px;
 }
 
 div#viewer-page-slider
 {
     width: 400px;
     display: inline-block;
-    margin: 0 15px;
+    margin: 0px 15px;
 }
 
 div#viewer-move-control
@@ -403,6 +425,10 @@ div#author-title
     background-color: #ffaeae;
     color: #5e382a;
     border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    background: -moz-linear-gradient(left top 315deg, #ffaeae, #ff9090);
+    background: -webkit-gradient(linear, left top, right bottom,
+                                 from(#ffaeae), to(#ff9090));
 }
 
 div#slide-info
@@ -418,25 +444,33 @@ div#author-title h1
     margin: 0px;
     padding: 0px;
     font-size: 160%;
+    line-height: 120%;
+}
+
+div#slide-info div.author
+{
+    margin-top: 5px;
 }
 
 img.avatar
 {
     border-radius: 5px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2),
-                0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2),
+                0px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Author page */
 div#slides
 {
-    margin-left: 15px;
+    margin: 10px 10px 0px 10px;
+    overflow: hidden;
 }
 
 div#slides div.slide
 {
+    overflow: hidden;
     position: relative;
-    margin-top: 20px;
+    margin: 30px 0px;
     min-height: 160px;
 }
 
@@ -447,14 +481,14 @@ div#slides div.slide div.slide-info h2
 
 div#slides div.slide div.slide-info
 {
-    width: 396px;
+    width: 399px;
     float: right;
 }
 
 div#slides div.slide div.slide-info ul.tags
 {
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
 }
 
 div#slides div.slide div.slide-info ul.tags li
@@ -465,7 +499,6 @@ div#slides div.slide div.slide-info ul.tags li
 div#slides div.slide img
 {
     border-radius: 5px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2),
-                0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2),
+                0px 1px 3px rgba(0, 0, 0, 0.3);
 }
-
