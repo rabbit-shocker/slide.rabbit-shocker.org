@@ -450,11 +450,11 @@ class Generator
     end
 
     def url
-      "#{@author.url}#{h(id)}"
+      "#{@author.url}#{h(id)}/"
     end
 
     def path
-      "#{@author.path}#{h(id)}"
+      "#{@author.path}#{h(id)}/"
     end
 
     def hatena_bookmark_url
