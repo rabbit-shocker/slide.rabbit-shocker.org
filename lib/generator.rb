@@ -457,6 +457,11 @@ class Generator
       "#{@author.path}#{h(id)}"
     end
 
+    def hatena_bookmark_url
+      url_without_scheme = url.gsub(/\Ahttp:\/\//, "")
+      "http://b.hatena.ne.jp/entry/#{url_without_scheme}"
+    end
+
     private
     def load
       return unless @gem_path.exist?
