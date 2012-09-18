@@ -73,7 +73,9 @@ end
 
 namespace :gems do
   task :fetch do
-    dependency = Gem::Dependency.new(/\Arabbit-slide-/)
+    dependency = Gem::Deprecate.skip_during do
+      Gem::Dependency.new(/\Arabbit-slide-/)
+    end
     spec_fetcher = Gem::SpecFetcher.fetcher
     spec_and_sources = spec_fetcher.fetch(dependency)
     spec_and_sources.each do |spec, source_uri|
