@@ -457,6 +457,10 @@ class Generator
       "#{@author.path}#{h(id)}/"
     end
 
+    def ustream_url
+      "http://www.ustream.tv/recorded/#{u(ustream_id)}"
+    end
+
     def hatena_bookmark_url
       url_without_scheme = url.gsub(/\Ahttp:\/\//, "")
       "http://b.hatena.ne.jp/entry/#{url_without_scheme}"

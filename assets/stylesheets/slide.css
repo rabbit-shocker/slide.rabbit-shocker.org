@@ -314,6 +314,12 @@ section#body nav#sidebar section#author-info div.other-sites ul a.rubygems
     border-left: solid 5px #ca1616;
 }
 
+section#body nav#sidebar section#author-info div.other-sites ul a.ustream
+{
+    color: #3f91ff;
+    border-left: solid 5px #3f91ff;
+}
+
 section#body nav#sidebar a.download
 {
     display: block;

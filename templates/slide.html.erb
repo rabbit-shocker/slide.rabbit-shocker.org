@@ -108,6 +108,13 @@
             </a>
           </li>
           <% end %>
+          <% if have_ustream_id? %>
+          <li>
+            <a href="<%= ustream_url %>" class="ustream">
+              Ustream
+            </a>
+          </li>
+          <% end %>
         </ul>
       </div>
     </section>
