@@ -417,6 +417,10 @@ class Generator
       "https://rubygems.org/gems/#{u(@config.gem_name)}"
     end
 
+    def ustream_id
+      @config.ustream_id
+    end
+
     def have_ustream_id?
       ustream_id
     end
