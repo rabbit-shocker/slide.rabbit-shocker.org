@@ -417,6 +417,14 @@ class Generator
       "https://rubygems.org/gems/#{u(@config.gem_name)}"
     end
 
+    def have_ustream_id?
+      ustream_id
+    end
+
+    def ustream_url
+      "http://www.ustream.tv/recorded/#{u(ustream_id)}"
+    end
+
     def n_pages
       @pdf.size
     end
@@ -455,10 +463,6 @@ class Generator
 
     def path
       "#{@author.path}#{h(id)}/"
-    end
-
-    def ustream_url
-      "http://www.ustream.tv/recorded/#{u(ustream_id)}"
     end
 
     def hatena_bookmark_url
