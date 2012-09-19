@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "time"
+require "date"
 require "erb"
 require "pathname"
 require "digest/md5"
@@ -361,6 +362,7 @@ class Generator
     def presentation_date
       date = @config.presentation_date
       return nil if date.nil?
+      return date.to_time if date.respond_to?(:to_time)
 
       begin
         Time.parse(date)
