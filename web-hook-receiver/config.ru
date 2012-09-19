@@ -32,7 +32,7 @@ class WebHookReceiver
   end
 
   def rabbit_slide_gem?(gem_info)
-    /\Arabbit-slide-/ =~ gem_info["name"]
+    gem_info["name"].start_with?("rabbit-slide-")
   end
 
   def update_html
