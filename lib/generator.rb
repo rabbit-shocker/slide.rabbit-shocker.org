@@ -265,7 +265,7 @@ class Generator
     end
 
     def rubygems_url
-      "https://rubygems.org/profile/profiles/#{u(rubygems_user)}"
+      "https://rubygems.org/profiles/#{u(rubygems_user)}"
     end
 
     def url
