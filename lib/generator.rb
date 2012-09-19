@@ -497,7 +497,7 @@ class Generator
         @pdf_content = content
         begin
           @pdf = Poppler::Document.new(@pdf_content)
-            break
+          break
         rescue GLib::Error
           @pdf_content = nil
           puts("Failed to parse PDF: #{path}: #{$!.class}: #{$!}")
