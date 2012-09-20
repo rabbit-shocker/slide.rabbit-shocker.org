@@ -87,6 +87,14 @@ class Generator
       erb = ERB.new(path.read, "-")
       erb.def_method(self, name, path.to_s)
     end
+
+    def define_common_templates
+      template("layout", "layout.html.erb")
+      template("html_head", "html-head.html.erb")
+      template("layout", "layout.html.erb")
+      template("thumbnail_link(slide, author_path)",
+               "slide-thumbnail-link.html.erb")
+    end
   end
 
   module HTMLHelper
@@ -110,10 +118,8 @@ class Generator
     bindtextdomain("generator")
 
     extend TemplateRenderer
-    template("layout", "layout.html.erb")
+    define_common_templates
     template("content", "top.html.erb")
-    template("thumbnail_link(slide, author_path)",
-             "slide-thumbnail-link.html.erb")
 
     def initialize(authors)
       @authors = authors
@@ -175,11 +181,9 @@ class Generator
     bindtextdomain("generator")
 
     extend TemplateRenderer
-    template("layout", "layout.html.erb")
+    define_common_templates
     template("header", "header.html.erb")
     template("content", "author.html.erb")
-    template("thumbnail_link(slide, author_path='')",
-             "slide-thumbnail-link.html.erb")
 
     attr_reader :config, :tags
     def initialize
@@ -301,11 +305,11 @@ class Generator
     bindtextdomain("generator")
 
     extend TemplateRenderer
-    template("layout", "layout.html.erb")
+    define_common_templates
     template("header", "header.html.erb")
     template("content", "slide.html.erb")
-    template("thumbnail_link(slide, author_path)",
-             "slide-thumbnail-link.html.erb")
+    template("skeleton", "skeleton.html.erb")
+    template("viewer", "slide-viewer.html.erb")
 
     attr_reader :spec, :config
     attr_accessor :author
@@ -332,6 +336,7 @@ class Generator
       slide_dir_path = author_dir_path + id
       mkdir_p(slide_dir_path.to_s)
       generate_index_html(slide_dir_path)
+      generate_viewer_html(slide_dir_path)
       generate_pdf(slide_dir_path)
       generate_images(slide_dir_path)
       generate_thumbnail(slide_dir_path)
@@ -511,6 +516,12 @@ class Generator
       end
     end
 
+    def generate_viewer_html(slide_dir_path)
+      (slide_dir_path + "viewer.html").open("w") do |slide_html|
+        slide_html.print(viewer_html)
+      end
+    end
+
     def generate_pdf(slide_dir_path)
       (slide_dir_path + pdf_base_name).open("w:ascii-8bit") do |slide_pdf|
         slide_pdf.print(@pdf_content)
@@ -547,6 +558,12 @@ class Generator
           context.render_poppler_page(page)
           surface.write_to_png(output_file_name)
         end
+      end
+    end
+
+    def viewer_html
+      skeleton do
+        viewer
       end
     end
   end
