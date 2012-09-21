@@ -42,6 +42,12 @@ Licensed under GPLv2 or later.
 
 It is used in logo.
 
+=== font: Font Awesome
+
+Font Awesome - http://fortawesome.github.com/Font-Awesome
+
+Lincesed under CC BY 3.0.
+
 === image: TaiLavie
 
 Copyright (C) 2009 MoMo

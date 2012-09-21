@@ -424,37 +424,25 @@ div#viewer-page-slider
 div#viewer-move-control
 {
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 15px;
 }
 
 div#viewer-move-control span
 {
-    margin-left: 5px;
-    width: 16px;
-    height: 16px;
-    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
     display: inline-block;
     cursor: pointer;
 }
 
-span#viewer-move-to-first
+div#viewer-move-control span#viewer-move-to-previous
 {
-    background-image: url(../images/go-first-mini.png);
+    width: 14px;
 }
 
-span#viewer-move-to-previous
+div#viewer-move-control span#viewer-move-to-next
 {
-    background-image: url(../images/go-previous-mini.png);
-}
-
-span#viewer-move-to-next
-{
-    background-image: url(../images/go-next-mini.png);
-}
-
-span#viewer-move-to-last
-{
-    background-image: url(../images/go-last-mini.png);
+    width: 15px;
 }
 
 div#slide-info,

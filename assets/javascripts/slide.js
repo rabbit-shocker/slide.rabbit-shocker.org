@@ -38,6 +38,7 @@ jQuery(function($) {
         });
         this.moveTo(this.currentPage);
         this.$viewerContent.click($.proxy(this.onContentClick, this));
+        this.applyStyles();
         this.bindMoveControls();
         this.bindEmbedLink();
     };
@@ -117,6 +118,13 @@ jQuery(function($) {
 
         focusSlider: function() {
             this.$viewerPageSlider.children("a").focus();
+        },
+
+        applyStyles: function() {
+            $("#viewer-move-to-first").addClass("icon-fast-backward");
+            $("#viewer-move-to-previous").addClass("icon-step-backward");
+            $("#viewer-move-to-next").addClass("icon-step-forward");
+            $("#viewer-move-to-last").addClass("icon-fast-forward");
         },
 
         bindMoveControls: function() {
