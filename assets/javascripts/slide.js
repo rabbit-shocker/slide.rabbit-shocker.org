@@ -28,7 +28,7 @@ jQuery(function($) {
 	this.$viewerCurrentPage = $("#viewer-current-page");
 	this.collectImages();
 	this.createPanoramaImages();
-	this.currentPage = 1;
+        this.initializeCurrentPage();
         this.$viewerPageSlider = $("#viewer-page-slider");
         this.$viewerPageSlider.slider({
             min: 1,
@@ -44,6 +44,15 @@ jQuery(function($) {
     };
 
     Slide.prototype = {
+        initializeCurrentPage: function() {
+            var matchData = window.location.hash.match(/^#page-(\d+)$/);
+            if (matchData) {
+                this.currentPage = parseInt(matchData[1]);
+            } else {
+                this.currentPage = 1;
+            }
+        },
+
         nPages: function() {
             return this.images.length;
         },
