@@ -365,6 +365,11 @@ section#body nav#sidebar div.social-widgets div#embed-viewer-html
                                  from(#ffaeae), to(#ff9090));
 }
 
+section#body nav#sidebar div.social-widgets span#embed-button
+{
+    cursor: pointer;
+}
+
 section#body nav#sidebar div.social-widgets div#embed-viewer-html textarea
 {
     width: 100%;
