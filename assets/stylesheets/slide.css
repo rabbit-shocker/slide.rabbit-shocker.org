@@ -390,7 +390,7 @@ div#viewer
 
 div#viewer-header
 {
-    height: 1px;
+    height: 0px;
     background-color: #e2c7c7;
 }
 
