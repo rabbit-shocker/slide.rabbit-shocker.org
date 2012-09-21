@@ -18,16 +18,16 @@
 
 jQuery(function($) {
     function Slide() {
-	this.$viewer = $("#viewer");
-	if (this.$viewer.length == 0) {
+        this.$viewer = $("#viewer");
+        if (this.$viewer.length == 0) {
             return;
-	}
-	this.$viewerHeader  = $("#viewer-header");
-	this.$viewerContent = $("#viewer-content");
-	this.$viewerFooter  = $("#viewer-footer");
-	this.$viewerCurrentPage = $("#viewer-current-page");
-	this.collectImages();
-	this.createPanoramaImages();
+        }
+        this.$viewerHeader  = $("#viewer-header");
+        this.$viewerContent = $("#viewer-content");
+        this.$viewerFooter  = $("#viewer-footer");
+        this.$viewerCurrentPage = $("#viewer-current-page");
+        this.collectImages();
+        this.createPanoramaImages();
         this.initializeCurrentPage();
         this.$viewerPageSlider = $("#viewer-page-slider");
         this.$viewerPageSlider.slider({
