@@ -135,12 +135,11 @@ jQuery(function($) {
         },
 
         bindEmbedLink: function() {
-            $("#embed-button").click($.proxy(function(event) {
+            var toggleEmbedViewerHTML = $.proxy(function(event) {
                 $("#embed-viewer-html").toggle("scale");
-            }, this));
-            $("#embed-viewer-html-close").click($.proxy(function(event) {
-                $("#embed-viewer-html").toggle("scale");
-            }, this));
+            }, this);
+            $("#embed-button").click(toggleEmbedViewerHTML);
+            $("#embed-viewer-html-close").click(toggleEmbedViewerHTML);
         },
 
         onContentClick: function(event) {
