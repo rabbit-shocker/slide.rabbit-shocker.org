@@ -39,6 +39,7 @@ jQuery(function($) {
         this.moveTo(this.currentPage);
         this.$viewerContent.click($.proxy(this.onContentClick, this));
         this.bindMoveControls();
+        this.bindEmbedLink();
     };
 
     Slide.prototype = {
@@ -130,6 +131,15 @@ jQuery(function($) {
             }, this));
             $("#viewer-move-to-last").click($.proxy(function(event) {
                 this.moveToLast();
+            }, this));
+        },
+
+        bindEmbedLink: function() {
+            $("#embed-button").click($.proxy(function(event) {
+                $("#embed-viewer-html").toggle("scale");
+            }, this));
+            $("#embed-viewer-html-close").click($.proxy(function(event) {
+                $("#embed-viewer-html").toggle("scale");
             }, this));
         },
 

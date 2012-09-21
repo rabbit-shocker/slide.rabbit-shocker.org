@@ -136,6 +136,13 @@
                      style="border: none;"
                      alt="このエントリーをはてなブックマークに追加" /></a>
           </li>
+          <li>
+            <span id="embed-button"><%= h(_("Embed:")) %></span>
+            <div id="embed-viewer-html">
+              <textarea><%= h(embed_viewer_html) %></textarea>
+              <input id="embed-viewer-html-close" type="button" value="Close" />
+            </div>
+          </li>
         </ul>
       </div>
     </section>

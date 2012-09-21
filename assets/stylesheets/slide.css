@@ -345,6 +345,35 @@ section#body nav#sidebar div.social-widgets ul
 section#body nav#sidebar div.social-widgets ul li
 {
     display: block;
+    position: relative;
+}
+
+section#body nav#sidebar div.social-widgets div#embed-viewer-html
+{
+    display: none;
+    position: absolute;
+    top: 2em;
+    right: 80px;
+    width: 705px;
+    padding: 15px;
+    background-color: #ffaeae;
+    color: #5e382a;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    background: -moz-linear-gradient(left top 315deg, #ffaeae, #ff9090);
+    background: -webkit-gradient(linear, left top, right bottom,
+                                 from(#ffaeae), to(#ff9090));
+}
+
+section#body nav#sidebar div.social-widgets div#embed-viewer-html textarea
+{
+    width: 100%;
+    height: 20em;
+}
+
+section#body nav#sidebar div.social-widgets div#embed-viewer-html input
+{
+    display: block;
 }
 
 div#viewer

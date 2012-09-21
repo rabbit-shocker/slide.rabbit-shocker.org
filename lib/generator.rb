@@ -310,6 +310,7 @@ class Generator
     template("content", "slide.html.erb")
     template("skeleton", "skeleton.html.erb")
     template("viewer", "slide-viewer.html.erb")
+    template("embed_viewer_html", "embed-viewer-html.html.erb")
 
     attr_reader :spec, :config
     attr_accessor :author
@@ -470,6 +471,10 @@ class Generator
 
     def url
       "#{@author.url}#{h(id)}/"
+    end
+
+    def viewer_url
+      "#{url}viewer.html"
     end
 
     def path
