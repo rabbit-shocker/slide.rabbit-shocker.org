@@ -1,4 +1,4 @@
-<%# -*- coding: utf-8 -*- %>
+<%# -*- coding: utf-8 -*- -%>
 <div id="top">
   <div id="welcome">
     <h1>Rabbit Slide Show</h1>
@@ -9,7 +9,7 @@
     <h2><%= h(_("New!")) %></h2>
     <% new_slides.each do |slide| %>
     <div class="slide">
-      <%= thumbnail_link(slide, slide.author.path) %>
+      <%= thumbnail_link(slide, slide.author.path) -%>
       <div class="slide-title">
         <a href="<%= slide.path %>"><%= h(slide.title) %></a>
       </div>

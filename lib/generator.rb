@@ -84,7 +84,7 @@ class Generator
 
     def template(name, base_path)
       path = template_dir_path + base_path
-      erb = ERB.new(path.read, "-")
+      erb = ERB.new(path.read, nil, "%-")
       erb.def_method(self, name, path.to_s)
     end
 

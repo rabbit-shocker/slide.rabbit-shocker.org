@@ -1,5 +1,5 @@
-<%# -*- coding: utf-8 -*- %>
-<%= header %>
+<%# -*- coding: utf-8 -*- -%>
+<%= header -%>
 
 <div id="slide">
   <div id="main">
@@ -14,7 +14,7 @@
     </div>
 
     <div class="content">
-      <%= viewer %>
+      <%= viewer -%>
       <section class="description">
         <h2><%= h(_("Description")) %></h2>
         <p><%= h(description) %></p>
@@ -37,7 +37,7 @@
         <h2><%= h(_("Other slides")) %></h2>
         <% other_slides.each do |other_slide| %>
         <div class="other-slide">
-          <%= thumbnail_link(other_slide, "../") %>
+          <%= thumbnail_link(other_slide, "../") -%>
           <div class="slide-title">
             <a href="../<%= h(other_slide.id) %>">
               <%= h(other_slide.title) %>
