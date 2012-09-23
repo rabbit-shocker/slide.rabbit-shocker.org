@@ -108,6 +108,10 @@ class Generator
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
     end
+
+    def production?
+      ENV["PRODUCTION"] == "true"
+    end
   end
 
   class TopPage

@@ -21,10 +21,23 @@ require "generator"
 
 task :default => :generate
 
-namespace :images do
+namespace :css do
+  generated_csses = []
+  Dir.glob("assets/stylesheets/slide.less").each do |less|
+    css = less.gsub(/\.less\Z/, ".css")
+    file css => less do |task|
+      sh("lessc", less, css)
+    end
+    generated_csses << css
+  end
+  CLOBBER.concat(generated_csses)
+  task :generate => generated_csses
+end
+
+namespace :image do
   generated_images = []
   Dir.glob("assets/images/go-*.svg").each do |go_svg|
-    go_mini_png = go_svg.gsub(/\.svg/, "-mini.png")
+    go_mini_png = go_svg.gsub(/\.svg\z/, "-mini.png")
     file go_mini_png => go_svg do |task|
       sh("inkscape",
          "--export-png=#{go_mini_png}",
@@ -40,7 +53,7 @@ namespace :images do
 end
 
 desc "Generate HTML"
-task :generate => "images:generate" do
+task :generate => ["css:generate", "image:generate"] do
   generator = Generator.new(ENV["HTML_DIR"] || "html")
   generator.generate
 end
