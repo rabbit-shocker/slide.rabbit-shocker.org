@@ -1,9 +1,9 @@
 <%# -*- coding: utf-8 -*- %>
 <%= header %>
 
-<section id="body">
+<div id="author">
   <div id="main">
-    <div id="author-title">
+    <div id="title">
       <h1><%= h(_("%{author}'s slides") % {:author => title}) %></h1>
     </div>
 
@@ -29,7 +29,7 @@
 
   <nav id="sidebar">
     <section id="author-info">
-      <h3><a href="../"><%= h(title) %></a></h3>
+      <h3><%= h(title) %></h3>
       <div class="avatar">
         <a href="../">
           <img src="<%= gravatar_url(email) %>"
@@ -63,7 +63,7 @@
         </ul>
       </div>
     </section>
-    <section>
+    <section id="share">
       <h3><%= h(_("Share")) %></h3>
       <div class="social-widgets">
         <ul>
@@ -102,4 +102,4 @@
       </div>
     </section>
   </nav>
-</section>
+</div>

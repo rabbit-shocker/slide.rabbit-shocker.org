@@ -1,0 +1,555 @@
+/* -*- indent-tabs-mode: nil -*- */
+/*
+ Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// Definitions
+@foreground-color:               #230000;
+@background-color:               #feeded;
+
+@base-color-dark:                #5e382a;
+@base-color-light:               #835f52;
+@light-color:                    #eb8989;
+
+@link-color-unvisited:           #8d3919;
+@link-color-visited:             #5b2727;
+@link-color-hover:               #c16c4b;
+
+@block-background-color-dark:    #ff9090;
+@block-background-color-light:   #ffaeae;
+
+@viewer-foreground-color:        #ffffff;
+@viewer-background-color:        #aa0202;
+@viewer-header-background-color: #e2c7c7;
+
+@slideshare-color:               #0b81a8;
+@speaker-deck-color:             #0b8648;
+@rubygems-color:                 #ca1616;
+@ustream-color:                  #378fff;
+
+// Mixins
+.opacity (@opacity) {
+    @opacity_in_percent: @opacity * 100;
+
+    filter:       alpha(opacity=@opacity_in_percent);
+    -moz-opacity: @opacity;
+    opacity:      @opacity;
+}
+
+.transform (@functions) {
+    -moz-transform:    @functions;
+    -webkit-transform: @functions;
+    -o-transform:      @functions;
+    transform:         @functions;
+}
+
+.linear-gradient (@angle, @from, @to, @from-color, @to-color) {
+    background-color: @from-color;
+    background-image: -webkit-gradient(linear, @from, @to,
+                                       from(@from-color), to(@to-color));
+    background-image: -webkit-linear-gradient(@from, @from-color, @to-color);
+    background-image:    -moz-linear-gradient(@from @angle,
+                                              @from-color, @to-color);
+    background-image:     -ms-linear-gradient(@from, @from-color, @to-color);
+    background-image:      -o-linear-gradient(@from, @from-color, @to-color);
+    background-image:         linear-gradient(@to, @from-color, @to-color);
+    background-image:         linear-gradient(@angle to @to,
+                                              @from-color, @to-color);
+}
+
+.rounded-shadow (@radius: 5px) {
+    border-radius: @radius;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2),
+                0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.block-gradient-background () {
+    color: @base-color-dark;
+    .linear-gradient(315deg, left top, right bottom,
+                     @block-background-color-light,
+                     @block-background-color-dark);
+}
+
+.text-block () {
+    display: block;
+    padding: 0px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    position: relative;
+
+    h2 {
+        padding-bottom: 8px;
+        border-bottom: solid 2px @light-color;
+        font-family: Verdana;
+        font-weight: lighter;
+        letter-spacing: 1px;
+    }
+
+    p {
+        padding: 14px;
+        padding-top: 0px;
+    }
+}
+
+.page-title-block () {
+    width: 610px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    .block-gradient-background;
+
+    h1 {
+        margin: 0px;
+        padding: 0px;
+        font-size: 160%;
+        line-height: 120%;
+    }
+}
+
+.slide () {
+    div.slide-title {
+        line-height: 120%;
+    }
+
+    div.slide-author,
+    div.slide-presentation-date {
+        line-height: 120%;
+        margin-top: 8px;
+        color: #444444;
+    }
+
+    div.slide-author {
+        a {
+            color: #444444;
+        }
+    }
+
+    div.slide-presentation-date {
+        font-size: 90%;
+    }
+}
+
+.layout () {
+    margin: 0px auto;
+    padding: 0px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    width: 920px;
+    overflow: hidden;
+
+    div#main {
+        float: left;
+        width: 640px;
+        position: relative;
+    }
+
+    nav#sidebar {
+        .text-block;
+
+        float: right;
+        margin: 0px;
+        width: 250px;
+        .linear-gradient(315deg, left top, right bottom,
+                         #ffffff, #f1f1f1);
+        .opacity(0.9);
+        border-top: solid 10px #bb3434;
+
+        p {
+            padding: 0px;
+        }
+
+        section {
+            clear: both;
+            margin: 0px 5px 20px 5px;
+            padding: 0px 8px;
+            border-top: solid 1px #ffd9d9;
+
+            h3 {
+                font-family: Verdana;
+                font-weight: lighter;
+            }
+        }
+
+        section#author-info {
+            border-top: solid 1px #dbdbdb;
+            height: 160px;
+
+            h3 {
+                font-size: x-large;
+                a {
+                    text-decoration: none;
+                }
+            }
+
+            div.avatar {
+                padding: 0px;
+                margin: 0px;
+                float: left;
+                width: 80px;
+            }
+
+            div.other-sites {
+                padding: 0px;
+                margin: 0px;
+                float: left;
+                padding-left: 10px;
+                width: 120px;
+
+                ul {
+                    list-style-type: none;
+                    padding: 0px;
+                    margin: 0px;
+
+                    a {
+                        display: block;
+                        padding: 0px 0px 0px 5px;
+                        margin-bottom: 5px;
+                        border-left: solid 5px black;
+                    }
+
+                    a.slideshare {
+                        color: @slideshare-color;
+                        border-left-color: @slideshare-color;
+                    }
+
+                    a.speaker-deck {
+                        color: @speaker-deck-color;
+                        border-left-color: @speaker-deck-color;
+                    }
+
+                    a.rubygems {
+                        color: @rubygems-color;
+                        border-left-color: @rubygems-color;
+                    }
+
+                    a.ustream {
+                        color: @ustream-color;
+                        border-left-color: @ustream-color;
+                    }
+                }
+            }
+        }
+
+        section#download {
+            a {
+                display: block;
+                padding: 5px 5px 5px 45px;
+                background-color: @base-color-dark;
+                background-image: url(../images/icon-download-white.png);
+                background-repeat: no-repeat;
+                background-position: 10px center;
+                color: #ffffff;
+                border-top: solid 1px @base-color-light;
+                border-left: solid 1px @base-color-light;
+                .rounded-shadow(3px);
+            }
+        }
+
+        section#share {
+            div.social-widgets {
+                ul {
+                    margin: 0px;
+                    padding: 0px;
+
+                    li {
+                        display: block;
+                        position: relative;
+
+                        span#embed-button {
+                            cursor: pointer;
+                        }
+
+                        div#embed-viewer-html {
+                            display: none;
+                            position: absolute;
+                            top: 2em;
+                            right: 80px;
+                            width: 705px;
+                            padding: 15px;
+                            background-color: @block-background-color-light;
+                            color: @base-color-dark;
+                            .rounded-shadow;
+                            .linear-gradient(315deg, left top, right bottom,
+                                             #ffaeae, #ff9090);
+
+                            textarea {
+                                width: 100%;
+                                height: 20em;
+                            }
+
+                            input {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Styles
+body {
+    background-color: @background-color;
+    background-image: url(../images/background-stripe-pink.png);
+    padding: 0px;
+    margin: 0px;
+    font-size: 90%;
+    line-height: 160%;
+    color: @foreground-color;
+    letter-spacing: 1px;
+}
+
+a:link {
+    color: @link-color-unvisited;
+}
+
+a:hover {
+    color: @link-color-hover;
+}
+
+a:visited {
+    color: @link-color-visited;
+}
+
+img.avatar
+{
+    .rounded-shadow;
+}
+
+header,
+footer {
+    margin: 0px auto;
+    padding: 0px;
+    width: 920px;
+}
+
+header {
+    height: 70px;
+    border-bottom: solid 2px @base-color-dark;
+
+    img {
+        margin-top: 18px;
+    }
+}
+
+footer {
+    clear: both;
+    border-top: solid 2px @base-color-dark;
+    padding: 8px 0px;
+    margin-top: 20px;
+
+    p {
+        text-align: center;
+        margin: 0px;
+        padding: 0px;
+    }
+}
+
+/* Top page */
+div#top {
+    width: 640px;
+    text-align: center;
+    margin: 40px auto;
+
+    div#welcome {
+        background-image: url(../images/logo-large.png);
+        background-repeat: no-repeat;
+        background-position: center 25px;
+
+        h1 {
+            height: 215px;
+            visibility: hidden;
+        }
+
+        div.catch-phrase {
+            font-family: Verdana;
+            font-size: 200%;
+            color: #bb3434;
+            text-shadow: 2px 2px 3px #ffaeae;
+            margin-bottom: 70px;
+            .transform(rotate(-5deg));
+        }
+    }
+
+    section#new-slides {
+        .text-block;
+
+        div.slide {
+            float: left;
+            margin-left: 11px;
+            width: 200px;
+            height: 300px;
+            overflow: hidden;
+            font-size: 80%;
+            text-align: left;
+
+            .slide;
+        }
+    }
+}
+
+/* Author page */
+div#author {
+    .layout;
+
+    div#title {
+        .page-title-block;
+    }
+
+    div#slides {
+        margin: 10px 10px 0px 10px;
+        overflow: hidden;
+
+        div.slide {
+            overflow: hidden;
+            position: relative;
+            margin: 30px 0px;
+            min-height: 160px;
+
+            div.slide-info {
+                width: 399px;
+                float: right;
+
+                h2 {
+                    margin: 0;
+                }
+
+                ul.tags {
+                    padding: 0px;
+                    margin: 0px;
+
+                    li {
+                        display: inline-block;
+                    }
+                }
+            }
+
+            img {
+                .rounded-shadow;
+            }
+        }
+    }
+}
+
+/* Slide page */
+div#slide {
+    .layout;
+
+    div#slide-info {
+        .page-title-block;
+
+        position: absolute;
+        top: 540px;
+        left: 0px;
+
+        div.author {
+            margin-top: 5px;
+        }
+    }
+
+    div#viewer {
+        width: 640px;
+        margin: 0px auto;
+        margin-bottom: 180px;
+
+        div#viewer-header {
+            height: 0px;
+            background-color: @viewer-header-background-color;
+        }
+
+        div#viewer-content {
+            background-color: @viewer-background-color;
+            border-width: 0px;
+            margin: 0px;
+            padding: 0px;
+            height: 480px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        div#viewer-footer {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            color: @viewer-foreground-color;
+            background-color: @viewer-background-color;
+            border-radius: 0px 0px 5px 5px;
+
+            div#viewer-move-control {
+                display: inline-block;
+                margin-left: 15px;
+
+                span {
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+
+                span#viewer-move-to-previous {
+                    width: 14px;
+                }
+
+                span#viewer-move-to-next {
+                    width: 15px;
+                }
+
+            }
+
+            div#viewer-page-slider {
+                width: 400px;
+                display: inline-block;
+                margin: 0px 15px;
+            }
+        }
+    }
+
+    section.description
+    {
+        .text-block;
+    }
+
+    section.text {
+        .text-block;
+
+        div.page {
+            margin: 14px;
+
+            pre.text {
+                border: solid 1px @light-color;
+                border-radius: 5px;
+                background-color: white;
+                padding: 14px;
+            }
+        }
+    }
+
+    section.other-slides {
+        .text-block;
+
+        clear: both;
+
+        div.other-slide {
+            float: left;
+            width: 198px;
+            height: 220px;
+            margin-left: 11px;
+            font-size: 80%;
+
+            .slide;
+        }
+    }
+}

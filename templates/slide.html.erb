@@ -1,7 +1,7 @@
 <%# -*- coding: utf-8 -*- %>
 <%= header %>
 
-<section id="body">
+<div id="slide">
   <div id="main">
     <div id="slide-info">
       <h1><%= h(title) %></h1>
@@ -97,11 +97,11 @@
         </ul>
       </div>
     </section>
-    <section>
+    <section id="download">
       <h3><%= h(_("Download")) %></h3>
       <p><a href="<%= h(pdf_base_name) %>" class="download">PDF</a></p>
     </section>
-    <section>
+    <section id="share">
       <h3><%= h(_("Share")) %></h3>
       <div class="social-widgets">
         <ul>
@@ -146,7 +146,7 @@
         </ul>
       </div>
     </section>
-    <section>
+    <section id="license">
       <h3><%= h(_("License")) %></h3>
       <ul>
         <% licenses.each do |license| %>
@@ -155,5 +155,4 @@
       </ul>
     </section>
   </nav>
-</section>
-
+</div>
