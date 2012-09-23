@@ -39,6 +39,7 @@ namespace :images do
   task :generate => generated_images
 end
 
+desc "Generate HTML"
 task :generate => "images:generate" do
   generator = Generator.new(ENV["HTML_DIR"] || "html")
   generator.generate
@@ -72,6 +73,7 @@ def download_gem(spec, source_uri=nil)
 end
 
 namespace :gems do
+  desc "Fetch all slide gems"
   task :fetch do
     dependency = Gem::Deprecate.skip_during do
       Gem::Dependency.new(/\Arabbit-slide-/)
@@ -83,6 +85,7 @@ namespace :gems do
     end
   end
 
+  desc "Update existing slide gems"
   task :update do
     updated_gems = {}
     Dir.glob(File.join(@gems_dir, "*.gem")).each do |gem_path|
