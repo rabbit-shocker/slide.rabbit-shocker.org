@@ -449,7 +449,7 @@ class Generator
       vimeo_id
     end
 
-    def ustream_url
+    def vimeo_url
       "http://vimeo.com/#{u(vimeo_id)}"
     end
 
