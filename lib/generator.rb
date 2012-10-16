@@ -441,6 +441,18 @@ class Generator
       "http://www.ustream.tv/recorded/#{u(ustream_id)}"
     end
 
+    def vimeo_id
+      @config.vimeo_id
+    end
+
+    def have_vimeo_id?
+      vimeo_id
+    end
+
+    def ustream_url
+      "http://vimeo.com/#{u(vimeo_id)}"
+    end
+
     def n_pages
       @pdf.size
     end

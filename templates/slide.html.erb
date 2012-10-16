@@ -94,6 +94,13 @@
             </a>
           </li>
           <% end %>
+          <% if have_vimeo_id? %>
+          <li>
+            <a href="<%= vimeo_url %>" class="vimeo">
+              Vimeo
+            </a>
+          </li>
+          <% end %>
         </ul>
       </div>
     </section>
