@@ -173,8 +173,8 @@ class Generator
       base_url
     end
 
-    def page_image_url
-      logo_url
+    def page_image_urls
+      [logo_urls]
     end
 
     private
@@ -285,16 +285,23 @@ class Generator
       "https://rubygems.org/profiles/#{u(rubygems_user)}"
     end
 
+    def image_url
+      return nil if email.nil?
+      gravatar_url(email)
+    end
+
     def url
       "#{base_url}#{path}"
     end
 
-    def page_image_url
-      if email
-        gravatar_url(email)
-      else
-        logo_url
+    def page_image_urls
+      urls = []
+      urls << image_url
+      slides.each do |slide|
+        urls << slide.image_urls.first
       end
+      urls << logo_url
+      urls.compact
     end
 
     def path
@@ -505,8 +512,17 @@ class Generator
       "#{@author.url}#{h(id)}/"
     end
 
-    def page_image_url
-      "#{url}#{thumbnail_base_name}"
+    def image_urls
+      urls = []
+      n_pages.times do |i|
+        urls << "#{url}/#{i}.png"
+      end
+      urls
+    end
+
+    def page_image_urls
+      author_image_urls = [@author.image_url].compact
+      image_urls + author_image_urls + [logo_url]
     end
 
     def viewer_url
