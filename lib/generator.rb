@@ -174,7 +174,7 @@ class Generator
     end
 
     def page_image_urls
-      [logo_urls]
+      [logo_url]
     end
 
     private
