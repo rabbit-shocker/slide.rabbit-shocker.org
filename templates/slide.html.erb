@@ -20,7 +20,7 @@
         <p><%= h(description) %></p>
       </section>
       <div class="fb-comments"
-           data-href="<%= url %>"
+           data-href="<%= h(url) %>"
            data-num-posts="20"
            data-width="640">
       </div>
@@ -59,7 +59,7 @@
       <h3><a href="../"><%= h(@author.title) %></a></h3>
       <div class="avatar">
         <a href="../">
-          <img src="<%= gravatar_url(@config.author.email) %>"
+          <img src="<%= h(gravatar_url(@config.author.email)) %>"
                alt=""
                class="avatar"/>
         </a>
@@ -68,35 +68,35 @@
         <ul>
           <% if have_slideshare_id? %>
           <li>
-            <a href="<%= slideshare_url %>" class="slideshare">
+            <a href="<%= h(slideshare_url) %>" class="slideshare">
               SlideShare
             </a>
           </li>
           <% end %>
           <% if have_speaker_deck_id? %>
           <li>
-            <a href="<%= speaker_deck_url %>" class="speaker-deck">
+            <a href="<%= h(speaker_deck_url) %>" class="speaker-deck">
               Speaker Deck
             </a>
           </li>
           <% end %>
           <% if have_rubygems_id? %>
           <li>
-            <a href="<%= rubygems_url %>" class="rubygems">
+            <a href="<%= h(rubygems_url) %>" class="rubygems">
               RubyGems.org
             </a>
           </li>
           <% end %>
           <% if have_ustream_id? %>
           <li>
-            <a href="<%= ustream_url %>" class="ustream">
+            <a href="<%= h(ustream_url) %>" class="ustream">
               Ustream
             </a>
           </li>
           <% end %>
           <% if have_vimeo_id? %>
           <li>
-            <a href="<%= vimeo_url %>" class="vimeo">
+            <a href="<%= h(vimeo_url) %>" class="vimeo">
               Vimeo
             </a>
           </li>
@@ -116,24 +116,24 @@
             <a href="http://twitter.com/share"
                class="twitter-share-button"
                data-lang="<%= h(_('en')) %>"
-               data-url="<%= url %>"
+               data-url="<%= h(url) %>"
                data-text="<%= h(tweet_text) %>">
               <%= h(_("Tweet")) %>
             </a>
           </li>
           <li>
             <div class="fb-like"
-                 data-href="<%= url %>"
+                 data-href="<%= h(url) %>"
                  data-send="false"
                  data-layhout="button_count"
                  data-width="100"
                  data-show-faces="false"></div>
           </li>
           <li>
-            <g:plusone href="<%= url %>" size="medium"></g:plusone>
+            <g:plusone href="<%= h(url) %>" size="medium"></g:plusone>
           </li>
           <li>
-            <a href="<%= hatena_bookmark_url %>"
+            <a href="<%= h(hatena_bookmark_url) %>"
                class="hatena-bookmark-button"
                data-hatena-bookmark-layout="standard"
                title="このエントリーをはてなブックマークに追加"

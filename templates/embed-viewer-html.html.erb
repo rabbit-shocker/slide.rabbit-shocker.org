@@ -1,5 +1,5 @@
 <%# -*- coding: utf-8 -*- -%>
-<iframe src="<%= viewer_url %>"
+<iframe src="<%= h(viewer_url) %>"
         width="640" height="524"
         frameborder="0"
         marginwidth="0"
@@ -8,5 +8,5 @@
         style="border: 1px solid #ccc; border-width: 1px 1px 0; margin-bottom: 5px"
         allowfullscreen> </iframe>
 <div style="margin-bottom: 5px">
-  <a href="<%= url %>" title="<%= h(title) %>"><%= h(title) %>
+  <a href="<%= h(url) %>" title="<%= h(title) %>"><%= h(title) %>
 </div>

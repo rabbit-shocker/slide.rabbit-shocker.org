@@ -32,7 +32,7 @@
       <h3><%= h(title) %></h3>
       <div class="avatar">
         <a href="../">
-          <img src="<%= gravatar_url(email) %>"
+          <img src="<%= h(gravatar_url(email)) %>"
                alt=""
                class="avatar"/>
         </a>
@@ -41,21 +41,21 @@
         <ul>
           <% if have_slideshare_user? %>
           <li>
-            <a href="<%= slideshare_url %>" class="slideshare">
+            <a href="<%= h(slideshare_url) %>" class="slideshare">
               SlideShare
             </a>
           </li>
           <% end %>
           <% if have_speaker_deck_user? %>
           <li>
-            <a href="<%= speaker_deck_url %>" class="speaker-deck">
+            <a href="<%= h(speaker_deck_url) %>" class="speaker-deck">
               Speaker Deck
             </a>
           </li>
           <% end %>
           <% if have_rubygems_user? %>
           <li>
-            <a href="<%= rubygems_url %>" class="rubygems">
+            <a href="<%= h(rubygems_url) %>" class="rubygems">
               RubyGems.org
             </a>
           </li>
@@ -71,24 +71,24 @@
             <a href="http://twitter.com/share"
                class="twitter-share-button"
                data-lang="<%= h(_('en')) %>"
-               data-url="<%= url %>"
+               data-url="<%= h(url) %>"
                data-text="<%= h(title) %>">
               <%= h(_("Tweet")) %>
             </a>
           </li>
           <li>
             <div class="fb-like"
-                 data-href="<%= url %>"
+                 data-href="<%= h(url) %>"
                  data-send="false"
                  data-layhout="button_count"
                  data-width="100"
                  data-show-faces="false"></div>
           </li>
           <li>
-            <g:plusone href="<%= url %>" size="medium"></g:plusone>
+            <g:plusone href="<%= h(url) %>" size="medium"></g:plusone>
           </li>
           <li>
-            <a href="http://b.hatena.ne.jp/entry/<%= url %>"
+            <a href="http://b.hatena.ne.jp/entry/<%= h(url) %>"
                class="hatena-bookmark-button"
                data-hatena-bookmark-layout="standard"
                title="このエントリーをはてなブックマークに追加"
