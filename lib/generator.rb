@@ -104,6 +104,10 @@ class Generator
       "http://slide.rabbit-shocker.org/"
     end
 
+    def logo_url
+      "#{base_url}images/logo-square.png"
+    end
+
     def gravatar_url(email)
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
@@ -167,6 +171,10 @@ class Generator
 
     def url
       base_url
+    end
+
+    def page_image_url
+      logo_url
     end
 
     private
@@ -279,6 +287,14 @@ class Generator
 
     def url
       "#{base_url}#{path}"
+    end
+
+    def page_image_url
+      if email
+        gravatar_url(email)
+      else
+        logo_url
+      end
     end
 
     def path
@@ -487,6 +503,10 @@ class Generator
 
     def url
       "#{@author.url}#{h(id)}/"
+    end
+
+    def page_image_url
+      "#{url}#{thumbnail_base_name}"
     end
 
     def viewer_url
