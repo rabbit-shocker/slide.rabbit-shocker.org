@@ -515,7 +515,7 @@ class Generator
     def image_urls
       urls = []
       n_pages.times do |i|
-        urls << "#{url}/#{i}.png"
+        urls << "#{url}#{i}.png"
       end
       urls
     end
