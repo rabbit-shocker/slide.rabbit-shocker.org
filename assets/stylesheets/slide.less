@@ -366,6 +366,63 @@ footer {
     }
 }
 
+/* Viewer */
+div#viewer {
+    width: 640px;
+    margin: 0px auto;
+    margin-bottom: 180px;
+
+    div#viewer-header {
+        height: 0px;
+        background-color: @viewer-header-background-color;
+    }
+
+    div#viewer-content {
+        background-color: @viewer-background-color;
+        border-width: 0px;
+        margin: 0px;
+        padding: 0px;
+        height: 480px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    div#viewer-footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: @viewer-foreground-color;
+        background-color: @viewer-background-color;
+        border-radius: 0px 0px 5px 5px;
+
+        div#viewer-move-control {
+            display: inline-block;
+            margin-left: 15px;
+
+            span {
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            span#viewer-move-to-previous {
+                width: 14px;
+            }
+
+            span#viewer-move-to-next {
+                width: 15px;
+            }
+
+        }
+
+        div#viewer-page-slider {
+            width: 400px;
+            display: inline-block;
+            margin: 0px 15px;
+        }
+    }
+}
+
 /* Top page */
 div#top {
     width: 640px;
@@ -465,62 +522,6 @@ div#slide {
 
         div.author {
             margin-top: 5px;
-        }
-    }
-
-    div#viewer {
-        width: 640px;
-        margin: 0px auto;
-        margin-bottom: 180px;
-
-        div#viewer-header {
-            height: 0px;
-            background-color: @viewer-header-background-color;
-        }
-
-        div#viewer-content {
-            background-color: @viewer-background-color;
-            border-width: 0px;
-            margin: 0px;
-            padding: 0px;
-            height: 480px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        div#viewer-footer {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            color: @viewer-foreground-color;
-            background-color: @viewer-background-color;
-            border-radius: 0px 0px 5px 5px;
-
-            div#viewer-move-control {
-                display: inline-block;
-                margin-left: 15px;
-
-                span {
-                    width: 20px;
-                    height: 20px;
-                    display: inline-block;
-                    cursor: pointer;
-                }
-
-                span#viewer-move-to-previous {
-                    width: 14px;
-                }
-
-                span#viewer-move-to-next {
-                    width: 15px;
-                }
-
-            }
-
-            div#viewer-page-slider {
-                width: 400px;
-                display: inline-block;
-                margin: 0px 15px;
-            }
         }
     }
 
