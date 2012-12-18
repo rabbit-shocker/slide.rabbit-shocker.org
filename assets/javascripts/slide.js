@@ -35,7 +35,6 @@
             value: this.currentPage,
             slide: $.proxy(this.onSlide, this)
         });
-        this.moveTo(this.currentPage);
         this.$viewerContent.click($.proxy(this.onContentClick, this));
         this.applyStyles();
         this.bindMoveControls();
