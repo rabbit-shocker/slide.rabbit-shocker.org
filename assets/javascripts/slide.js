@@ -17,7 +17,7 @@
 */
 
 jQuery(function($) {
-    function Slide() {
+    function RabbitSlide() {
         this.$viewer = $("#viewer");
         if (this.$viewer.length == 0) {
             return;
@@ -43,7 +43,7 @@ jQuery(function($) {
         this.bindEmbedLink();
     };
 
-    Slide.prototype = {
+    RabbitSlide.prototype = {
         initializeCurrentPage: function() {
             var matchData = window.location.hash.match(/^#page-(\d+)$/);
             if (matchData) {
@@ -201,5 +201,5 @@ jQuery(function($) {
         }
     };
 
-    new Slide();
+    new RabbitSlide();
 });
