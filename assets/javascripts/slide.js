@@ -49,6 +49,7 @@ RabbitSlide.prototype = {
         } else {
             this.currentPage = 1;
         }
+        this.updateCurrentPageLabel();
     },
 
     nPages: function() {
@@ -101,7 +102,7 @@ RabbitSlide.prototype = {
 
         this.currentPage = n;
 
-        this.$viewerCurrentPage.text(this.currentPage);
+        this.updateCurrentPageLabel();
         this.$viewerPageSlider.slider("value", n);
 
         this.focusSlider();
@@ -125,6 +126,10 @@ RabbitSlide.prototype = {
 
     focusSlider: function() {
         this.$viewerPageSlider.children("a").focus();
+    },
+
+    updateCurrentPageLabel: function() {
+        this.$viewerCurrentPage.text(this.currentPage);
     },
 
     applyStyles: function() {
