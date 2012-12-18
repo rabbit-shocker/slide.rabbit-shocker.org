@@ -16,7 +16,6 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-jQuery(function($) {
     function RabbitSlide() {
         this.$viewer = $("#viewer");
         if (this.$viewer.length == 0) {
@@ -200,6 +199,3 @@ jQuery(function($) {
             this.moveTo(ui.value);
         }
     };
-
-    new RabbitSlide();
-});
