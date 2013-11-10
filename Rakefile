@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -107,6 +107,25 @@ namespace :gems do
       next if updated_gems.has_key?(spec.name)
       download_gem(spec)
       updated_gems[spec.name] = true
+    end
+  end
+
+  desc "Clean old slide gems"
+  task :clean do
+    gems = {}
+
+    Dir.glob(File.join(@gems_dir, "*.gem")).each do |gem_path|
+      format = Gem::Format.from_file_by_path(gem_path.to_s)
+      spec = format.spec
+      gems[spec.name] ||= []
+      gems[spec.name] << spec
+    end
+
+    gems.each do |name, specs|
+      sorted_specs = specs.sort_by(&:version)
+      sorted_specs[1..-1].each do |old_spec|
+        rm(File.join(@gems_dir, "#{old_spec.full_name}.gem"))
+      end
     end
   end
 end
