@@ -85,17 +85,27 @@ def download_gem(spec, source_uri=nil)
   rm_rf(tmp_dir)
 end
 
+def download_latest_gems(name_or_pattern)
+  if name_or_pattern.is_a?(Regexp)
+    pattern = name_or_pattern
+    dependency = Gem::Deprecate.skip_during do
+      Gem::Dependency.new(pattern)
+    end
+  else
+    name = name_or_pattern
+    dependency = Gem::Dependency.new(name)
+  end
+  spec_fetcher = Gem::SpecFetcher.fetcher
+  spec_and_sources = spec_fetcher.fetch(dependency)
+  spec_and_sources.each do |spec, source_uri|
+    download_gem(spec, source_uri)
+  end
+end
+
 namespace :gems do
   desc "Fetch all slide gems"
   task :fetch do
-    dependency = Gem::Deprecate.skip_during do
-      Gem::Dependency.new(/\Arabbit-slide-/)
-    end
-    spec_fetcher = Gem::SpecFetcher.fetcher
-    spec_and_sources = spec_fetcher.fetch(dependency)
-    spec_and_sources.each do |spec, source_uri|
-      download_gem(spec, source_uri)
-    end
+    download_latest_gems(/\Arabbit-slide-/)
   end
 
   desc "Update existing slide gems"
@@ -103,10 +113,10 @@ namespace :gems do
     updated_gems = {}
     Dir.glob(File.join(@gems_dir, "*.gem")).each do |gem_path|
       format = Gem::Format.from_file_by_path(gem_path.to_s)
-      spec = format.spec
-      next if updated_gems.has_key?(spec.name)
-      download_gem(spec)
-      updated_gems[spec.name] = true
+      spec_name = format.spec.name
+      next if updated_gems.has_key?(spec_name)
+      download_latest_gems(spec_name)
+      updated_gems[spec_name] = true
     end
   end
 
