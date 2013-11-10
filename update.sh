@@ -23,7 +23,7 @@ git pull --rebase
 
 PATH="/var/lib/gems/1.9.1/bin:$PATH"
 
-ruby1.9.1 -I ../rabbit/lib -S rake gems:fetch
+ruby1.9.1 -I ../rabbit/lib -S rake gems:fetch gems:clean
 xvfb-run --auto-servernum \
     ruby1.9.1 -I ../rabbit/lib -S \
     rake HTML_DIR=$(echo ~/public_html) PRODUCTION=true
