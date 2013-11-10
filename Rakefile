@@ -123,7 +123,8 @@ namespace :gems do
 
     gems.each do |name, specs|
       sorted_specs = specs.sort_by(&:version)
-      sorted_specs[1..-1].each do |old_spec|
+      old_specs = sorted_specs[0..-2]
+      old_specs.each do |old_spec|
         rm(File.join(@gems_dir, "#{old_spec.full_name}.gem"))
       end
     end
