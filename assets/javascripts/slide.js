@@ -17,6 +17,7 @@
 */
 
 function RabbitSlide() {
+    this.queryParameters = this.parseQueryParameters();
     this.$viewer = $("#viewer");
     if (this.$viewer.length == 0) {
         return;
@@ -42,10 +43,22 @@ function RabbitSlide() {
 };
 
 RabbitSlide.prototype = {
+    parseQueryParameters: function() {
+        var pairs = window.location.search.split(/[?&;]/);
+        var parameters = {}
+        $.each(pairs, function (i, pair) {
+            var splittedPair = pair.split("=", 2);
+            var key = splittedPair[0];
+            var value = splittedPair[1];
+            parameters[key] = value;
+        });
+        return parameters;
+    },
+
     initializeCurrentPage: function() {
-        var matchData = window.location.hash.match(/^#page-(\d+)$/);
-        if (matchData) {
-            this.currentPage = parseInt(matchData[1]);
+        var page = this.queryParameters["page"];
+        if (page) {
+            this.currentPage = parseInt(page);
         } else {
             this.currentPage = 1;
         }
