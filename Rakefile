@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@ require "rake/clean"
 
 require "bundler/setup"
 
+require "less"
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "generator"
@@ -24,16 +26,21 @@ require "generator"
 task :default => :generate
 
 namespace :css do
-  generated_csses = []
-  Dir.glob("assets/stylesheets/slide.less").each do |less|
-    css = less.gsub(/\.less\Z/, ".css")
-    file css => less do |task|
-      sh("lessc", less, css)
+  generated_css_paths = []
+  Dir.glob("assets/stylesheets/slide.less").each do |less_path|
+    css_path = less_path.gsub(/\.less\Z/, ".css")
+    file css_path => less_path do |task|
+      parser = Less::Parser.new(:filename => less_path)
+      tree = parser.parse(File.read(less_path))
+      css = tree.to_css
+      File.open(css_path, "w") do |css_output|
+        css_output.puts(css)
+      end
     end
-    generated_csses << css
+    generated_css_paths << css_path
   end
-  CLOBBER.concat(generated_csses)
-  task :generate => generated_csses
+  CLOBBER.concat(generated_css_paths)
+  task :generate => generated_css_paths
 end
 
 namespace :image do
