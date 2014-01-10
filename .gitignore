@@ -2,3 +2,4 @@
 /gems/
 /assets/images/go-*.png
 /assets/stylesheets/slide.css
+/Gemfile.lock
