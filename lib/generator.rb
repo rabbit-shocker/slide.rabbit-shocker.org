@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,13 +19,13 @@ require "erb"
 require "pathname"
 require "digest/md5"
 
-require "rubygems/format"
-
 require "gettext"
 require "poppler"
 
 require "rabbit/author-configuration"
 require "rabbit/slide-configuration"
+
+require_relative "gem-reader"
 
 class Generator
   include Rake::DSL
@@ -542,19 +542,18 @@ class Generator
     def load
       return unless @gem_path.exist?
 
-      @format = Gem::Format.from_file_by_path(@gem_path.to_s)
-      @spec = @format.spec
+      gem_reader = GemReader.new(@gem_path.to_s)
+      @spec = gem_reader.spec
 
-      @format.file_entries.each do |info, content|
-        if info["path"] == "config.yaml"
+      gem_reader.each do |path, content|
+        if path == "config.yaml"
           @config.merge!(YAML.load(content))
           break
         end
       end
 
       @pdf_content = nil
-      @format.file_entries.each do |info, content|
-        path = info["path"]
+      gem_reader.each do |path, content|
         next unless path.start_with?("pdf/")
         @pdf_content = content
         begin
