@@ -24,7 +24,7 @@ function RabbitSlide() {
     }
 
     this.bindMoveControls();
-    this.bindEmbedLink();
+    this.bindEmbedBox();
     this.bindPermanentLinkButton();
 
     this.$viewerHeader  = $("#viewer-header");
@@ -171,12 +171,12 @@ RabbitSlide.prototype = {
         }, this));
     },
 
-    bindEmbedLink: function() {
-        var toggleEmbedViewerHTML = $.proxy(function(event) {
-            $("#embed-viewer-html").toggle("scale");
+    bindEmbedBox: function() {
+        var toggleEmbedBox = $.proxy(function(event) {
+            $("#embed-box").toggle("scale");
         }, this);
-        $("#embed-button").click(toggleEmbedViewerHTML);
-        $("#embed-viewer-html-close").click(toggleEmbedViewerHTML);
+        $("#embed-button").click(toggleEmbedBox);
+        $("#embed-box-close").click(toggleEmbedBox);
     },
 
     updatePermanentLinkURL: function() {
