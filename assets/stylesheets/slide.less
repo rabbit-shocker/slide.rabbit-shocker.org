@@ -39,7 +39,8 @@
 @speaker-deck-color:             #0b8648;
 @rubygems-color:                 #ca1616;
 @ustream-color:                  #378fff;
-@vimeo-color:                    #aad450;
+@vimeo-color:                    #1ab7ea;
+@youtube-color:                  #cd201f;
 
 // Mixins
 .opacity (@opacity) {
@@ -271,16 +272,19 @@
                     a.vimeo {
                         color: @vimeo-color;
                         border-left-color: @vimeo-color;
+                        background-image: url(../images/Vimeo-Icon-29.png);
+                        background-repeat: no-repeat;
+                        background-position: right center;
+                        height: 29px;
                     }
 
                     a.youtube {
-                        color: black;
+                        color: @youtube-color;
+                        border-left-color: @youtube-color;
                         background-image: url(../images/YouTube-social-icon_red_24px.png);
                         background-repeat: no-repeat;
-                        background-position: 0 center;
-                        padding-left: 30px;
-                        margin-left: 0;
-                        border-left-width: 0;
+                        background-position: right center;
+                        height: 24px;
                     }
                 }
             }

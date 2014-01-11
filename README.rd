@@ -36,8 +36,13 @@ patches, codes and so on.
 
   * assets/images/YouTube-social-icon_red_24px.png
 
-    It is used with the manner described at
+    It is used with the guideline described at
     http://www.youtube.com/yt/brand/en/using-logo.html
+
+  * assets/images/Vimeo-Icon-29.png
+
+    It is used with the guideline described at
+    http://vimeo.com/about/brand_guidelines
 
 == Using softwares
 
