@@ -4,7 +4,7 @@
 <div id="author">
   <div id="main">
     <div id="title">
-      <h1><%= h(_("%{author}'s slides") % {:author => title}) %></h1>
+      <h1><%= h(_("%{author}'s slides") % {:author => label}) %></h1>
     </div>
 
     <div class="content">
@@ -34,7 +34,7 @@
 
   <nav id="sidebar">
     <section id="author-info">
-      <h3><%= h(title) %></h3>
+      <h3><%= h(label) %></h3>
       <div class="avatar">
         <a href="../">
           <img src="<%= h(gravatar_url(email)) %>"
@@ -77,7 +77,7 @@
                class="twitter-share-button"
                data-lang="<%= h(_('en')) %>"
                data-url="<%= h(url) %>"
-               data-text="<%= h(title) %>">
+               data-text="<%= h(page_title) %>">
               <%= h(_("Tweet")) %>
             </a>
           </li>

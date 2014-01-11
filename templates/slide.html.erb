@@ -5,7 +5,7 @@
   <div id="main">
     <div id="slide-info">
       <h1><%= h(title) %></h1>
-      <div class="author"><a href="../"><%= h(@author.title) %></a></div>
+      <div class="author"><a href="../"><%= h(@author.label) %></a></div>
       <% if presentation_date %>
       <div class="slide-presentation-date">
         <%= format_presentation_date(presentation_date) %>
@@ -56,7 +56,7 @@
 
   <nav id="sidebar">
     <section id="author-info">
-      <h3><a href="../"><%= h(@author.title) %></a></h3>
+      <h3><a href="../"><%= h(@author.label) %></a></h3>
       <div class="avatar">
         <a href="../">
           <img src="<%= h(gravatar_url(@config.author.email)) %>"

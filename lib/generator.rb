@@ -134,6 +134,10 @@ class Generator
     def format_presentation_date(date)
       h(date.strftime(_("%Y-%m-%d")))
     end
+
+    def site_name
+      "Rabbit Slide Show"
+    end
   end
 
   class TopPage
@@ -162,8 +166,8 @@ class Generator
       end
     end
 
-    def title
-      "Rabbit Slide Show"
+    def page_title
+      site_name
     end
 
     def description
@@ -258,16 +262,20 @@ class Generator
       @config.name
     end
 
+    def label
+      name || rubygems_user
+    end
+
     def email
       @config.email
     end
 
-    def title
-      name || rubygems_user
+    def page_title
+      [label, site_name].join(" - ")
     end
 
     def description
-      _("%{author}'s slides") % {:author => title}
+      _("%{author}'s slides") % {:author => label}
     end
 
     def slideshare_user
@@ -405,6 +413,10 @@ class Generator
       @config.id
     end
 
+    def page_title
+      [title, @author.label, site_name].join(" - ")
+    end
+
     def title
       @spec.summary
     end
@@ -512,7 +524,7 @@ class Generator
     end
 
     def tweet_text
-      text = "#{@author.title}: #{title}"
+      text = "#{@author.label}: #{title}"
       hash_tags = tags.collect {|tag| "\##{tag}"}
       [text, *hash_tags].join(" ")
     end

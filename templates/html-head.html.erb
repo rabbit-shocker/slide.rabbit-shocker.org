@@ -1,18 +1,18 @@
 <%# -*- coding: utf-8 -*- -%>
 <head>
   <meta charset="UTF-8">
-  <title><%= h(title) %></title>
+  <title><%= h(page_title) %></title>
   <link rel="shortcut icon" href="<%= top_path %>favicon.ico">
   <link rel="icon" href="<%= top_path %>favicon.png">
   <meta property="fb:admins" content="kouhei.sutou">
   <meta property="fb:page_id" content="rabbit.shocker">
-  <meta property="og:title" content="<%= h(title) %>">
+  <meta property="og:title" content="<%= h(page_title) %>">
   <meta property="og:type" content="website">
 <% page_image_urls.each do |page_image_url| -%>
   <meta property="og:image" content="<%= h(page_image_url) %>">
 <% end -%>
   <meta property="og:url" content="<%= h(url) %>">
-  <meta property="og:site_name" content="Rabbit Slide Share">
+  <meta property="og:site_name" content="<%= h(site_name) %>">
   <meta property="og:description" content="<%= h(description) %>">
   <link rel="stylesheet" type="text/css"
         href="<%= top_path %>stylesheets/jquery-ui/jquery-ui-1.8.23.css">
