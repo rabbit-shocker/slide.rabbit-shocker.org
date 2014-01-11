@@ -23,4 +23,9 @@ gem "therubyracer"
 gem "gettext"
 gem "poppler"
 
-gem "rabbit"
+local_rabbit_dir = File.join(File.dirname(__FILE__), "..", "rabbit")
+if Fie.exist?(local_rabbit_dir)
+  gem "rabbit", :path => local_rabbit_dir
+else
+  gem "rabbit"
+end
