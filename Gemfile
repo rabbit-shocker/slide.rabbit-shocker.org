@@ -24,7 +24,7 @@ gem "gettext"
 gem "poppler"
 
 local_rabbit_dir = File.join(File.dirname(__FILE__), "..", "rabbit")
-if Fie.exist?(local_rabbit_dir)
+if File.exist?(local_rabbit_dir)
   gem "rabbit", :path => local_rabbit_dir
 else
   gem "rabbit"
