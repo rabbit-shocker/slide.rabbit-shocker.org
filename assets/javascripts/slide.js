@@ -25,7 +25,7 @@ function RabbitSlide() {
 
     this.bindMoveControls();
     this.bindEmbedBox();
-    this.bindPermanentLinkButton();
+    this.bindPermanentLinkBox();
 
     this.$viewerHeader  = $("#viewer-header");
     this.$viewerContent = $("#viewer-content");
@@ -191,7 +191,7 @@ RabbitSlide.prototype = {
         $("#permanent-link-page").val(this.currentPage).change();
     },
 
-    bindPermanentLinkButton: function() {
+    bindPermanentLinkBox: function() {
         var updatePermanentLinkURL = $.proxy(function() {
             this.updatePermanentLinkURL();
         }, this);
