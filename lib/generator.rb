@@ -28,7 +28,14 @@ require "rabbit/slide-configuration"
 require_relative "gem-reader"
 
 class Generator
+  module Environment
+    def production?
+      ENV["PRODUCTION"] == "true"
+    end
+  end
+
   include Rake::DSL
+  include Environment
 
   def initialize(html_dir_path)
     @gems_dir_path = Pathname("gems")
@@ -44,7 +51,17 @@ class Generator
 
   private
   def copy_assets
-    cp_r("#{@assets_dir_path}/.", @html_dir_path.to_s)
+    if production?
+      cp_r("#{@assets_dir_path}/.", @html_dir_path.to_s)
+    else
+      mkdir_p(@html_dir_path.to_s)
+      @assets_dir_path.each_child do |child|
+        destination = @html_dir_path + child.basename
+        rm_rf(destination.to_s)
+        ln_s(child.relative_path_from(@html_dir_path).to_s,
+             destination.to_s)
+      end
+    end
   end
 
   def generate_author_html
@@ -99,6 +116,7 @@ class Generator
 
   module HTMLHelper
     include ERB::Util
+    include Environment
 
     def base_url
       "http://slide.rabbit-shocker.org/"
@@ -111,10 +129,6 @@ class Generator
     def gravatar_url(email)
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
-    end
-
-    def production?
-      ENV["PRODUCTION"] == "true"
     end
   end
 
