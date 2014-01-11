@@ -23,7 +23,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "generator"
 
-task :default => :generate
+task :default => "generate:production"
 
 namespace :css do
   generated_css_paths = []
@@ -61,10 +61,22 @@ namespace :image do
   task :generate => generated_images
 end
 
-desc "Generate HTML"
-task :generate => ["css:generate", "image:generate"] do
-  generator = Generator.new(ENV["HTML_DIR"] || "html")
-  generator.generate
+namespace :generate do
+  dependencies = ["css:generate", "image:generate"]
+  html_dir = ENV["HTML_DIR"] || "html"
+
+  desc "Generate HTML for development environment"
+  task :development => dependencies do
+    generator = Generator.new(html_dir)
+    generator.generate
+  end
+
+  desc "Generate HTML for production environment"
+  task :production => dependencies do
+    ENV["PRODUCTION"] = "true"
+    generator = Generator.new(html_dir)
+    generator.generate
+  end
 end
 
 @gems_dir = "gems"
