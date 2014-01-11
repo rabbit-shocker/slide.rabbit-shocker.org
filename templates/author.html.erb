@@ -9,7 +9,7 @@
 
     <div class="content">
       <div id="slides">
-        <% slides.sort_by(&:id).each do |slide| %>
+        <% slides.each do |slide| %>
         <div class="slide">
           <div class="slide-info">
             <h2><a href="<%= h(slide.id) %>/"><%= h(slide.title) %></a></h2>

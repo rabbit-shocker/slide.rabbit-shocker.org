@@ -219,7 +219,10 @@ class Generator
     end
 
     def slides
-      @slides.values
+      @slides.values.sort_by do |slide|
+        presentation_date = slide.presentation_date || Time.at(0)
+        -presentation_date.to_i
+      end
     end
 
     def add_slide(slide)
