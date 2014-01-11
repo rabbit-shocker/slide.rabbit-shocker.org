@@ -130,6 +130,10 @@ class Generator
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
     end
+
+    def format_presentation_date(date)
+      h(date.strftime(_("%Y-%m-%d")))
+    end
   end
 
   class TopPage

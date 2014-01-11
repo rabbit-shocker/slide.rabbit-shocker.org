@@ -8,7 +8,7 @@
       <div class="author"><a href="../"><%= h(@author.title) %></a></div>
       <% if presentation_date %>
       <div class="slide-presentation-date">
-        <%= h(presentation_date.strftime(_("%Y-%m-%d"))) %>
+        <%= format_presentation_date(presentation_date) %>
       </div>
       <% end %>
     </div>

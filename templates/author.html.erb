@@ -19,6 +19,11 @@
               <li><%= h(tag) %></li>
               <% end %>
             </ul>
+            <% if slide.presentation_date %>
+            <p class="slide-presentation-date">
+              <%= format_presentation_date(slide.presentation_date) %>
+            </p>
+            <% end %>
           </div>
           <%= thumbnail_link(slide, "") %>
         </div>
