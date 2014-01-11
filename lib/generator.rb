@@ -509,6 +509,18 @@ class Generator
       "http://vimeo.com/#{u(vimeo_id)}"
     end
 
+    def youtube_id
+      @config.youtube_id
+    end
+
+    def have_youtube_id?
+      youtube_id
+    end
+
+    def youtube_url
+      "http://www.youtube.com/watch?v=#{u(youtube_id)}"
+    end
+
     def n_pages
       @pdf.size
     end

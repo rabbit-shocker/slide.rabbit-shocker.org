@@ -101,6 +101,13 @@
             </a>
           </li>
           <% end %>
+          <% if have_youtube_id? %>
+          <li>
+            <a href="<%= h(youtube_url) %>" class="youtube">
+              YouTube
+            </a>
+          </li>
+          <% end %>
         </ul>
       </div>
     </section>

@@ -20,7 +20,7 @@ Logo and site design.
 
 == Copyright
 
-  * Copyright (C) 2012 Kouhei Sutou
+  * Copyright (C) 2012-2014 Kouhei Sutou
   * Copyright (C) 2012 nossan
 
 == License
@@ -31,6 +31,13 @@ Provided patches, codes and so on are also licensed under AGPLv3 or
 later. Kouhei Sutou can change the license of them. He considers that
 authores of them agree with the rule when they contribute their
 patches, codes and so on.
+
+=== Exceptions
+
+  * assets/images/YouTube-social-icon_red_24px.png
+
+    It is used with the manner described at
+    http://www.youtube.com/yt/brand/en/using-logo.html
 
 == Using softwares
 
@@ -46,7 +53,7 @@ It is used in logo.
 
 Font Awesome - http://fortawesome.github.com/Font-Awesome
 
-Lincesed under CC BY 3.0.
+Licensed under CC BY 3.0.
 
 === image: TaiLavie
 
