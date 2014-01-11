@@ -84,6 +84,33 @@
                      @block-background-color-dark);
 }
 
+.popup-box () {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    top: 2em;
+    right: 80px;
+    width: 705px;
+    padding: 15px;
+    background-color: @block-background-color-light;
+    color: @base-color-dark;
+    .rounded-shadow;
+    .linear-gradient(315deg, left top, right bottom,
+                     #ffaeae, #ff9090);
+}
+
+.button () {
+    cursor: pointer;
+    display: inline-block;
+    margin: 4px 0;
+    padding: 0 10px;
+    background-color: @base-color-dark;
+    color: #ffffff;
+    border-top: solid 1px @base-color-light;
+    border-left: solid 1px @base-color-light;
+    .rounded-shadow(3px);
+}
+
 .text-block () {
     display: block;
     padding: 0px;
@@ -275,28 +302,11 @@
                         position: relative;
 
                         span#embed-button {
-                            cursor: pointer;
-                            display: inline-block;
-                            padding: 0px 10px;
-                            background-color: @base-color-dark;
-                            color: #ffffff;
-                            border-top: solid 1px @base-color-light;
-                            border-left: solid 1px @base-color-light;
-                            .rounded-shadow(3px);
+                            .button;
                         }
 
                         div#embed-viewer-html {
-                            display: none;
-                            position: absolute;
-                            top: 2em;
-                            right: 80px;
-                            width: 705px;
-                            padding: 15px;
-                            background-color: @block-background-color-light;
-                            color: @base-color-dark;
-                            .rounded-shadow;
-                            .linear-gradient(315deg, left top, right bottom,
-                                             #ffaeae, #ff9090);
+                            .popup-box;
 
                             textarea {
                                 width: 100%;
@@ -305,6 +315,26 @@
 
                             input {
                                 display: block;
+                            }
+                        }
+
+                        span#permanent-link-button {
+                            .button;
+                        }
+
+                        div#permanent-link-box {
+                            .popup-box;
+
+                            input[type="button"] {
+                                display: block;
+                            }
+
+                            input#permanent-link {
+                                width: 100%;
+                            }
+
+                            input#permanent-link-page {
+                                width: 3em;
                             }
                         }
                     }

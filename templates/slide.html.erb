@@ -150,6 +150,31 @@
               <input id="embed-viewer-html-close" type="button" value="Close" />
             </div>
           </li>
+          <li>
+            <span id="permanent-link-button"><%= h(_("Permanent link")) %></span>
+            <div id="permanent-link-box">
+              <input id="permanent-link-base" type="hidden" value="<%= h(url) %>">
+              <input id="permanent-link" type="url" readonly="readonly">
+              <hr>
+              <div>
+                Page: <input id="permanent-link-page"
+                             type="number"
+                             list="permanent-link-page-list">
+                <datalist id="permanent-link-page-list">
+<% 1.upto(n_pages) do |page| -%>
+                  <option value="<%= h(page) %>"><%= h(page) %></option>
+<% end -%>
+                </datalist>
+                <br>
+                Link to the page:
+                <input id="permanent-link-use-page"
+                       type="checkbox"
+                       checked="checked">
+              </div>
+              <hr>
+              <input id="permanent-link-box-close" type="button" value="Close">
+            </div>
+          </li>
         </ul>
       </div>
     </section>

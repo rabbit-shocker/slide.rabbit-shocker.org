@@ -1,6 +1,6 @@
 // -*- indent-tabs-mode: nil -*-
 /*
- Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+ Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,11 @@ function RabbitSlide() {
     if (this.$viewer.length == 0) {
         return;
     }
+
+    this.bindMoveControls();
+    this.bindEmbedLink();
+    this.bindPermanentLinkButton();
+
     this.$viewerHeader  = $("#viewer-header");
     this.$viewerContent = $("#viewer-content");
     this.$viewerFooter  = $("#viewer-footer");
@@ -38,15 +43,13 @@ function RabbitSlide() {
     });
     this.$viewerContent.click($.proxy(this.onContentClick, this));
     this.applyStyles();
-    this.bindMoveControls();
-    this.bindEmbedLink();
 };
 
 RabbitSlide.prototype = {
     parseQueryParameters: function() {
         var pairs = window.location.search.split(/[?&;]/);
         var parameters = {}
-        $.each(pairs, function (i, pair) {
+        $.each(pairs, function(i, pair) {
             var splittedPair = pair.split("=", 2);
             var key = splittedPair[0];
             var value = splittedPair[1];
@@ -116,6 +119,7 @@ RabbitSlide.prototype = {
         this.currentPage = n;
 
         this.updateCurrentPageLabel();
+        this.updatePermanentLinkPage();
         this.$viewerPageSlider.slider("value", n);
 
         this.focusSlider();
@@ -173,6 +177,33 @@ RabbitSlide.prototype = {
         }, this);
         $("#embed-button").click(toggleEmbedViewerHTML);
         $("#embed-viewer-html-close").click(toggleEmbedViewerHTML);
+    },
+
+    updatePermanentLinkURL: function() {
+        var permanent_link = $("#permanent-link-base").val();
+        if ($("#permanent-link-use-page").prop("checked")) {
+            permanent_link += "?page=" + $("#permanent-link-page").val();
+        }
+        $("#permanent-link").val(permanent_link);
+    },
+
+    updatePermanentLinkPage: function() {
+        $("#permanent-link-page").val(this.currentPage).change();
+    },
+
+    bindPermanentLinkButton: function() {
+        var updatePermanentLinkURL = $.proxy(function() {
+            this.updatePermanentLinkURL();
+        }, this);
+        $("#permanent-link-page").keyup(updatePermanentLinkURL);
+        $("#permanent-link-page").change(updatePermanentLinkURL);
+        $("#permanent-link-use-page").change(updatePermanentLinkURL);
+
+        var togglePermanentLinkBox = $.proxy(function(event) {
+            $("#permanent-link-box").toggle("scale");
+        }, this);
+        $("#permanent-link-button").click(togglePermanentLinkBox);
+        $("#permanent-link-box-close").click(togglePermanentLinkBox);
     },
 
     onContentClick: function(event) {
