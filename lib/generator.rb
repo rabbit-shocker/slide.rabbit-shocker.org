@@ -30,14 +30,14 @@ class Generator
   include Environment
 
   def initialize(html_dir_path)
-    @loader = Loader.new
     @assets_dir_path = Pathname("assets")
     @html_dir_path = Pathname(html_dir_path)
+    loader = Loader.new
+    loader.load
+    @authors = loader.authors
   end
 
   def generate
-    @loader.load
-    @authors = @loader.authors
     copy_assets
     generate_author_html
     generate_index_html
