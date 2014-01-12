@@ -38,7 +38,7 @@ class WebHookReceiver
   def update_html
     env = {}
     options = {
-      :in  => "/dev/null",
+      :in => "/dev/null",
       [:out, :err] => [log_path, "w"],
     }
     Process.spawn(env, update_sh, options)
