@@ -68,6 +68,7 @@ task :index do
   indexer = Indexer.new(database)
   indexer.index
   database.close
+  touch("search/tmp/restart.txt")
 end
 
 namespace :generate do

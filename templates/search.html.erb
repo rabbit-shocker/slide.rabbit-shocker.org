@@ -1,0 +1,54 @@
+<%# -*- coding: utf-8 -*- %>
+<%= header %>
+
+<div id="search-result">
+  <div id="main">
+    <div id="title">
+      <h1><%= h(_("Search result")) %></h1>
+    </div>
+
+    <div class="content">
+      <div id="search-form">
+        <form action="<%= h("#{top_path}/search/") %>">
+          <input name="query" type="search" value="<%= h(@request["query"]) %>">
+          <input type="submit" value="<%= h(_("Search")) %>">
+        </form>
+      </div>
+
+      <div id="slides">
+        <% @slides.each do |slide| %>
+        <div class="slide">
+          <div class="slide-info">
+            <h2><a href="<%= h(slide.id) %>/"><%= h(slide.title) %></a></h2>
+            <p class="slide-author">
+              <a href="<%= h(author_path(slide.author)) %>">
+                <%= h(slide.author.label) %>
+              </a>
+            </p>
+            <p class="slide-description"><%= h(slide.description) %></p>
+            <ul class="tags">
+              <% slide.tags.each do |tag| %>
+              <li><%= h(tag.label) %></li>
+              <% end %>
+            </ul>
+            <% if slide.presentation_date %>
+            <p class="slide-presentation-date">
+              <%= format_presentation_date(slide.presentation_date) %>
+            </p>
+            <% end %>
+          </div>
+          <%= thumbnail_link(slide, author_path(slide.author)) %>
+          <div class="snippets">
+            <% slide_snippets(slide).each do |snippet| %>
+            <div class="snippet"><%= snippet %></div>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <nav id="sidebar">
+  </nav>
+</div>
