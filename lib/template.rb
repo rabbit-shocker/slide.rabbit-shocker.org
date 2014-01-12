@@ -19,6 +19,8 @@ require "digest/md5"
 
 require "gettext"
 
+require_relative "environment"
+
 module Template
   module Renderer
     def template_dir_path
