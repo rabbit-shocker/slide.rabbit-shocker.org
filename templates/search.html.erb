@@ -10,7 +10,10 @@
     <div class="content">
       <div id="search-form">
         <form action="<%= h("#{top_path}/search/") %>">
-          <input name="query" type="search" value="<%= h(@request["query"]) %>">
+          <input name="query"
+                 type="search"
+                 placeholder="<%= h(_("Input search keyword")) %>"
+                 value="<%= h(@request["query"]) %>">
           <input type="submit" value="<%= h(_("Search")) %>">
         </form>
       </div>
