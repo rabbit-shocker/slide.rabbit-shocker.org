@@ -14,7 +14,9 @@
                  type="search"
                  placeholder="<%= h(_("Input search keyword")) %>"
                  value="<%= h(@request["query"]) %>">
-          <input type="submit" value="<%= h(_("Search")) %>">
+          <input type="image"
+                 src="<%= image_path("search.png") %>"
+                 alt="<%= h(_("Search")) %>">
         </form>
       </div>
 
