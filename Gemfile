@@ -22,6 +22,7 @@ gem "therubyracer"
 
 gem "gettext"
 gem "poppler"
+gem "rroonga"
 
 local_rabbit_dir = File.join(File.dirname(__FILE__), "..", "rabbit")
 if File.exist?(local_rabbit_dir)

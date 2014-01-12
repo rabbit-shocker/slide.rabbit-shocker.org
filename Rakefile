@@ -22,8 +22,9 @@ require "less"
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "generator"
+require "indexer"
 
-task :default => "generate:production"
+task :default => :generate
 
 namespace :css do
   generated_css_paths = []
@@ -61,6 +62,14 @@ namespace :image do
   task :generate => generated_images
 end
 
+desc "Create index for search"
+task :index do
+  database = Database.new
+  indexer = Indexer.new(database)
+  indexer.index
+  database.close
+end
+
 namespace :generate do
   dependencies = ["css:generate", "image:generate"]
   html_dir = ENV["HTML_DIR"] || "html"
@@ -78,6 +87,9 @@ namespace :generate do
     generator.generate
   end
 end
+
+desc "Generate HTML for production environment and create index for search"
+task :generate => ["generate:production", "index"]
 
 @gems_dir = "gems"
 

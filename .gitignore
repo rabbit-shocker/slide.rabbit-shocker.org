@@ -3,3 +3,4 @@ Gemfile.lock
 /gems/
 /assets/images/go-*.png
 /assets/stylesheets/slide.css
+/database/
