@@ -81,6 +81,14 @@ class Slide
     @config.id
   end
 
+  def base_name
+    @config.base_name
+  end
+
+  def gem_name
+    @config.gem_name
+  end
+
   def page_title
     [title, @author.label, site_name].join(" - ")
   end
@@ -150,7 +158,7 @@ class Slide
   end
 
   def rubygems_url
-    "https://rubygems.org/gems/#{u(@config.gem_name)}"
+    "https://rubygems.org/gems/#{u(gem_name)}"
   end
 
   def ustream_id
@@ -193,6 +201,10 @@ class Slide
     @pdf.size
   end
 
+  def pages
+    @pdf.pages
+  end
+
   def tags
     @config.tags
   end
@@ -210,7 +222,7 @@ class Slide
   end
 
   def pdf_base_name
-    "#{@config.base_name}.pdf"
+    "#{base_name}.pdf"
   end
 
   def thumbnail_base_name
