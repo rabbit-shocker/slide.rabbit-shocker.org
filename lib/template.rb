@@ -51,12 +51,20 @@ module Template
     end
 
     def logo_url
-      "#{base_url}images/logo-square.png"
+      image_url("logo-square.png")
     end
 
     def gravatar_url(email)
       hash = Digest::MD5.hexdigest(email.downcase)
       "http://www.gravatar.com/avatar/#{hash}"
+    end
+
+    def image_url(path)
+      "#{base_url}images/#{path}"
+    end
+
+    def image_path(path)
+      "#{top_path}images/#{path}"
     end
 
     def format_presentation_date(date)
