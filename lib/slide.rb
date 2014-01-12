@@ -218,7 +218,7 @@ class Slide
   end
 
   def thumbnail_path
-    "#{h(id)}/#{thumbnail_base_name}"
+    "#{u(id)}/#{thumbnail_base_name}"
   end
 
   def url
