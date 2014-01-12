@@ -13,27 +13,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "time"
 require "date"
-require "erb"
 require "pathname"
-require "digest/md5"
 
-require "gettext"
 require "poppler"
 
 require "rabbit/author-configuration"
 require "rabbit/slide-configuration"
 
 require_relative "gem-reader"
+require_relative "environment"
+require_relative "template"
 
 class Generator
-  module Environment
-    def production?
-      ENV["PRODUCTION"] == "true"
-    end
-  end
-
   include Rake::DSL
   include Environment
 
@@ -94,60 +86,14 @@ class Generator
     end
   end
 
-  module TemplateRenderer
-    def template_dir_path
-      Pathname(__FILE__).dirname.parent + "templates"
-    end
-
-    def template(name, base_path)
-      path = template_dir_path + base_path
-      erb = ERB.new(path.read, nil, "%-")
-      erb.def_method(self, name, path.to_s)
-    end
-
-    def define_common_templates
-      template("layout", "layout.html.erb")
-      template("html_head", "html-head.html.erb")
-      template("layout", "layout.html.erb")
-      template("thumbnail_link(slide, author_path)",
-               "slide-thumbnail-link.html.erb")
-    end
-  end
-
-  module HTMLHelper
-    include ERB::Util
-    include Environment
-
-    def base_url
-      "http://slide.rabbit-shocker.org/"
-    end
-
-    def logo_url
-      "#{base_url}images/logo-square.png"
-    end
-
-    def gravatar_url(email)
-      hash = Digest::MD5.hexdigest(email.downcase)
-      "http://www.gravatar.com/avatar/#{hash}"
-    end
-
-    def format_presentation_date(date)
-      h(date.strftime(_("%Y-%m-%d")))
-    end
-
-    def site_name
-      "Rabbit Slide Show"
-    end
-  end
-
   class TopPage
     include Rake::DSL
-    include HTMLHelper
+    include Template::HTMLHelper
     include GetText
 
     bindtextdomain("generator")
 
-    extend TemplateRenderer
+    extend Template::Renderer
     define_common_templates
     template("content", "top.html.erb")
 
@@ -209,12 +155,12 @@ class Generator
 
   class Author
     include Rake::DSL
-    include HTMLHelper
+    include Template::HTMLHelper
     include GetText
 
     bindtextdomain("generator")
 
-    extend TemplateRenderer
+    extend Template::Renderer
     define_common_templates
     template("header", "header.html.erb")
     template("content", "author.html.erb")
@@ -355,12 +301,12 @@ class Generator
 
   class Slide
     include Rake::DSL
-    include HTMLHelper
+    include Template::HTMLHelper
     include GetText
 
     bindtextdomain("generator")
 
-    extend TemplateRenderer
+    extend Template::Renderer
     define_common_templates
     template("header", "header.html.erb")
     template("content", "slide.html.erb")
