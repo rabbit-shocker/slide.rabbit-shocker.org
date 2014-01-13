@@ -41,6 +41,7 @@ class Generator
     copy_assets
     generate_author_html
     generate_index_html
+    generate_robots_txt
   end
 
   private
@@ -72,6 +73,15 @@ class Generator
   def generate_index_html
     top_page = TopPage.new(@authors)
     top_page.generate_html(@html_dir_path)
+  end
+
+  def generate_robots_txt
+    (@html_dir_path + "robots.txt").open("w") do |robots_txt|
+      robots_text.puts(<<-ROBOTS)
+User-agent: *
+Disallow: /search/
+      ROBOTS
+    end
   end
 
   class TopPage
