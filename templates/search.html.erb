@@ -18,16 +18,19 @@
         <% @slides.each do |slide| %>
         <div class="slide">
           <div class="slide-info">
-            <h2><a href="<%= h(slide.id) %>/"><%= h(slide.title) %></a></h2>
+            <h2>
+              <a href="<%= h(slide.id) %>/"><%= highlight(slide.title) %></a>
+              <span class="score">(<%= h(slide.score) %>)</span>
+            </h2>
             <p class="slide-author">
-              <a href="<%= h(author_path(slide.author)) %>">
-                <%= h(slide.author.label) %>
-              </a>
+              <a href="<%= h(author_path(slide.author)) %>"
+                   ><%= highlight(slide.author.label) %></a>
+              (<%= highlight(slide.author.key) %>)
             </p>
-            <p class="slide-description"><%= h(slide.description) %></p>
+            <p class="slide-description"><%= highlight(slide.description) %></p>
             <ul class="tags">
               <% slide.tags.each do |tag| %>
-              <li><%= h(tag.label) %></li>
+              <li><%= highlight(tag.label) %></li>
               <% end %>
             </ul>
             <% if slide.presentation_date %>

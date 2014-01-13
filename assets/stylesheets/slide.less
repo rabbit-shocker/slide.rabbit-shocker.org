@@ -24,6 +24,8 @@
 @base-color-light:               #835f52;
 @light-color:                    #eb8989;
 
+@hidden-color:                   #ffe5e5;
+
 @emphasis-foreground-color:      #bb3434;
 
 @link-color-unvisited:           #8d3919;
@@ -453,6 +455,11 @@ img.avatar
     .rounded-shadow;
 }
 
+span.keyword {
+    color: @emphasis-foreground-color;
+    font-weight: bold;
+}
+
 header,
 footer {
     margin: 0px auto;
@@ -708,6 +715,10 @@ div#search-result {
     div#slides {
         .slide-list;
 
+        span.score {
+            color: @hidden-color;
+        }
+
         div.snippets {
             clear: both;
 
@@ -719,11 +730,6 @@ div#search-result {
                 background-color: white;
                 padding: 14px;
                 white-space: pre-wrap;
-
-                span.keyword {
-                    color: @emphasis-foreground-color;
-                    font-weight: bold;
-                }
             }
         }
     }

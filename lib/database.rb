@@ -88,7 +88,7 @@ class Database
   end
 
   class Schema
-    VERSION = "1"
+    VERSION = "2"
 
     def initialize(context)
       @context = context
@@ -169,6 +169,12 @@ class Database
                             :normalizer => "NormalizerAuto") do |table|
           table.index("Slides.name")
           table.index("Slides.base_name")
+        end
+
+        schema.create_table("RubyGemsUsers",
+                            :type => :hash,
+                            :key_type => :short_text) do |table|
+          table.index("Authors._key")
         end
 
         schema.change_table("Authors") do |table|

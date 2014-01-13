@@ -54,9 +54,19 @@ class Searcher
       return [] if query.empty?
       @database.slides.select do |record|
         conditions = []
-        conditions << (record.page_texts =~ query)
+        conditions << (query_match_target(record) =~ query)
         conditions.concat(@tags.collect {|tag| record.tags =~ tag})
         conditions
+      end
+    end
+
+    def query_match_target(record)
+      record.match_target do |match_record|
+        (match_record.title * 20000) |
+          (match_record.author * 15000) |
+          (match_record.author.label * 10000) |
+          (match_record.description * 1000) |
+          (match_record.page_texts)
       end
     end
   end
@@ -168,12 +178,12 @@ class Searcher
       100
     end
 
-    def create_snippeter
+    def create_snippeter(width=nil)
       open_tag = "<span class=\"keyword\">"
       close_tag = "</span>"
       options = {
         :normalize => true,
-        :width => snippet_width,
+        :width => width || snippet_width,
         :html_escape => true,
       }
       snippeter = @slides.expression.snippet([open_tag, close_tag], options)
@@ -183,18 +193,24 @@ class Searcher
 
     def slide_snippets(slide)
       snippets = []
-      # snippets.concat(snippeter.execute(slide.name))
-      # snippets.concat(snippeter.execute(slide.base_name))
-      # snippets.concat(snippeter.execute(slide.title))
-      # snippets.concat(snippeter.execute(slide.description))
       snippets.concat(snippeter.execute(slide.page_texts.join(" ")))
-      # snippets.concat(snippeter.execute(slide.tags.collect(&:label).join(" ")))
-      # snippets.concat(snippeter.execute(slide.author.key))
-      # snippets.concat(snippeter.execute(slide.author.name))
       separator = "<span class=\"separator\">...</span>"
       snippets.collect do |snippet|
         normalized_snippet = snippet.strip
-        "#{separator}#{normalized_snippet}#{separator}"
+        if snippet.bytesize < snippet_width
+          normalized_snippet
+        else
+          "#{separator}#{normalized_snippet}#{separator}"
+        end
+      end
+    end
+
+    def highlight(text)
+      snippets = create_snippeter(text.bytesize).execute(text)
+      if snippets.empty?
+        h(text)
+      else
+        snippets.join("")
       end
     end
   end
