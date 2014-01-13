@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ git pull --rebase
 
 PATH="/var/lib/gems/1.9.1/bin:$PATH"
 
+rm -f Gemfile.lock
 ruby1.9.1 -I ../rabbit/lib -S rake gems:fetch gems:clean
 xvfb-run --auto-servernum \
     ruby1.9.1 -I ../rabbit/lib -S \
