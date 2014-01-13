@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="21"
-   height="20"
+   width="9.7902899"
+   height="9.7902899"
    id="svg2566"
    sodipodi:version="0.32"
    inkscape:version="0.48.4 r9939"
@@ -19,8 +19,8 @@
    sodipodi:docname="delete.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/kou/work/www/slide.rabbit-shocker.org/assets/images/delete-mini.png"
-   inkscape:export-xdpi="72"
-   inkscape:export-ydpi="72">
+   inkscape:export-xdpi="109.65099"
+   inkscape:export-ydpi="109.65099">
   <defs
      id="defs2568">
     <inkscape:perspective
@@ -742,18 +742,18 @@
      borderopacity="0.13333333"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="-4.2889946"
-     inkscape:cy="11.424795"
-     inkscape:current-layer="layer1"
+     inkscape:zoom="4"
+     inkscape:cx="5.3779846"
+     inkscape:cy="8.0989504"
+     inkscape:current-layer="g2254"
      showgrid="false"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:showpageshadow="false"
      inkscape:window-width="936"
      inkscape:window-height="688"
-     inkscape:window-x="2496"
-     inkscape:window-y="272"
+     inkscape:window-x="2743"
+     inkscape:window-y="245"
      stroke="#3465a4"
      fill="#ef2929"
      fit-margin-top="0"
@@ -813,18 +813,7 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     transform="translate(-26.112129,-27.050642)">
-    <rect
-       style="color:#000000;fill:#cc0000;fill-opacity:1;fill-rule:evenodd;stroke:#a40000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
-       id="rect1686"
-       width="20"
-       height="19"
-       x="26.612129"
-       y="27.550642"
-       inkscape:r_cx="true"
-       inkscape:r_cy="true"
-       rx="2.2097087"
-       ry="2.2097087" />
+     transform="translate(-32.040202,-32.155491)">
     <g
        id="g2254"
        transform="matrix(0.779029,0,0,0.779029,26.80797,8.226563)"
@@ -835,26 +824,15 @@
          inkscape:r_cx="true"
          id="path1377"
          d="M 8,32 18,42"
-         style="color:#000000;fill:none;stroke:#ffffff;stroke-width:2.56729817;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
+         style="color:#000000;fill:none;stroke:#ff9090;stroke-width:2.56729817;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
          inkscape:connector-curvature="0" />
       <path
-         style="color:#000000;fill:none;stroke:#ffffff;stroke-width:2.56729817;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
+         style="color:#000000;fill:none;stroke:#ff9090;stroke-width:2.56729817;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
          d="M 18,32 8,42"
          id="path2252"
          inkscape:r_cx="true"
          inkscape:r_cy="true"
          inkscape:connector-curvature="0" />
     </g>
-    <rect
-       ry="1.5847089"
-       rx="1.5847089"
-       inkscape:r_cy="true"
-       inkscape:r_cx="true"
-       y="28.455404"
-       x="27.56451"
-       height="17.190477"
-       width="18.09524"
-       id="rect2258"
-       style="opacity:0.4;color:#000000;fill:none;stroke:#ffffff;stroke-width:1.00000012;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
   </g>
 </svg>
