@@ -455,8 +455,41 @@ header {
 
     div#search-form {
         float: right;
-        margin-top: 20px;
-        input[type="search"] {
+        margin-top: 12px;
+
+        form {
+            margin: 0;
+            margin-right: 5px;
+            padding: 0;
+            position: relative;
+            width: 200px;
+
+            input[type="search"] {
+                border: solid 2px @base-color-dark;
+                .rounded-shadow(15px);
+                background-color: white;
+                font-size: 14px;
+                margin: 0;
+                padding-top: 6px;
+                padding-right: 28px;
+                padding-bottom: 5px;
+                padding-left: 12px;
+                width: 160px;
+            }
+
+            input[type="submit"] {
+                position: absolute;
+                top: 7px;
+                left: 178px;
+                width: 16px;
+                height: 17px;
+                cursor: pointer;
+                border: 0;
+                background-image: url(../images/search-mini.png);
+                background-color: white;
+                background-repeat: no-repeat;
+                font-size: 0;
+            }
         }
     }
 }
