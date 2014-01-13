@@ -130,8 +130,15 @@ def download_latest_gems(name_or_pattern)
     dependency = Gem::Dependency.new(name)
   end
   spec_fetcher = Gem::SpecFetcher.fetcher
-  spec_and_sources = spec_fetcher.fetch(dependency)
-  spec_and_sources.each do |spec, source_uri|
+  if spec_fetcher.respond_to?(:search_for_dependency)
+    tuples, = spec_fetcher.search_for_dependency(dependency)
+    spec_and_source_uris = tuples.collect do |name_tuple, source|
+      [source.fetch_spec(name_tuple), source.uri]
+    end
+  else
+    spec_and_source_uris = spec_fetcher.fetch(dependency)
+  end
+  spec_and_source_uris.each do |spec, source_uri|
     download_gem(spec, source_uri)
   end
 end
