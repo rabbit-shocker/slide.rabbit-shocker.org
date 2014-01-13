@@ -246,7 +246,7 @@ class Slide
   end
 
   def page_image_urls
-    author_image_urls = [@author.image_url].compact
+    author_image_urls = [@author.profile_image_url].compact
     image_urls + author_image_urls + [logo_url]
   end
 
