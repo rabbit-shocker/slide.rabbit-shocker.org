@@ -125,18 +125,13 @@ class Author
     "https://rubygems.org/profiles/#{u(rubygems_user)}"
   end
 
-  def image_url
-    return nil if email.nil?
-    gravatar_url(email)
-  end
-
   def url
     "#{base_url}#{path}"
   end
 
   def page_image_urls
     urls = []
-    urls << image_url
+    urls << gravatar_url(email) if email
     slides.each do |slide|
       urls << slide.image_urls.first
     end
