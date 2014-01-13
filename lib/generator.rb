@@ -77,7 +77,7 @@ class Generator
 
   def generate_robots_txt
     (@html_dir_path + "robots.txt").open("w") do |robots_txt|
-      robots_text.puts(<<-ROBOTS)
+      robots_txt.puts(<<-ROBOTS)
 User-agent: *
 Disallow: /search/
       ROBOTS
