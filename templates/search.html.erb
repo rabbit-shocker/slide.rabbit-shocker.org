@@ -49,5 +49,16 @@
   </div>
 
   <nav id="sidebar">
+    <section id="tags">
+      <h3>Tags</h3>
+      <ul>
+      <% @tags.each do |tag| %>
+        <li>
+          <%= tag_link(tag) %>
+          (<%= tag.n_sub_records %>)
+        </li>
+      <% end %>
+      </ul>
+    </section>
   </nav>
 </div>

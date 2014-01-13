@@ -71,8 +71,25 @@ module Template
       h(date.strftime(_("%Y-%m-%d")))
     end
 
-    def query
+    def current_query
       ""
+    end
+
+    def current_tags
+      []
+    end
+
+    def html_tag(name, attributes, content=nil)
+      open_tag = "<#{name}"
+      attributes.each do |key, value|
+        open_tag << " #{key}=\"#{h(value)}\""
+      end
+      open_tag << ">"
+      if content.nil? and block_given?
+        content = yield
+      end
+      close_tag = "</#{name}>"
+      "#{open_tag}#{content}#{close_tag}"
     end
 
     def site_name

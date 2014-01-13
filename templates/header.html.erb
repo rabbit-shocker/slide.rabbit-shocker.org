@@ -10,9 +10,14 @@
       <input name="query"
              type="search"
              placeholder="<%= h(_("Input search keyword")) %>"
-             value="<%= h(query) %>">
+             value="<%= h(current_query) %>">
       <input type="submit"
              value="<%= h(_("Search")) %>">
+      <% current_tags.each do |tag| %>
+      <input name="tags[]"
+             type="hidden"
+             value="<%= h(tag) %>">
+      <% end %>
     </form>
   </div>
 </header>

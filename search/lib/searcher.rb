@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # Copyright (C) 2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -43,13 +45,18 @@ class Searcher
     private
     def parse_query
       @query = @request["query"]
+      @tags = @request["tags"] || []
+      @tags = [@tags] if @tags.is_a?(String)
     end
 
     def search_slides
       query = @query.to_s.strip
       return [] if query.empty?
       @database.slides.select do |record|
-        record.page_texts =~ query
+        conditions = []
+        conditions << (record.page_texts =~ query)
+        conditions.concat(@tags.collect {|tag| record.tags =~ tag})
+        conditions
       end
     end
   end
@@ -66,6 +73,7 @@ class Searcher
     def initialize(request, slides)
       @request = request
       @slides = slides
+      @tags = slides.group("tags")
     end
 
     def render
@@ -106,8 +114,50 @@ class Searcher
       []
     end
 
-    def query
-      @request["query"]
+    def current_query
+      @current_query ||= @request["query"]
+    end
+
+    def current_tags
+      @current_tags ||= @request["tags"] || []
+    end
+
+    def tag_path(tag)
+      tag_key = tag["_key"]
+      if @request.query_string.empty?
+        "#{@request.path}?tags[]=#{tag_key}"
+      else
+        "#{@request.fullpath}&tags[]=#{tag_key}"
+      end
+    end
+
+    def tag_link(tag)
+      tag_key = tag["_key"]
+      tag_label = h(tag.label)
+      if current_tags.include?(tag_key)
+        "#{tag_label} #{tag_clear_link(tag_key)}"
+      else
+        html_tag("a", {:href => tag_path(tag)}, tag_label)
+      end
+    end
+
+    def tag_clear_link(tag)
+      params = {}
+      @request.params.each do |key, value|
+        if key == "tags"
+          value = value.dup
+          value.delete(tag)
+        end
+        params[key] = value unless value.empty?
+      end
+      query_string = Rack::Utils.build_nested_query(params)
+      tag_clear_link_path = "#{@request.path}?#{query_string}"
+      tag_clear_link_attributes = {
+        :href => tag_clear_link_path,
+        :class => "tag-clear",
+        :title => "Clear",
+      }
+      tag_clear_link = html_tag("a", tag_clear_link_attributes, "❌")
     end
 
     def snippeter
