@@ -205,6 +205,12 @@ class Slide
     @pdf.pages
   end
 
+  def page_texts
+    pages.collect do |page|
+      normalize_text(page.get_text)
+    end
+  end
+
   def tags
     @config.tags
   end

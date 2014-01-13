@@ -49,9 +49,7 @@ class Indexer
     slide_record.base_name         = slide.base_name
     slide_record.title             = slide.title
     slide_record.description       = slide.description
-    slide_record.page_texts        = slide.pages.collect do |page|
-      page.get_text
-    end
+    slide_record.page_texts        = slide.page_texts
     slide_record.presentation_date = slide.presentation_date
     slide_record.thumbnail_path    = slide.thumbnail_path
     slide_record.licenses          = index_licenses(slide.licenses)

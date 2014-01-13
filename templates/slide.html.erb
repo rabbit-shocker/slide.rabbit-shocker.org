@@ -26,10 +26,10 @@
       </div>
       <section class="text">
         <h2><%= h(_("Text")) %></h2>
-        <% @pdf.each_with_index do |page, i| %>
+        <% page_texts.each_with_index do |text, i| %>
         <div class="page">
           <h3>Page: <%= i + 1 %></h3>
-          <pre class="text"><%= h(normalize_text(page.get_text)) %></pre>
+          <pre class="text"><%= h(text) %></pre>
         </div>
         <% end %>
       </section>
