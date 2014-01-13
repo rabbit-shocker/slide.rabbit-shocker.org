@@ -5,6 +5,17 @@
     <div class="catch-phrase">It's showtime! Love it?</div>
   </div>
 
+  <div id="search-form">
+    <form action="<%= h("#{top_path}search/") %>" method="get">
+      <input name="query"
+             type="search"
+             placeholder="<%= h(_("Input search keyword")) %>"
+             value="<%= h(current_query) %>">
+      <input type="submit"
+             value="<%= h(_("Search")) %>">
+    </form>
+  </div>
+
   <section id="new-slides">
     <h2><%= h(_("New!")) %></h2>
     <% new_slides.each do |slide| %>

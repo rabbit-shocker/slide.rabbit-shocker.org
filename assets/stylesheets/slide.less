@@ -137,6 +137,42 @@
     }
 }
 
+.search-form (@width) {
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    position: relative;
+    width: @width;
+
+    input[type="search"] {
+        border: solid 2px @base-color-dark;
+        .rounded-shadow(15px);
+        background-color: white;
+        font-size: 14px;
+        margin: 0;
+        padding-top: 6px;
+        padding-right: 28px;
+        padding-bottom: 5px;
+        padding-left: 12px;
+        box-sizing: content-box;
+        width: @width - 28 - 12 + 2;
+    }
+
+    input[type="submit"] {
+        position: absolute;
+        top: 7px;
+        right: 6px;
+        width: 16px;
+        height: 17px;
+        cursor: pointer;
+        border: 0;
+        background-image: url(../images/search-mini.png);
+        background-color: white;
+        background-repeat: no-repeat;
+        font-size: 0;
+    }
+}
+
 .page-title-block () {
     width: 610px;
     padding: 15px;
@@ -481,39 +517,7 @@ header {
         margin-top: 12px;
 
         form {
-            margin: 0;
-            margin-right: 5px;
-            padding: 0;
-            position: relative;
-            width: 200px;
-
-            input[type="search"] {
-                border: solid 2px @base-color-dark;
-                .rounded-shadow(15px);
-                background-color: white;
-                font-size: 14px;
-                margin: 0;
-                padding-top: 6px;
-                padding-right: 28px;
-                padding-bottom: 5px;
-                padding-left: 12px;
-                box-sizing: content-box;
-                width: 162px;
-            }
-
-            input[type="submit"] {
-                position: absolute;
-                top: 7px;
-                right: 6px;
-                width: 16px;
-                height: 17px;
-                cursor: pointer;
-                border: 0;
-                background-image: url(../images/search-mini.png);
-                background-color: white;
-                background-repeat: no-repeat;
-                font-size: 0;
-            }
+            .search-form (200px);
         }
     }
 }
@@ -593,6 +597,12 @@ div#top {
     width: 640px;
     text-align: center;
     margin: 40px auto;
+
+    div#search-form {
+        form {
+            .search-form (636px);
+        }
+    }
 
     div#welcome {
         background-image: url(../images/logo-large.png);
