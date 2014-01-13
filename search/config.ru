@@ -22,7 +22,7 @@ $LOAD_PATH.unshift((base_path + "lib").to_s)
 require "database"
 require "environment"
 
-$LOAD_PATH.unshift((base_path + "searcher" + "lib").to_s)
+$LOAD_PATH.unshift((base_path + "search" + "lib").to_s)
 
 require "searcher"
 
