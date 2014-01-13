@@ -121,7 +121,11 @@ class Searcher
         @total_n_slides = slides.size
         @slides = paginate(slides)
         @expression = slides.expression
-        @tags = slides.group("tags").sort([["_nsubrecs", "desc"]])
+        tag_sort_keys = [
+          ["_nsubrecs", "desc"],
+          ["label", "asc"],
+        ]
+        @tags = slides.group("tags").sort(tag_sort_keys)
       end
     end
 
