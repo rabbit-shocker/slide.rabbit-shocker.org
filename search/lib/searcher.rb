@@ -84,11 +84,14 @@ class Searcher
 
     def initialize(request, slides)
       @request = request
-      @slides = slides
       if slides.empty?
+        @slides = []
+        @expression = nil
         @tags = []
       else
-        @tags = slides.group("tags")
+        @slides = slides.sort([["_score", "desc"]])
+        @expression = slides.expression
+        @tags = slides.group("tags").sort([["_nsubrecs", "desc"]])
       end
     end
 
@@ -192,7 +195,7 @@ class Searcher
         :width => width || snippet_width,
         :html_escape => true,
       }
-      snippeter = @slides.expression.snippet([open_tag, close_tag], options)
+      snippeter = @expression.snippet([open_tag, close_tag], options)
       snippeter ||= Groonga::Snippet.new(options)
       snippeter
     end
