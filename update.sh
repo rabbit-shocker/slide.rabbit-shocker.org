@@ -23,8 +23,16 @@ git pull --rebase
 
 PATH="/var/lib/gems/1.9.1/bin:$PATH"
 
+HTML_DIR=$(echo ~/public_html)
+
 rm -f Gemfile.lock
 ruby1.9.1 -I ../rabbit/lib -S rake gems:fetch gems:clean
 xvfb-run --auto-servernum \
     ruby1.9.1 -I ../rabbit/lib -S \
-    rake HTML_DIR=$(echo ~/public_html)
+    rake HTML_DIR=${HTML_DIR}
+
+rack_applications="search web-hook-receiver"
+for rack_application in ${rack_applications}; do
+    rm "${HTML_DIR}/${rack_application}"
+    ln -s "${PWD}/${rack_application}/public" "${HTML_DIR}/${rack_application}"
+done
