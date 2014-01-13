@@ -33,6 +33,8 @@ xvfb-run --auto-servernum \
 
 rack_applications="search web-hook-receiver"
 for rack_application in ${rack_applications}; do
-    rm "${HTML_DIR}/${rack_application}"
+    if [ -e "${HTML_DIR}/${rack_application}" ]; then
+	continue;
+    fi
     ln -s "${PWD}/${rack_application}/public" "${HTML_DIR}/${rack_application}"
 done
