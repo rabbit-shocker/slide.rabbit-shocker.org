@@ -18,10 +18,6 @@
 base_dir=`dirname $0`
 cd $base_dir
 
-unset RUBYOPT
-unset BUNDLE_BIN_PATH
-unset BUNDLE_GEMFILE
-
 git pull --rebase
 (cd ../rabbit && git pull --rebase)
 

@@ -41,7 +41,9 @@ class WebHookReceiver
       :in => "/dev/null",
       [:out, :err] => [log_path, "w"],
     }
-    Process.spawn(env, update_sh, options)
+    Bundler.with_clean_env do
+      Process.spawn(env, update_sh, options)
+    end
   end
 
   def base_dir
