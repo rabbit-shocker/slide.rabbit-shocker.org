@@ -27,6 +27,14 @@ class Searcher
     response.finish
   end
 
+  def error_page(env, exception)
+    request = Rack::Request.new(env)
+    renderer = ErrorRenderer.new(request, exception)
+    response = Rack::Response.new(renderer.render, 500)
+    response.headers["Content-Type"] = "text/html"
+    response.finish
+  end
+
   class Processor
     def initialize(request, response, database)
       @request = request
@@ -258,6 +266,48 @@ class Searcher
       else
         snippets.join("")
       end
+    end
+  end
+
+  class ErrorRenderer
+    include Template::HTMLHelper
+    include GetText
+
+    extend Template::Renderer
+    define_common_templates
+    template("header", "header.html.erb")
+    template("content", "error.html.erb")
+
+    def initialize(request, exception)
+      @request = request
+      @exception = exception
+    end
+
+    def render
+      layout do
+        content
+      end
+    end
+
+    private
+    def page_title
+      "Error"
+    end
+
+    def description
+      "Error"
+    end
+
+    def top_path
+      "/"
+    end
+
+    def page_image_urls
+      []
+    end
+
+    def url
+      base_url
     end
   end
 end

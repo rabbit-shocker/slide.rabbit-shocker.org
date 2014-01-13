@@ -16,6 +16,8 @@ require "pathname"
 
 require "bundler/setup"
 
+require "racknga"
+
 base_path = Pathname(__FILE__).dirname.parent.expand_path
 $LOAD_PATH.unshift((base_path + "lib").to_s)
 
@@ -26,11 +28,46 @@ $LOAD_PATH.unshift((base_path + "search" + "lib").to_s)
 
 require "searcher"
 
-use Rack::ShowExceptions
+searcher = Searcher.new(Database.new)
+
+if Environment.production?
+  show_error_page = Class.new do
+    def initialize(app, options={})
+      @app = app
+      @searcher = options[:searcher]
+      @target_exception = options[:target_exception] || Exception
+    end
+
+    def call(env)
+      @app.call(env)
+    rescue @target_exception => exception
+      @searcher.error_page(env, exception)
+    end
+  end
+  use show_error_page, :searcher => searcher
+
+  smtp_options = {
+    "host"          => "127.0.0.1",
+    "from"          => "lavie@rabbit-shocker.org",
+    "to"            => "kou@cozmixng.org",
+    "charset"       => "utf-8",
+    "subject_label" => "[rabbit-slide-show]"
+  }
+  notifiers = [Racknga::ExceptionMailNotifier.new(smtp_options)]
+  use Racknga::Middleware::ExceptionNotifier, :notifiers => notifiers
+else
+  use Rack::ShowExceptions
+end
+
+use Rack::Runtime
+
 use Rack::ContentType, "text/plain"
 use Rack::ContentLength
 
-searcher = Searcher.new(Database.new)
+use Racknga::Middleware::Deflater
+use Rack::Lint
+use Rack::Head
+use Rack::ConditionalGet
 
 if Environment.production?
   run searcher
