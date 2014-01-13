@@ -117,15 +117,17 @@ class Searcher
         @slides = []
         @expression = nil
         @tags = []
+        @authors = []
       else
         @total_n_slides = slides.size
         @slides = paginate(slides)
         @expression = slides.expression
-        tag_sort_keys = [
+        sort_keys = [
           ["_nsubrecs", "desc"],
           ["label", "asc"],
         ]
-        @tags = slides.group("tags").sort(tag_sort_keys)
+        @tags = slides.group("tags").sort(sort_keys)
+        @authors = slides.group("author").sort(sort_keys)
       end
     end
 

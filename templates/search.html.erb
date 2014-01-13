@@ -67,5 +67,17 @@
       <% end %>
       </ul>
     </section>
+
+    <section id="authors">
+      <h3>Authors</h3>
+      <ul>
+      <% @authors.each do |author| %>
+        <li>
+          <%= h(author.label) %>
+          (<%= author.n_sub_records %>)
+        </li>
+      <% end %>
+      </ul>
+    </section>
   </nav>
 </div>
