@@ -44,17 +44,19 @@ class Searcher
 
     private
     def parse_query
-      @query = @request["query"]
+      @keywords = @request["query"].to_s.strip.split(/\s+/)
       @tags = @request["tags"] || []
       @tags = [@tags] if @tags.is_a?(String)
     end
 
     def search_slides
-      query = @query.to_s.strip
-      return [] if query.empty?
+      if @keywords.empty? and @tags.empty?
+        return []
+      end
       @database.slides.select do |record|
         conditions = []
-        conditions << (query_match_target(record) =~ query)
+        match_target = query_match_target(record)
+        conditions.concat(@keywords.collect {|keyword| match_target =~ keyword})
         conditions.concat(@tags.collect {|tag| record.tags =~ tag})
         conditions
       end
