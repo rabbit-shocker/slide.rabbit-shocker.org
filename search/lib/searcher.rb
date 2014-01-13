@@ -85,7 +85,11 @@ class Searcher
     def initialize(request, slides)
       @request = request
       @slides = slides
-      @tags = slides.group("tags")
+      if slides.empty?
+        @tags = []
+      else
+        @tags = slides.group("tags")
+      end
     end
 
     def render
