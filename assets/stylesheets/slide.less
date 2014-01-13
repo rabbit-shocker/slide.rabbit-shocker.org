@@ -445,11 +445,19 @@ footer {
 }
 
 header {
-    height: 70px;
+    margin-top: 18px;
+    height: 52px;
     border-bottom: solid 2px @base-color-dark;
 
-    img {
-        margin-top: 18px;
+    a {
+        float: left;
+    }
+
+    div#search-form {
+        float: right;
+        margin-top: 20px;
+        input[type="search"] {
+        }
     }
 }
 
@@ -642,19 +650,6 @@ div#search-result {
 
     div#title {
         .page-title-block;
-        display: none;
-    }
-
-    div#search-form {
-        margin: 0 10px;
-
-        input {
-            font-size: 200%;
-        }
-
-        input[type="search"] {
-            width: 570px;
-        }
     }
 
     ul#slide-thumbnails {

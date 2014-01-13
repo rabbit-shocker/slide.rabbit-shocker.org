@@ -71,6 +71,10 @@ module Template
       h(date.strftime(_("%Y-%m-%d")))
     end
 
+    def query
+      ""
+    end
+
     def site_name
       "Rabbit Slide Show"
     end

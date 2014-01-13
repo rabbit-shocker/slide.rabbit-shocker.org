@@ -106,6 +106,10 @@ class Searcher
       []
     end
 
+    def query
+      @request["query"]
+    end
+
     def snippeter
       @snipepter ||= create_snippeter
     end

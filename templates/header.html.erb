@@ -4,4 +4,16 @@
     <img src="<%= image_path("logo-small.png") %>"
          alt="Rabbit Slide Show">
   </a>
+
+  <div id="search-form">
+    <form action="<%= h("#{top_path}/search/") %>" method="get">
+      <input name="query"
+             type="search"
+             placeholder="<%= h(_("Input search keyword")) %>"
+             value="<%= h(query) %>">
+      <input type="image"
+             src="<%= image_path("search-mini.png") %>"
+             alt="<%= h(_("Search")) %>">
+    </form>
+  </div>
 </header>
