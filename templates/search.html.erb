@@ -8,6 +8,10 @@
     </div>
 
     <div class="content">
+      <div id="search-result-info">
+        <span id="total-n-slides">Total: <%= h(@total_n_slides) %> slides</span>
+        <span id="elapsed-time">(<%= h("%.4f" % (@elapsed_time)) %>s)</span>
+      </div>
       <ul id="slide-thumbnails">
         <% @slides.each do |slide| %>
         <li><%= thumbnail_link(slide, author_path(slide.author)) %></li>

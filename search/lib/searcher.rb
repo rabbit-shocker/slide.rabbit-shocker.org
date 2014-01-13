@@ -36,9 +36,12 @@ class Searcher
 
     def process
       parse_query
-      slides = search_slides
+      result = Result.new
+      result.measure do
+        result.slides = search_slides
+      end
       @response.headers["Content-Type"] = "text/html"
-      renderer = Renderer.new(@request, slides)
+      renderer = Renderer.new(@request, result)
       @response.write(renderer.render)
     end
 
@@ -73,6 +76,21 @@ class Searcher
     end
   end
 
+  class Result
+    attr_accessor :slides
+    attr_reader :elapsed_time
+    def initialize
+      @slides = nil
+      @elapsed_time = 0
+    end
+
+    def measure
+      start = Time.now
+      yield
+      @elapsed_time = Time.now - start
+    end
+  end
+
   class Renderer
     include Template::HTMLHelper
     include GetText
@@ -82,14 +100,18 @@ class Searcher
     template("header", "header.html.erb")
     template("content", "search.html.erb")
 
-    def initialize(request, slides)
+    def initialize(request, result)
       @request = request
+      @elapsed_time = result.elapsed_time
+      slides = result.slides
       if slides.empty?
+        @total_n_slides = 0
         @slides = []
         @expression = nil
         @tags = []
       else
-        @slides = slides.sort([["_score", "desc"]])
+        @total_n_slides = slides.size
+        @slides = paginate(slides)
         @expression = slides.expression
         @tags = slides.group("tags").sort([["_nsubrecs", "desc"]])
       end
@@ -177,6 +199,21 @@ class Searcher
         :title => "Clear",
       }
       tag_clear_link = html_tag("a", tag_clear_link_attributes, "❌")
+    end
+
+    def paginate(slides)
+      sort_keys = [["_score", "desc"]]
+      size = 12
+      begin
+        page = Integer(@request["page"] || "1")
+      rescue ArgumentError
+        page = 1
+      end
+      begin
+        slides.paginate(sort_keys, :size => size, :page => page)
+      rescue Groonga::TooSmallPage, Groonga::TooLargePage
+        slides.paginate(sort_keys, :size => size)
+      end
     end
 
     def snippeter
