@@ -45,7 +45,7 @@ class Indexer
   def index_slide(slide)
     slides = @database.slides
     slide_record = slides.add(slide.gem_name)
-    slide_record.name              = slide.id
+    slide_record.name              = slide.name
     slide_record.base_name         = slide.base_name
     slide_record.title             = slide.title
     slide_record.description       = slide.description

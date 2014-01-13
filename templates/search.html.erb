@@ -20,6 +20,12 @@
         </form>
       </div>
 
+      <ul id="slide-thumbnails">
+        <% @slides.each do |slide| %>
+        <li><%= thumbnail_link(slide, author_path(slide.author)) %></li>
+        <% end %>
+      </ul>
+
       <div id="slides">
         <% @slides.each do |slide| %>
         <div class="slide">

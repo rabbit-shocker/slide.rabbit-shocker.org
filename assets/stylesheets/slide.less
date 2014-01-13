@@ -150,6 +150,17 @@
     }
 }
 
+.slide-thumbnails () {
+    padding: 0;
+    margin: 0;
+    margin-top: 30px;
+    text-align: center;
+
+    li {
+        display: inline-block;
+    }
+}
+
 .slide-list () {
     margin: 10px 10px 0px 10px;
     overflow: hidden;
@@ -157,7 +168,9 @@
     div.slide {
         overflow: hidden;
         position: relative;
-        margin: 30px 0px;
+        margin: 15px 0px;
+        padding-top: 20px;
+        border-top: solid 2px @base-color-dark;
         min-height: 160px;
 
         div.slide-info {
@@ -561,6 +574,10 @@ div#author {
         .page-title-block;
     }
 
+    ul#slide-thumbnails {
+        .slide-thumbnails;
+    }
+
     div#slides {
         .slide-list;
     }
@@ -625,11 +642,10 @@ div#search-result {
 
     div#title {
         .page-title-block;
+        display: none;
     }
 
     div#search-form {
-        margin-top: 15px;
-
         input {
             font-size: 200%;
         }
@@ -637,6 +653,10 @@ div#search-result {
         input[type="search"] {
             width: 590px;
         }
+    }
+
+    ul#slide-thumbnails {
+        .slide-thumbnails;
     }
 
     div#slides {

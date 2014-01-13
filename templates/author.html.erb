@@ -8,11 +8,17 @@
     </div>
 
     <div class="content">
+      <ul id="slide-thumbnails">
+        <% slides.each do |slide| %>
+        <li><%= thumbnail_link(slide, "") %></li>
+        <% end %>
+      </ul>
+
       <div id="slides">
         <% slides.each do |slide| %>
         <div class="slide">
           <div class="slide-info">
-            <h2><a href="<%= h(slide.id) %>/"><%= h(slide.title) %></a></h2>
+            <h2><a href="<%= u(slide.name) %>/"><%= h(slide.title) %></a></h2>
             <p class="slide-description"><%= h(slide.description) %></p>
             <ul class="tags">
               <% slide.tags.each do |tag| %>

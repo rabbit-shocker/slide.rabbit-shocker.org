@@ -58,7 +58,7 @@ class Slide
   end
 
   def generate_html(author_dir_path)
-    slide_dir_path = author_dir_path + id
+    slide_dir_path = author_dir_path + name
     mkdir_p(slide_dir_path.to_s)
     generate_index_html(slide_dir_path)
     generate_viewer_html(slide_dir_path)
@@ -77,7 +77,7 @@ class Slide
     "../#{@author.top_path}"
   end
 
-  def id
+  def name
     @config.id
   end
 
@@ -154,7 +154,7 @@ class Slide
   end
 
   def have_rubygems_id?
-    rubygems_user and id
+    rubygems_user and name
   end
 
   def rubygems_url
@@ -217,7 +217,7 @@ class Slide
 
   def other_slides
     @author.slides.reject do |slide|
-      id == slide.id
+      name == slide.name
     end
   end
 
@@ -236,11 +236,11 @@ class Slide
   end
 
   def thumbnail_path
-    "#{u(id)}/#{thumbnail_base_name}"
+    "#{u(name)}/#{thumbnail_base_name}"
   end
 
   def url
-    "#{@author.url}#{h(id)}/"
+    "#{@author.url}#{u(name)}/"
   end
 
   def image_urls
@@ -261,7 +261,7 @@ class Slide
   end
 
   def path
-    "#{@author.path}#{h(id)}/"
+    "#{@author.path}#{u(name)}/"
   end
 
   def hatena_bookmark_url

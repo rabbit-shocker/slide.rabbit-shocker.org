@@ -1,6 +1,6 @@
 <%# -*- coding: utf-8 -*- -%>
-<a href="<%= author_path %><%= h(slide.id) %>/">
-  <img src="<%= author_path %><%= h(slide.thumbnail_path) %>"
+<a href="<%= author_path %><%= u(slide.name) %>/">
+  <img src="<%= author_path %><%= slide.thumbnail_path %>"
        alt="<%= h(slide.title) %>"
        title="<%= h(slide.title) %>"
        class="thumbnail">
