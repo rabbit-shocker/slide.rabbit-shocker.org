@@ -158,7 +158,7 @@
         width: @width - 28 - 12 + 2;
     }
 
-    input[type="submit"] {
+    button[type="submit"] {
         position: absolute;
         top: 7px;
         right: 6px;
@@ -169,7 +169,10 @@
         background-image: url(../images/search-mini.png);
         background-color: white;
         background-repeat: no-repeat;
-        font-size: 0;
+
+        span.search-submit-button-label {
+            display: none;
+        }
     }
 }
 

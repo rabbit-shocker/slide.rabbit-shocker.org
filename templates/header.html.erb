@@ -11,8 +11,9 @@
              type="search"
              placeholder="<%= h(_("Input search keyword")) %>"
              value="<%= h(current_query) %>">
-      <input type="submit"
-             value="<%= h(_("Search")) %>">
+      <button type="submit">
+        <span class="search-submit-button-label"><%= h(_("Search")) %></span>
+      </button>
       <% current_tags.each do |tag| %>
       <input name="tags[]"
              type="hidden"
