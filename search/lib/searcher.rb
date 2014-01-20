@@ -145,8 +145,8 @@ class Searcher
     def top_path
       components = @request.path.split("/")
       n_components = components.size - 1
-      n_components += 1 if @request.path.end_with?("/")
-      if n_components == 1
+      n_components -= 1 unless @request.path.end_with?("/")
+      if n_components.zero?
         "./"
       else
         "../" * n_components
