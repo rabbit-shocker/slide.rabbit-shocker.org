@@ -34,7 +34,7 @@
             <p class="slide-description"><%= highlight(slide.description) %></p>
             <ul class="tags">
               <% slide.tags.each do |tag| %>
-              <li><%= highlight(tag.label) %></li>
+              <li><%= tag_link(tag, highlight(tag.label)) %></li>
               <% end %>
             </ul>
             <% if slide.presentation_date %>

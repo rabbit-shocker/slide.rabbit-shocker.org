@@ -190,13 +190,13 @@ class Searcher
       end
     end
 
-    def tag_link(tag)
+    def tag_link(tag, label=nil)
       tag_key = tag["_key"]
-      tag_label = h(tag.label)
+      label ||= h(tag.label)
       if current_tags.include?(tag_key)
-        "#{tag_label} #{tag_clear_link(tag_key)}"
+        "#{label}#{tag_clear_link(tag_key)}"
       else
-        html_tag("a", {:href => tag_path(tag)}, tag_label)
+        html_tag("a", {:href => tag_path(tag)}, label)
       end
     end
 
@@ -216,7 +216,7 @@ class Searcher
         :class => "tag-clear",
         :title => "Clear",
       }
-      tag_clear_link = html_tag("a", tag_clear_link_attributes, "❌")
+      tag_clear_link = html_tag("a", tag_clear_link_attributes, "[❌]")
     end
 
     def paginate(slides)

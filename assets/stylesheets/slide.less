@@ -116,6 +116,17 @@
     .rounded-shadow(3px);
 }
 
+.tag-clear-link () {
+    background-image: url(../images/delete-mini.png);
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 0px;
+    overflow: hidden;
+    padding-top: 12px;
+    margin-left: 2px;
+    display: inline-block;
+}
+
 .text-block () {
     display: block;
     padding: 0px;
@@ -228,6 +239,10 @@
 
                 li {
                     display: inline-block;
+                }
+
+                a.tag-clear {
+                    .tag-clear-link;
                 }
             }
         }
@@ -452,12 +467,7 @@
                 padding-left: 20px;
 
                 a.tag-clear {
-                    font-size: 0;
-                    background-image: url(../images/delete-mini.png);
-                    background-repeat: no-repeat;
-                    width: 12px;
-                    height: 12px;
-                    display: inline-block;
+                    .tag-clear-link;
                 }
             }
         }
