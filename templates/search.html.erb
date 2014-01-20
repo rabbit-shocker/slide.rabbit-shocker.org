@@ -23,7 +23,7 @@
         <div class="slide">
           <div class="slide-info">
             <h2>
-              <a href="<%= h(slide.id) %>/"><%= highlight(slide.title) %></a>
+              <a href="<%= h(slide_path(slide)) %>"><%= highlight(slide.title) %></a>
               <span class="score">(<%= h(slide.score) %>)</span>
             </h2>
             <p class="slide-author">

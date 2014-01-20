@@ -157,6 +157,10 @@ class Searcher
       "#{top_path}authors/#{author.key}/"
     end
 
+    def slide_path(slide)
+      "#{author_path(slide.author)}#{slide.name}/"
+    end
+
     def url
       "#{base_url}search/"
     end
