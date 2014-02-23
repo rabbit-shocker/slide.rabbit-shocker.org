@@ -270,7 +270,6 @@ class Searcher
     end
 
     def highlight(text)
-      return "" if text.nil?
       snippets = create_snippeter(text.bytesize).execute(text)
       if snippets.empty?
         h(text)
