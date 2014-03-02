@@ -48,7 +48,7 @@ class Indexer
     slide_record.name              = slide.name
     slide_record.base_name         = slide.base_name
     slide_record.title             = slide.title
-    slide_record.description       = slide.description || ""
+    slide_record.description       = slide.description
     slide_record.page_texts        = slide.page_texts
     slide_record.presentation_date = slide.presentation_date
     slide_record.thumbnail_path    = slide.thumbnail_path
