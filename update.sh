@@ -18,6 +18,11 @@
 base_dir=`dirname $0`
 cd $base_dir
 
+delay=$1
+if [ -n "$delay" ]; then
+    sleep "$delay"
+fi
+
 git pull --rebase
 (cd ../rabbit && git pull --rebase)
 

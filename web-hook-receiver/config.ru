@@ -42,7 +42,7 @@ class WebHookReceiver
       [:out, :err] => [log_path, "w"],
     }
     Bundler.with_clean_env do
-      pid = Process.spawn(env, update_sh, options)
+      pid = Process.spawn(env, update_sh, "60", options)
       Process.detach(pid)
     end
   end
