@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,8 @@ class WebHookReceiver
       [:out, :err] => [log_path, "w"],
     }
     Bundler.with_clean_env do
-      Process.spawn(env, update_sh, options)
+      pid = Process.spawn(env, update_sh, options)
+      Process.detach(pid)
     end
   end
 
