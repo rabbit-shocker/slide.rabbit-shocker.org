@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2015  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,16 +26,16 @@ fi
 git pull --rebase
 (cd ../rabbit && git pull --rebase)
 
-PATH="/var/lib/gems/1.9.1/bin:$PATH"
+PATH="/usr/local/bin:$PATH"
 
 HTML_DIR=$(echo ~/public_html)
 
 rm -f Gemfile.lock
 xvfb-run --auto-servernum \
-    ruby1.9.1 -I ../rabbit/lib -S \
+    ruby -I ../rabbit/lib -S \
     rake gems:fetch gems:clean
 xvfb-run --auto-servernum \
-    ruby1.9.1 -I ../rabbit/lib -S \
+    ruby -I ../rabbit/lib -S \
     rake HTML_DIR=${HTML_DIR}
 
 rack_applications="search web-hook-receiver"
