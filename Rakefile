@@ -167,8 +167,8 @@ namespace :gems do
     gems = {}
 
     Dir.glob(File.join(@gems_dir, "*.gem")).each do |gem_path|
-      format = Gem::Format.from_file_by_path(gem_path.to_s)
-      spec = format.spec
+      gem_reader = GemReader.new(gem_path.to_s)
+      spec = gem_reader.spec
       gems[spec.name] ||= []
       gems[spec.name] << spec
     end
