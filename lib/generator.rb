@@ -62,7 +62,6 @@ class Generator
   def generate_author_html
     @authors.each do |author|
       author_dir_path = @html_dir_path + "authors" + author.rubygems_user
-      mkdir_p(author_dir_path.to_s)
       author.generate_html(author_dir_path)
       author.slides.each do |slide|
         slide.generate_html(author_dir_path)
