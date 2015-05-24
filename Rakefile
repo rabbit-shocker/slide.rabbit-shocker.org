@@ -153,8 +153,9 @@ namespace :gems do
   task :update do
     updated_gems = {}
     Dir.glob(File.join(@gems_dir, "*.gem")).each do |gem_path|
-      format = Gem::Format.from_file_by_path(gem_path.to_s)
-      spec_name = format.spec.name
+      gem_reader = GemReader.new(gem_path.to_s)
+      spec = gem_reader.spec
+      spec_name = spec.name
       next if updated_gems.has_key?(spec_name)
       download_latest_gems(spec_name)
       updated_gems[spec_name] = true
