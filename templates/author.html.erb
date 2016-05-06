@@ -42,11 +42,9 @@
     <section id="author-info">
       <h3><%= h(label) %></h3>
       <div class="avatar">
-        <a href="../">
-          <img src="<%= h(gravatar_url(email)) %>"
-               alt=""
-               class="avatar">
-        </a>
+        <img src="<%= h(gravatar_url(email)) %>"
+             alt=""
+             class="avatar">
       </div>
       <div class="other-sites">
         <ul>
