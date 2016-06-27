@@ -65,7 +65,17 @@ RabbitSlide.prototype = {
         } else {
             this.currentPage = 1;
         }
+
+        var $pageImage = this.images[this.currentPage - 1];
+        if ($pageImage) {
+            var offset = this.computeImageOffset(this.currentPage);
+            this.$panoramaImages.css("left", offset + "px");
+        } else {
+            this.currentPage = 1;
+        }
+
         this.updateCurrentPageLabel();
+        this.updatePermanentLinkPage();
     },
 
     nPages: function() {
@@ -104,6 +114,15 @@ RabbitSlide.prototype = {
         this.$viewerContent.append(this.$panoramaImages);
     },
 
+    computeImageOffset: function(n) {
+        var $pageImage = this.images[n - 1];
+        if ($pageImage) {
+            return -$pageImage.width() * (n - 1);
+        } else {
+            return 0;
+        }
+    },
+
     moveTo: function(n) {
         var $pageImage = this.images[n - 1];
         if (!$pageImage) {
@@ -113,7 +132,7 @@ RabbitSlide.prototype = {
         this.$panoramaImages.clearQueue();
         this.$panoramaImages.animate({
             top: 0,
-            left: -$pageImage.width() * (n - 1)
+            left: this.computeImageOffset(n)
         });
 
         this.currentPage = n;
