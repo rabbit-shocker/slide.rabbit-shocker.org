@@ -47,7 +47,7 @@ module Template
     include ERB::Util
 
     def base_url
-      "http://slide.rabbit-shocker.org/"
+      "https://slide.rabbit-shocker.org/"
     end
 
     def logo_url
@@ -56,7 +56,7 @@ module Template
 
     def gravatar_url(email)
       hash = Digest::MD5.hexdigest(email.downcase)
-      "http://www.gravatar.com/avatar/#{hash}"
+      "//www.gravatar.com/avatar/#{hash}"
     end
 
     def image_url(path)
