@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2016  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -170,7 +170,7 @@ class Slide
   end
 
   def ustream_url
-    "http://www.ustream.tv/recorded/#{u(ustream_id)}"
+    "https://www.ustream.tv/recorded/#{u(ustream_id)}"
   end
 
   def vimeo_id
@@ -182,7 +182,7 @@ class Slide
   end
 
   def vimeo_url
-    "http://vimeo.com/#{u(vimeo_id)}"
+    "https://vimeo.com/#{u(vimeo_id)}"
   end
 
   def youtube_id
@@ -194,7 +194,7 @@ class Slide
   end
 
   def youtube_url
-    "http://www.youtube.com/watch?v=#{u(youtube_id)}"
+    "https://www.youtube.com/watch?v=#{u(youtube_id)}"
   end
 
   def n_pages
