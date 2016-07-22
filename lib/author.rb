@@ -98,7 +98,7 @@ class Author
   end
 
   def slideshare_url
-    "http://slideshare.net/#{u(slideshare_user)}/"
+    "https://slideshare.net/#{u(slideshare_user)}/"
   end
 
   def speaker_deck_user
@@ -110,7 +110,7 @@ class Author
   end
 
   def speaker_deck_url
-    "http://speakerdeck.com/u/#{u(speaker_deck_user)}/"
+    "https://speakerdeck.com/u/#{u(speaker_deck_user)}/"
   end
 
   def rubygems_user
