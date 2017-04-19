@@ -265,7 +265,7 @@ class Slide
   end
 
   def hatena_bookmark_url
-    url_without_scheme = url.gsub(/\Ahttp:\/\//, "")
+    url_without_scheme = url.gsub(/\Ahttps:\/\//, "s/")
     "https://b.hatena.ne.jp/entry/#{url_without_scheme}"
   end
 
