@@ -33,7 +33,7 @@ HTML_DIR=$(echo ~/public_html)
 rm -f Gemfile.lock
 xvfb-run --auto-servernum \
     ruby -I ../rabbit/lib -S \
-    rake gems:fetch gems:clean
+    rake gems:fetch gems:update gems:clean
 xvfb-run --auto-servernum \
     ruby -I ../rabbit/lib -S \
     rake HTML_DIR=${HTML_DIR}
