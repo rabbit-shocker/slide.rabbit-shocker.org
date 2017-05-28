@@ -26,7 +26,11 @@ class WebHookReceiver
 
   private
   def process(request)
-    gem_info = JSON.parse(request.body.read)
+    data = request.body.read
+    File.open(request_log_path, "w") do |request_log|
+      request_log.puts(data)
+    end
+    gem_info = JSON.parse(data)
     return unless rabbit_slide_gem?(gem_info)
     update_html
   end
@@ -57,6 +61,10 @@ class WebHookReceiver
 
   def log_path
     File.join(base_dir, "tmp", "log")
+  end
+
+  def request_log_path
+    File.join(base_dir, "tmp", "request.log")
   end
 end
 
