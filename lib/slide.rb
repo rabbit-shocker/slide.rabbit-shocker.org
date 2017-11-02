@@ -198,11 +198,11 @@ class Slide
   end
 
   def n_pages
-    @pdf.size
+    @pdf.n_pages
   end
 
   def pages
-    @pdf.pages
+    @pdf.to_a
   end
 
   def page_texts
