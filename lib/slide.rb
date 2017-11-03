@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2016  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,6 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+require "tempfile"
 
 require "poppler"
 
@@ -288,7 +290,16 @@ class Slide
       next unless path.start_with?("pdf/")
       @pdf_content = content
       begin
-        @pdf = Poppler::Document.new(@pdf_content)
+        # @pdf = Poppler::Document.new(@pdf_content)
+        # Workaround for Ruby/Poppler 3.1.9
+        pdf_file = Tempfile.new(["slide.rabbit-shocker.org", ".pdf"])
+        begin
+          pdf_file.write(@pdf_content)
+          pdf_file.flush
+          @pdf = Poppler::Document.new(:file => pdf_file.path)
+        ensure
+          pdf_file.close!
+        end
         break
       rescue GLib::Error
         @pdf_content = nil
