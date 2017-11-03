@@ -207,6 +207,20 @@ class Slide
     @pdf.to_a
   end
 
+  def generate_link_coords(page, link_mapping)
+    width, height = page.size
+    width_ratio = @image_width / width
+    height_ratio = @image_height / height
+    x, y, w, h = link_mapping.area.to_a
+    coords = [
+      x * width_ratio,
+      (height - y) * height_ratio,
+      w * width_ratio,
+      (height - h) * height_ratio,
+    ]
+    coords.collect(&:to_i).join(",")
+  end
+
   def page_texts
     pages.collect do |page|
       normalize_text(page.get_text)
