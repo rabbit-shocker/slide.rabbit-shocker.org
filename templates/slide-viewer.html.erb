@@ -15,6 +15,7 @@
         </map>
         <img id="page-image-<%= i %>"
              src="<%= i %>.png"
+             title="<%= h(normalize_text(page.get_text)) %>"
              usemap="#<%= map_name %>"
              class="page-image">
       <%- end -%>
