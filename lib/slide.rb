@@ -47,9 +47,7 @@ class Slide
     @author = nil
     @pdf = nil
     @image_width = 640
-    @image_height = 480
     @thumbnail_width = 200
-    @thumbnail_height = 150
   end
 
   def available?
@@ -210,7 +208,8 @@ class Slide
   def generate_link_coords(page, link_mapping)
     width, height = page.size
     width_ratio = @image_width / width
-    height_ratio = @image_height / height
+    image_height = (@image_width * (height / width)).ceil
+    height_ratio = image_height / height
     x, y, w, h = link_mapping.area.to_a
     coords = [
       x * width_ratio,
@@ -285,6 +284,19 @@ class Slide
     "https://b.hatena.ne.jp/entry/#{url_without_scheme}"
   end
 
+  def slide_ratio_class_suffix
+    case image_height
+    when 360
+      "-ratio-16-9"
+    else
+      ""
+    end
+  end
+
+  def image_height
+    compute_height(@pdf[0], @image_width)
+  end
+
   private
   def load
     return unless @gem_path.exist?
@@ -335,13 +347,21 @@ class Slide
   def generate_images(slide_dir_path)
     @pdf.each_with_index do |page, i|
       image_path = slide_dir_path + "#{i}.png"
-      save_page(page, @image_width, @image_height, image_path.to_s)
+      image_height = compute_height(page, @image_width)
+      save_page(page, @image_width, image_height, image_path.to_s)
     end
   end
 
   def generate_thumbnail(slide_dir_path)
     image_path = slide_dir_path + thumbnail_base_name
-    save_page(@pdf[0], @thumbnail_width, @thumbnail_height, image_path.to_s)
+    first_page = @pdf[0]
+    thumbnail_height = compute_height(first_page, @thumbnail_width)
+    save_page(first_page, @thumbnail_width, thumbnail_height, image_path.to_s)
+  end
+
+  def compute_height(page, width)
+    page_width, page_height = page.size
+    (width * (page_height / page_width)).ceil
   end
 
   def normalize_text(text)

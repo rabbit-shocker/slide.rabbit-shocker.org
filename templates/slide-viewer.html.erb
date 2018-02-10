@@ -1,8 +1,10 @@
 <%# -*- coding: utf-8 -*- -%>
 <div id="viewer">
   <div id="viewer-header"></div>
-  <div id="viewer-content">
-    <div id="page-images">
+  <div id="viewer-content"
+       class="viewer-content<%= h(slide_ratio_class_suffix) %>">
+    <div id="page-images"
+         class="page-images">
       <%- @pdf.each_with_index do |page, i| -%>
         <%- map_name = "page-image-map-#{i}" -%>
         <map id="<%= map_name %>"

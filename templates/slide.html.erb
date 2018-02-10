@@ -3,7 +3,8 @@
 
 <div id="slide">
   <div id="main">
-    <div id="slide-info">
+    <div id="slide-info"
+         class="slide-info<%= h(slide_ratio_class_suffix) %>">
       <h1><%= h(title) %></h1>
       <div class="author"><a href="../"><%= h(@author.label) %></a></div>
       <% if presentation_date %>

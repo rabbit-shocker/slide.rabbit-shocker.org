@@ -1,6 +1,6 @@
 /* -*- indent-tabs-mode: nil -*- */
 /*
- Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+ Copyright (C) 2012-2018  Kouhei Sutou <kou@cozmixng.org>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -45,6 +45,9 @@
 @ustream-color:                  #378fff;
 @vimeo-color:                    #1ab7ea;
 @youtube-color:                  #cd201f;
+
+@slide-height-default:           480px;
+@slide-height-ratio-16-9:        360px;
 
 // Mixins
 .opacity (@opacity) {
@@ -254,21 +257,17 @@
 }
 
 .slide () {
-    div.slide-title {
+    div.slide-title,
+    div.slide-author,
+    div.slide-presentation-date {
+        margin-top: 8px;
         line-height: 120%;
     }
 
     div.slide-author,
-    div.slide-presentation-date {
-        line-height: 120%;
-        margin-top: 8px;
+    div.slide-presentation-date,
+    div.slide-author a {
         color: #444444;
-    }
-
-    div.slide-author {
-        a {
-            color: #444444;
-        }
     }
 
     div.slide-presentation-date {
@@ -504,6 +503,14 @@ img.avatar
     .rounded-shadow;
 }
 
+a.thumbnail-link
+{
+    width: 200px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+}
+
 span.keyword {
     color: @emphasis-foreground-color;
     font-weight: bold;
@@ -559,14 +566,28 @@ div#viewer {
         background-color: @viewer-header-background-color;
     }
 
-    div#viewer-content {
+    .viewer-content (@height) {
         background-color: @viewer-background-color;
         border-width: 0px;
         margin: 0px;
         padding: 0px;
-        height: 480px;
+        height: @height;
         overflow: hidden;
         cursor: pointer;
+
+        div.page-images {
+            height: @height;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    div.viewer-content {
+        .viewer-content(@slide-height-default);
+    }
+
+    div.viewer-content-ratio-16-9 {
+        .viewer-content(@slide-height-ratio-16-9);
     }
 
     div#viewer-footer {
@@ -675,16 +696,24 @@ div#author {
 div#slide {
     .layout;
 
-    div#slide-info {
+    .slide-info(@height) {
         .page-title-block;
 
         position: absolute;
-        top: 540px;
+        top: @height + 60px;
         left: 0px;
 
         div.author {
             margin-top: 5px;
         }
+    }
+
+    div.slide-info {
+        .slide-info(@slide-height-default);
+    }
+
+    div.slide-info-ratio-16-9 {
+        .slide-info(@slide-height-ratio-16-9);
     }
 
     section.description
