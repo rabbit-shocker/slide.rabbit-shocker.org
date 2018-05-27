@@ -55,7 +55,11 @@ module Template
     end
 
     def gravatar_url(email)
-      hash = Digest::MD5.hexdigest(email.downcase)
+      if email.nil?
+        hash = "00000000000000000000000000000000"
+      else
+        hash = Digest::MD5.hexdigest(email.downcase)
+      end
       "//www.gravatar.com/avatar/#{hash}"
     end
 
