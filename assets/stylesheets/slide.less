@@ -104,6 +104,9 @@
 @slide-info-width:               399px;
 @slide-info-width-mini:          210px;
 
+@slide-thumbnails-margin-left:   11px;
+@slide-thumbnails-margin-left-mini: 7px;
+
 // Mixins
 .opacity (@opacity) {
     @opacity_in_percent: @opacity * 100;
@@ -839,7 +842,7 @@ div#top {
             .slide;
 
             float: left;
-            margin-left: 11px;
+            margin-left: @slide-thumbnails-margin-left;
             width: @top-slide-width;
             height: @top-slide-height;
             overflow: hidden;
@@ -849,7 +852,7 @@ div#top {
             @media only screen and (max-width: @slide-max-width) {
                 width: @top-slide-width-mini;
                 height: @top-slide-height-mini;
-                margin-left: 5px;
+                margin-left: @slide-thumbnails-margin-left-mini;
             }
         }
     }
@@ -943,12 +946,13 @@ div#slide {
             float: left;
             width: @other-slide-width;
             height: @other-slide-height;
-            margin-left: 11px;
+            margin-left: @slide-thumbnails-margin-left;
             font-size: 80%;
 
             @media only screen and (max-width: @slide-max-width) {
                 width: @other-slide-width-mini;
                 height: @other-slide-height-mini;
+                margin-left: @slide-thumbnails-margin-left-mini;
             }
         }
     }
