@@ -1,6 +1,6 @@
 // -*- indent-tabs-mode: nil -*-
 /*
- Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+ Copyright (C) 2012-2018  Kouhei Sutou <kou@cozmixng.org>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -31,6 +31,7 @@ function RabbitSlide() {
     this.$viewerContent = $("#viewer-content");
     this.$viewerFooter  = $("#viewer-footer");
     this.$viewerCurrentPage = $("#viewer-current-page");
+    this.isMiniMode = this.$viewerContent.width() < 640;
     this.collectImages();
     this.createPanoramaImages();
     this.initializeCurrentPage();
@@ -86,7 +87,12 @@ RabbitSlide.prototype = {
         this.images = [];
         var i = 0;
         while (true) {
-            var $pageImage = $("#page-image-" + i);
+            var $pageImage;
+            if (this.isMiniMode) {
+                $pageImage = $("#mini-page-image-" + i);
+            } else {
+                $pageImage = $("#page-image-" + i);
+            }
             if ($pageImage.length == 0) {
                 return;
             }
@@ -96,7 +102,12 @@ RabbitSlide.prototype = {
     },
 
     createPanoramaImages: function() {
-        this.$panoramaImages = $("#page-images")
+        if (this.isMiniMode) {
+            this.$panoramaImages = $("#mini-page-images");
+        } else {
+            this.$panoramaImages = $("#page-images");
+        }
+        this.$panoramaImages
             .css("position", "relative")
             .css("left", "0px");
         var i;

@@ -1,0 +1,20 @@
+<%# -*- coding: utf-8 -*- -%>
+<div id="<%= prefix %>page-images"
+     class="<%= prefix %>page-images">
+  <%- @pdf.each_with_index do |page, i| -%>
+    <%- map_name = "#{prefix}page-image-map-#{i}" -%>
+    <map id="<%= map_name %>"
+         name="<%= map_name %>">
+      <%- page.link_mapping.each do |mapping| -%>
+        <area href="<%= h(mapping.action.uri) %>"
+              shape="rect"
+              coords="<%= generate_link_coords(page, mapping, options) %>">
+      <%- end -%>
+    </map>
+    <img id="<%= prefix %>page-image-<%= i %>"
+         src="<%= prefix %><%= i %>.png"
+         title="<%= h(normalize_text(page.get_text)) %>"
+         usemap="#<%= map_name %>"
+         class="<%= prefix %>page-image">
+  <%- end -%>
+</div>

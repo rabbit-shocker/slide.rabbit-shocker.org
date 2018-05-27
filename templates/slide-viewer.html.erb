@@ -3,25 +3,8 @@
   <div id="viewer-header"></div>
   <div id="viewer-content"
        class="viewer-content<%= h(slide_ratio_class_suffix) %>">
-    <div id="page-images"
-         class="page-images">
-      <%- @pdf.each_with_index do |page, i| -%>
-        <%- map_name = "page-image-map-#{i}" -%>
-        <map id="<%= map_name %>"
-             name="<%= map_name %>">
-          <%- page.link_mapping.each do |mapping| -%>
-            <area href="<%= h(mapping.action.uri) %>"
-                  shape="rect"
-                  coords="<%= generate_link_coords(page, mapping) %>">
-          <%- end -%>
-        </map>
-        <img id="page-image-<%= i %>"
-             src="<%= i %>.png"
-             title="<%= h(normalize_text(page.get_text)) %>"
-             usemap="#<%= map_name %>"
-             class="page-image">
-      <%- end -%>
-    </div>
+    <%= page_images("", {}) %>
+    <%= page_images("mini-", {mini: true}) %>
   </div>
   <div id="viewer-footer">
     <div id="viewer-move-control">
