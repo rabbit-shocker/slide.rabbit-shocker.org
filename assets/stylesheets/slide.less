@@ -84,7 +84,7 @@
 @top-catch-phrase-margin-bottom-mini: 35px;
 
 @top-search-form-width:          636px;
-@top-search-form-width-mini:     318px;
+@top-search-form-width-mini:     314px;
 
 @top-slide-width:                200px;
 @top-slide-width-mini:           100px;
@@ -208,7 +208,7 @@
 
 .search-form (@width, @width-mini) {
     margin: 0;
-    margin-right: 5px;
+    margin-right: 8px;
     padding: 0;
     position: relative;
     width: @width;
@@ -363,7 +363,7 @@
     overflow: hidden;
 
     @media only screen and (max-width: @slide-max-width) {
-        width: auto;
+        width: @page-width-mini;
         padding-bottom: @page-padding-bottom-mini;
     }
 
@@ -826,6 +826,7 @@ div#top {
             .transform(rotate(-5deg));
 
             @media only screen and (max-width: @slide-max-width) {
+                font-size: 150%;
                 margin-bottom: @top-catch-phrase-margin-bottom-mini;
             }
         }
@@ -848,6 +849,7 @@ div#top {
             @media only screen and (max-width: @slide-max-width) {
                 width: @top-slide-width-mini;
                 height: @top-slide-height-mini;
+                margin-left: 5px;
             }
         }
     }
