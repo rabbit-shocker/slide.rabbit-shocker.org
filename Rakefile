@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2019  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -180,5 +180,14 @@ namespace :gems do
         rm(File.join(@gems_dir, "#{old_spec.full_name}.gem"))
       end
     end
+  end
+end
+
+desc "Apply the Ansible configurations"
+task :deploy do
+  cd("ansible") do
+    sh("ansible-playbook",
+       "--inventory-file", "../hosts",
+       "playbook.yml")
   end
 end

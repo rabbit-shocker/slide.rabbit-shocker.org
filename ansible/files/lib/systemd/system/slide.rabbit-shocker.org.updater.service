@@ -1,0 +1,8 @@
+[Unit]
+Description=Update slide.rabbit-shocker.org
+
+[Service]
+Type=oneshot
+ExecStart=/home/rabbit-slide/work/slide.rabbit-shocker.org/update.sh
+User=rabbit-slide
+Group=rabbit-slide

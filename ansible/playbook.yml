@@ -1,0 +1,114 @@
+- hosts: servers
+  become: yes
+  vars:
+    ruby: ruby2.5
+    ruby_api_version: 2.5.0
+    passenger_version: 6.0.3
+
+  tasks:
+    # Base
+    - name: Upgrade packages
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        upgrade: safe
+    - name: Install base packages
+      apt:
+        name:
+          - apt-listchanges
+          - ruby
+          - vim
+    - name: Use VIM as the default editor
+      command: update-alternatives --set editor /usr/bin/vim.basic
+    - name: Use e-mail for apt-listchanges
+      lineinfile:
+        path: /etc/apt/listchanges.conf
+        regexp: "^frontend="
+        line: "frontend=mail"
+    - name: Download keyring for Groonga APT repository
+      get_url:
+        url: https://packages.groonga.org/debian/groonga-archive-keyring.gpg
+        dest: /usr/share/keyrings/groonga-archive-keyring.gpg
+    - name: Install Groonga APT repository
+      apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/groonga-archive-keyring.gpg] https://packages.groonga.org/debian/ buster main"
+    - name: Install Bundler
+      gem:
+        name: bundler
+        user_install: no
+
+    # Apache
+    - name: Install Apache and related packages
+      apt:
+        name:
+          - apache2
+          - apache2-dev
+          - build-essential
+          - libapr1-dev
+          - libaprutil1-dev
+          - libcurl4-openssl-dev
+          - libssl-dev
+          - ruby-dev
+          - zlib1g-dev
+    - name: Set log rotation for Apache related logs
+      lineinfile:
+        path: /etc/logrotate.d/apache2
+        regexp: "^	rotate"
+        line: "	rotate 36500"
+    - name: Install Passenger
+      gem:
+        name: passenger
+        version: "{{ passenger_version }}"
+        user_install: no
+      register: passenger
+    - name: Build Passenger
+      command: passenger-install-apache2-module --languages ruby --auto
+      when: passenger.changed
+    - name: Put Passenger configuration files
+      template:
+        src: etc/apache2/mods-available/{{ item }}.j2
+        dest: /etc/apache2/mods-available/{{ item }}
+      with_items:
+        - passenger.conf
+        - passenger.load
+      register: passenger_config_files
+    - name: Enable Passenger
+      command: a2enmod passenger
+      when: passenger_config_files.changed
+      notify:
+        - Restart Apache
+    - name: Disable Apache modules
+      command: a2dismod {{ item }}
+      with_items:
+        - mpm_event
+        - mpm_prefork
+    - name: Enable Apache modules
+      command: a2enmod {{ item }}
+      with_items:
+        - mpm_worker
+        - ssl
+      notify:
+        - Restart Apache
+
+    # slide.rabbit-shocker.org
+    - name: Install slide.rabbit-shocker.org updater
+      copy:
+        src: lib/systemd/system/slide.rabbit-shocker.org.updater.{{ item }}
+        dest: /lib/systemd/system/slide.rabbit-shocker.org.updater.{{ item }}
+      with_items:
+        - service
+        - timer
+      notify:
+        - Restart slide.rabbit-shocker.org updater
+
+  handlers:
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
+    - name: Restart slide.rabbit-shocker.org updater
+      systemd:
+        name: slide.rabbit-shocker.org.updater.timer
+        enabled: yes
+        state: started
+        daemon_reload: yes

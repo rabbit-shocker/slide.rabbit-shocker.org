@@ -1,0 +1,8 @@
+[Unit]
+Description=Update slide.rabbit-shocker.org daily
+
+[Timer]
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target

@@ -15,8 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-base_dir=`dirname $0`
-cd $base_dir
+cd "$(dirname "$0")"
 
 delay=$1
 if [ -n "$delay" ]; then
@@ -31,6 +30,8 @@ PATH="/usr/local/bin:$PATH"
 HTML_DIR=$(echo ~/public_html)
 
 rm -f Gemfile.lock
+bundle install
+
 xvfb-run --auto-servernum \
     ruby -I ../rabbit/lib -S \
     rake gems:fetch gems:clean
