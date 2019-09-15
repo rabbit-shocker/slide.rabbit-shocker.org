@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2019  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 
 require "json"
 
-class WebHookReceiver
+class WebhookReceiver
   def initialize
   end
 
@@ -72,4 +72,4 @@ use Rack::ShowExceptions
 use Rack::ContentType, "text/plain"
 use Rack::ContentLength
 
-run WebHookReceiver.new
+run WebhookReceiver.new
