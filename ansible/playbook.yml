@@ -4,6 +4,7 @@
     ruby: ruby2.5
     ruby_api_version: 2.5.0
     passenger_version: 6.0.3
+    slide_site_directory: ~rabbit-slide/work/slide.rabbit-shocker.org
 
   tasks:
     # Base
@@ -100,6 +101,38 @@
         - timer
       notify:
         - Restart slide.rabbit-shocker.org updater
+    - name: Create tmp/
+      file:
+        path: "{{ slide_site_directory }}/{{ item }}/tmp/"
+        state: directory
+        owner: rabbit-slide
+        group: rabbit-slide
+      with_items:
+        - search
+        - webhook-receiver
+    - name: Remove Gemfile.lock
+      file:
+        path: "{{ slide_site_directory }}/{{ item }}/Gemfile.lock"
+        state: absent
+      with_items:
+        - .
+        - search
+        - webhook-receiver
+    - name: Update gems
+      become_user: rabbit-slide
+      shell: |
+        bundle install --binstubs --path vendor/bundle
+      args:
+        chdir: "{{ slide_site_directory }}/{{ item }}/"
+      with_items:
+        - .
+        - search
+        - webhook-receiver
+      notify:
+        - Restart slide.rabbit-shocker.org searcher
+        - Restart slide.rabbit-shocker.org webhook receiver
+      vars:
+        ansible_ssh_pipelining: true
 
     # Postfix
     - name: Install main.cf
@@ -135,3 +168,15 @@
       systemd:
         name: postfix
         state: restarted
+    - name: Restart slide.rabbit-shocker.org searcher
+      file:
+        path: "{{ slide_site_directory }}/search/tmp/restart.txt"
+        state: touch
+        owner: rabbit-slide
+        group: rabbit-slide
+    - name: Restart slide.rabbit-shocker.org webhook receiver
+      file:
+        path: "{{ slide_site_directory }}/webhook-receiver/tmp/restart.txt"
+        state: touch
+        owner: rabbit-slide
+        group: rabbit-slide
