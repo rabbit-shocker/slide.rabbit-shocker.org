@@ -101,9 +101,28 @@
       notify:
         - Restart slide.rabbit-shocker.org updater
 
+    # Postfix
+    - name: Install main.cf
+      copy:
+        src: etc/postfix/main.cf
+        dest: /etc/postfix/main.cf
+      notify:
+        - Restart Postfix
+    - name: Install transport_maps
+      copy:
+        src: etc/postfix/transport_maps
+        dest: /etc/postfix/transport_maps
+      register: postfix_transport_maps
+    - name: Generate transport_maps.db
+      shell: |
+        postmap /etc/postfix/transport_maps
+      when: postfix_transport_maps.changed
+      notify:
+        - Restart Postfix
+
   handlers:
     - name: Restart Apache
-      service:
+      systemd:
         name: apache2
         state: restarted
     - name: Restart slide.rabbit-shocker.org updater
@@ -112,3 +131,7 @@
         enabled: yes
         state: started
         daemon_reload: yes
+    - name: Restart Postfix
+      systemd:
+        name: postfix
+        state: restarted
