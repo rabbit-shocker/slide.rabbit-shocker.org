@@ -90,6 +90,20 @@
         - ssl
       notify:
         - Restart Apache
+    - name: Put Apache configuration file
+      copy:
+        src: etc/apache2/sites-available/{{ item }}
+        dest: /etc/apache2/sites-available/{{ item }}
+      with_items:
+        - rabbit-shocker.org.conf
+      register: apache_config_files
+    - name: Enable our Apache configurations
+      command: a2ensite {{ item }}
+      with_items:
+        - rabbit-shocker.org.conf
+      notify:
+        - Restart Apache
+      when: apache_config_files.changed
 
     # slide.rabbit-shocker.org
     - name: Install slide.rabbit-shocker.org updater
