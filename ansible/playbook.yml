@@ -17,6 +17,7 @@
       apt:
         name:
           - apt-listchanges
+          - rsync
           - ruby
           - vim
     - name: Use VIM as the default editor
