@@ -39,7 +39,7 @@ xvfb-run --auto-servernum \
     ruby -I ../rabbit/lib -S \
     rake HTML_DIR=${HTML_DIR}
 
-rack_applications="search web-hook-receiver"
+rack_applications="search webhook-receiver"
 for rack_application in ${rack_applications}; do
     if [ -e "${HTML_DIR}/${rack_application}" ]; then
 	continue;
