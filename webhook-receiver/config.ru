@@ -13,7 +13,6 @@
 # GNU General Public License for more details.
 
 require "exception_notification"
-require "hashie"
 require "json"
 require "yaml"
 
@@ -78,7 +77,7 @@ use Rack::ContentLength
 email_yml = "email.yaml"
 if File.exist?(email_yml)
   use ExceptionNotificatio::Rack,
-      email: Hashie.symbolize_keys(YAML.load(File.read(email_yml)))
+      email: YAML.load(File.read(email_yml)).symbolize_keys
 end
 
 run WebhookReceiver.new
