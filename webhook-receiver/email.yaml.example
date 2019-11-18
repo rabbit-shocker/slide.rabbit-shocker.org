@@ -1,0 +1,7 @@
+# -*- yaml -*-
+
+email_prefix: "[Rabbit Slide Show] "
+sender_address: "Rabbit Slide Show <rabbit-slide@rabbit-shocker.org>"
+exception_recipients:
+  - "rabbit-slide@rabbit-shocker.org"
+delivery_method: "sendmail"

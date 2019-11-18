@@ -4,3 +4,4 @@ Gemfile.lock
 /assets/images/go-*.png
 /assets/stylesheets/slide.css
 /database/
+/webhook-receiver/email.yaml

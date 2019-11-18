@@ -4,6 +4,7 @@
     ruby: ruby2.5
     ruby_api_version: 2.5.0
     passenger_version: 6.0.3
+    slide_site_directory_relative: work/slide.rabbit-shocker.org
     slide_site_directory: ~rabbit-slide/work/slide.rabbit-shocker.org
 
   tasks:
@@ -116,6 +117,14 @@
         - timer
       notify:
         - Restart slide.rabbit-shocker.org updater
+    - name: Put email configuration for slide.rabbit-shocker.org webhook receiver
+      copy:
+        src: home/rabbit-slide/{{ slide_site_directory_relative }}/webhook-receiver/email.yaml
+        dest: "{{ slide_site_directory }}/webhook-receiver/email.yaml"
+        owner: rabbit-slide
+        group: rabbit-slide
+      notify:
+        - Restart slide.rabbit-shocker.org webhook receiver
     - name: Create tmp/
       file:
         path: "{{ slide_site_directory }}/{{ item }}/tmp/"

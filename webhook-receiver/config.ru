@@ -12,7 +12,10 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+require "exception_notification"
+require "hashie"
 require "json"
+require "yaml"
 
 class WebhookReceiver
   def initialize
@@ -71,5 +74,11 @@ end
 use Rack::ShowExceptions
 use Rack::ContentType, "text/plain"
 use Rack::ContentLength
+
+email_yml = "email.yaml"
+if File.exist?(email_yml)
+  use ExceptionNotificatio::Rack,
+      email: Hashie.symbolize_keys(YAML.load(File.read(email_yml)))
+end
 
 run WebhookReceiver.new
