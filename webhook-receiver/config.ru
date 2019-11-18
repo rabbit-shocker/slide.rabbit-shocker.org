@@ -76,7 +76,7 @@ use Rack::ContentLength
 
 email_yml = "email.yaml"
 if File.exist?(email_yml)
-  use ExceptionNotificatio::Rack,
+  use ExceptionNotification::Rack,
       email: YAML.load(File.read(email_yml)).symbolize_keys
 end
 
