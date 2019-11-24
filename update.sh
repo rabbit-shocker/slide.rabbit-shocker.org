@@ -34,10 +34,12 @@ HTML_DIR=$(echo ~/public_html)
 rm -f Gemfile.lock
 bundle install
 
-xvfb-run --auto-servernum \
+bundle exec \
+    xvfb-run --auto-servernum \
     ruby -I ../rabbit/lib -S \
     rake gems:fetch gems:clean
-xvfb-run --auto-servernum \
+bundle exec \
+    xvfb-run --auto-servernum \
     ruby -I ../rabbit/lib -S \
     rake HTML_DIR=${HTML_DIR}
 
