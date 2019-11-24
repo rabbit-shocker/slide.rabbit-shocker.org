@@ -24,8 +24,8 @@ if [ -n "$delay" ]; then
     sleep "$delay"
 fi
 
-git pull --rebase
-(cd ../rabbit && git pull --rebase)
+git pull --rebase --autostash
+(cd ../rabbit && git pull --rebase --autostash)
 
 PATH="/usr/local/bin:$PATH"
 
