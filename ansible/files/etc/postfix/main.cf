@@ -34,6 +34,7 @@ myorigin = /etc/mailname
 mydestination =
   taiyaki.ru
   rabbit-shocker.org
+  oss-gate.org
   localhost
 relayhost =
 relay_domains =
