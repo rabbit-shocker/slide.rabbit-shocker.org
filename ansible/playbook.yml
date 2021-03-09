@@ -40,6 +40,23 @@
         name: bundler
         user_install: no
 
+    # Let's Encrypt
+    - name: Install certbot
+      apt:
+        name: certbot
+    - name: "Put Let's Encrypt update script"
+      copy:
+        src: etc/letsencrypt/renewal-hooks/{{ item }}
+        dest: /etc/letsencrypt/renewal-hooks/{{ item }}
+        mode: 0700
+      with_items:
+        - post/start-apache2
+        - post/start-dovecot
+        - post/start-postfix
+        - pre/stop-apache2
+        - pre/stop-dovecot
+        - pre/stop-postfix
+
     # Apache
     - name: Install Apache and related packages
       apt:
