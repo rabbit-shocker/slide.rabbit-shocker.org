@@ -1,0 +1,20 @@
+# /etc/aliases
+mailer-daemon: postmaster
+postmaster: root
+nobody: root
+hostmaster: root
+usenet: root
+news: root
+webmaster: root
+www: root
+ftp: root
+abuse: root
+noc: root
+security: root
+root: kou
+
+lavie: kou
+
+on-boarding: kou@clear-code.com, minami@clear-code.com, yoshimoto@clear-code.com
+
+null: /dev/null

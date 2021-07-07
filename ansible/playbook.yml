@@ -178,6 +178,14 @@
         ansible_ssh_pipelining: true
 
     # Postfix
+    - name: Set /etc/aliases
+      copy:
+        src: etc/aliases
+        dest: /etc/aliases
+      register: postfix_aliases
+    - name: Compile /etc/aliases
+      command: postalias /etc/aliases
+      when: postfix_aliases.changed
     - name: Install main.cf
       copy:
         src: etc/postfix/main.cf
