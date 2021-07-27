@@ -188,7 +188,7 @@
     - name: "dovecot: Install /etc/dovecot/passwd"
       template:
         src: etc/dovecot/passwd.j2
-        dest: /etc/dovecot/passwr
+        dest: /etc/dovecot/passwd
       notify:
         - Restart Dovecot
 
