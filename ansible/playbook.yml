@@ -6,6 +6,8 @@
     passenger_version: 6.0.3
     slide_site_directory_relative: work/slide.rabbit-shocker.org
     slide_site_directory: ~rabbit-slide/work/slide.rabbit-shocker.org
+  vars_files:
+    - vars/private.yml
 
   tasks:
     # Base
@@ -177,6 +179,19 @@
       vars:
         ansible_ssh_pipelining: true
 
+    # Dovecot
+    - name: "dovecot: Install"
+      apt:
+        name:
+          - dovecot-imapd
+          - dovecot-pop3d
+    - name: "dovecot: Install /etc/dovecot/passwd"
+      template:
+        src: etc/dovecot/passwd.j2
+        dest: /etc/dovecot/passwr
+      notify:
+        - Restart Dovecot
+
     # Postfix
     - name: Set /etc/aliases
       copy:
@@ -215,6 +230,10 @@
         enabled: yes
         state: started
         daemon_reload: yes
+    - name: Restart Dovecot
+      systemd:
+        name: dovecot
+        state: restarted
     - name: Restart Postfix
       systemd:
         name: postfix

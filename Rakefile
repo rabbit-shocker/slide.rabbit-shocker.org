@@ -183,11 +183,20 @@ namespace :gems do
   end
 end
 
+user = ENV["ANSIBLE_GPG_USER"] || ENV["USER"]
+file "ansible/password" => "ansible/password.#{user}.gpg" do |task|
+  sh("gpg",
+     "--output", task.name,
+     "--decrypt", task.prerequisites.first)
+  chmod(0600, task.name)
+end
+
 desc "Apply the Ansible configurations"
-task :deploy do
+task :deploy => "ansible/password" do
   cd("ansible") do
     sh("ansible-playbook",
        "--inventory-file", "../hosts",
+       "--vault-password-file", "password",
        "playbook.yml")
   end
 end

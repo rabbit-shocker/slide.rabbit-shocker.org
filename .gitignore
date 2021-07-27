@@ -1,6 +1,7 @@
 Gemfile.lock
 /html/
 /gems/
+/ansible/password
 /assets/images/go-*.png
 /assets/stylesheets/slide.css
 /database/
