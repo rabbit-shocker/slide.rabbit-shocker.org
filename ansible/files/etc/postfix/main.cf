@@ -60,3 +60,10 @@ smtpd_relay_restrictions =
   permit_mynetworks
   permit_sasl_authenticated
   reject_unauth_destination
+
+milter_default_action = accept
+milter_protocol = 6
+milter_command_timeout = 150
+milter_mail_macros = {auth_author} {auth_type} {auth_authen}
+smtpd_milters =
+  unix:milter-manager/milter-manager.sock
