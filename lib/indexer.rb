@@ -57,7 +57,6 @@ class Indexer
     slide_record.n_pages           = slide.n_pages
     slide_record.slideshare_id     = slide.slideshare_id
     slide_record.speaker_deck_id   = slide.speaker_deck_id
-    slide_record.ustream_id        = slide.ustream_id
     slide_record.vimeo_id          = slide.vimeo_id
     slide_record.youtube_id        = slide.youtube_id
     slide_record.author            = slide.author.rubygems_user

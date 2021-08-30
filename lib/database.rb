@@ -145,7 +145,6 @@ class Database
           table.uint32("n_pages")
           table.short_text("slideshare_id")
           table.short_text("speaker_deck_id")
-          table.short_text("ustream_id")
           table.short_text("vimeo_id")
           table.short_text("youtube_id")
           table.reference("author", "Authors")

@@ -164,18 +164,6 @@ class Slide
     "https://rubygems.org/gems/#{u(gem_name)}"
   end
 
-  def ustream_id
-    @config.ustream_id
-  end
-
-  def have_ustream_id?
-    ustream_id
-  end
-
-  def ustream_url
-    "https://www.ustream.tv/recorded/#{u(ustream_id)}"
-  end
-
   def vimeo_id
     @config.vimeo_id
   end
