@@ -34,7 +34,10 @@ function RabbitSlide() {
     this.isMiniMode = this.$viewerContent.width() < 640;
     this.collectImages();
     this.createPanoramaImages();
-    this.initializeCurrentPage();
+    var self = this;
+    $(window).on("load", function() {
+        self.initializeCurrentPage();
+    });
     this.$viewerPageSlider = $("#viewer-page-slider");
     this.$viewerPageSlider.slider({
         min: 1,
