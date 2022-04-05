@@ -29,7 +29,7 @@ module Template
 
     def template(name, base_path)
       path = template_dir_path + base_path
-      erb = ERB.new(path.read, nil, "%-")
+      erb = ERB.new(path.read, trim_mode: "%-")
       erb.def_method(self, name, path.to_s)
     end
 
