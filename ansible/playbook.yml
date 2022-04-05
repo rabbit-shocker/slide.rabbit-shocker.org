@@ -134,6 +134,7 @@
       apt:
         name:
           - node-less
+          - ruby-bundler
     - name: Install slide.rabbit-shocker.org updater
       copy:
         src: lib/systemd/system/slide.rabbit-shocker.org.updater.{{ item }}
