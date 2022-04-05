@@ -200,7 +200,7 @@
       lineinfile:
         path: /etc/dovecot/conf.d/10-auth.conf
         regexp: "^#!include auth-passwdfile.conf.ext"
-        line: "!include autho-passwdfile.conf.ext"
+        line: "!include auth-passwdfile.conf.ext"
       notify:
         - Restart Dovecot
     - name: "dovecot: Use maildir"
@@ -221,7 +221,7 @@
       lineinfile:
         path: /etc/dovecot/conf.d/10-ssl.conf
         regexp: "^ssl_key ="
-        line: "ssl_key = </etc/letsencrypt/live/mail.cozmixng.org/pirvkey.pem"
+        line: "ssl_key = </etc/letsencrypt/live/mail.cozmixng.org/privkey.pem"
       notify:
         - Restart Dovecot
 
