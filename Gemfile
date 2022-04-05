@@ -17,9 +17,7 @@
 
 source "https://rubygems.org/"
 
-gem "less"
 gem "rake"
-gem "therubyracer"
 
 gem "gettext"
 gem "poppler"

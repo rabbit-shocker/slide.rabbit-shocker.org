@@ -17,8 +17,6 @@ require "rake/clean"
 
 require "bundler/setup"
 
-require "less"
-
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
 require "generator"
@@ -31,12 +29,7 @@ namespace :css do
   Dir.glob("assets/stylesheets/slide.less").each do |less_path|
     css_path = less_path.gsub(/\.less\Z/, ".css")
     file css_path => less_path do |task|
-      parser = Less::Parser.new(:filename => less_path)
-      tree = parser.parse(File.read(less_path))
-      css = tree.to_css
-      File.open(css_path, "w") do |css_output|
-        css_output.puts(css)
-      end
+      sh("lessc", less_path, out: css_path)
     end
     generated_css_paths << css_path
   end
