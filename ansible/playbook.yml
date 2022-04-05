@@ -1,9 +1,9 @@
 - hosts: servers
   become: yes
   vars:
-    ruby: ruby2.5
-    ruby_api_version: 2.5.0
-    passenger_version: 6.0.3
+    ruby: ruby
+    ruby_api_version: 2.7.0
+    passenger_version: 6.0.13
     slide_site_directory_relative: work/slide.rabbit-shocker.org
     slide_site_directory: ~rabbit-slide/work/slide.rabbit-shocker.org
   vars_files:
@@ -30,13 +30,14 @@
         path: /etc/apt/listchanges.conf
         regexp: "^frontend="
         line: "frontend=mail"
-    - name: Download keyring for Groonga APT repository
-      get_url:
-        url: https://packages.groonga.org/debian/groonga-archive-keyring.gpg
-        dest: /usr/share/keyrings/groonga-archive-keyring.gpg
+    - name: "sudo: NOPASSWD"
+      copy:
+        src: etc/sudoers.d/sudo-nopasswd
+        dest: /etc/sudoers.d/sudo-nopasswd
+        mode: 0400
     - name: Install Groonga APT repository
-      apt_repository:
-        repo: "deb [signed-by=/usr/share/keyrings/groonga-archive-keyring.gpg] https://packages.groonga.org/debian/ buster main"
+      apt:
+        deb: https://packages.groonga.org/debian/groonga-apt-source-latest-bullseye.deb
     - name: Install Bundler
       gem:
         name: bundler
@@ -189,6 +190,34 @@
       template:
         src: etc/dovecot/passwd.j2
         dest: /etc/dovecot/passwd
+      notify:
+        - Restart Dovecot
+    - name: "dovecot: Enable auto-passwdfile"
+      lineinfile:
+        path: /etc/dovecot/conf.d/10-auth.conf
+        regexp: "^#!include auth-passwdfile.conf.ext"
+        line: "!include autho-passwdfile.conf.ext"
+      notify:
+        - Restart Dovecot
+    - name: "dovecot: Use maildir"
+      lineinfile:
+        path: /etc/dovecot/conf.d/10-mail.conf
+        regexp: "^mail_location ="
+        line: "mail_location = maildir:~/Maildir"
+      notify:
+        - Restart Dovecot
+    - name: "dovecot: ssl_cert"
+      lineinfile:
+        path: /etc/dovecot/conf.d/10-ssl.conf
+        regexp: "^ssl_cert ="
+        line: "ssl_cert = </etc/letsencrypt/live/mail.cozmixng.org/fullchain.pem"
+      notify:
+        - Restart Dovecot
+    - name: "dovecot: ssl_key"
+      lineinfile:
+        path: /etc/dovecot/conf.d/10-ssl.conf
+        regexp: "^ssl_key ="
+        line: "ssl_key = </etc/letsencrypt/live/mail.cozmixng.org/pirvkey.pem"
       notify:
         - Restart Dovecot
 
