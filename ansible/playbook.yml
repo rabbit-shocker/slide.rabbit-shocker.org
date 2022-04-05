@@ -130,6 +130,10 @@
       when: apache_config_files.changed
 
     # slide.rabbit-shocker.org
+    - name: Install dependencies for slide.rabbit-shocker.org
+      apt:
+        name:
+          - node-less
     - name: Install slide.rabbit-shocker.org updater
       copy:
         src: lib/systemd/system/slide.rabbit-shocker.org.updater.{{ item }}
