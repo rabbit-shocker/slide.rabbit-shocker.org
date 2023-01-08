@@ -60,6 +60,26 @@
         - pre/stop-dovecot
         - pre/stop-postfix
 
+    # Let's Encrypt: taiyaki.club
+    - name: "taiyaki.club: Check Let's Encrypt certificate"
+      stat:
+        path: /etc/letsencrypt/live/taiyaki.club/fullchain.pem
+      register: certificate_taiyaki_club
+    - name: "Stop Apache before initializing Let's Encrypt certificate"
+      service:
+        name: apache2
+        state: stopped
+      when: (not certificate_taiyaki_club.stat.exists)
+    - name: "taiyaki.club: Initialize Let's Encrypt certificate"
+      shell: |
+        certbot certonly \
+          --standalone \
+          --non-interactive \
+          --agree-tos \
+          --email webmaster@taiyaki.club \
+          --domain taiyaki.club
+      when: not certificate_taiyaki_club.stat.exists
+
     # Let's Encrypt: taiyaki.ru
     - name: "taiyaki.ru: Check Let's Encrypt certificate"
       stat:
@@ -140,12 +160,14 @@
         dest: /etc/apache2/sites-available/{{ item }}
       with_items:
         - rabbit-shocker.org.conf
+        - taiyaki.club.conf
         - taiyaki.ru.conf
       register: apache_config_files
     - name: Enable our Apache configurations
       command: a2ensite {{ item }}
       with_items:
         - rabbit-shocker.org.conf
+        - taiyaki.club.conf
         - taiyaki.ru.conf
       notify:
         - Restart Apache

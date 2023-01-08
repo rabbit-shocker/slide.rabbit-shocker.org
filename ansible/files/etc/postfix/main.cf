@@ -32,11 +32,12 @@ broken_sasl_auth_clients = yes
 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
 # information on enabling SSL in the smtp client.
 
-myhostname = taiyaki.ru
+myhostname = taiyaki.club
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
 mydestination =
+  taiyaki.club
   taiyaki.ru
   rabbit-shocker.org
   oss-gate.org
@@ -44,7 +45,6 @@ mydestination =
   localhost
 relayhost =
 relay_domains =
-  ml.taiyaki.ru
   ml.rabbit-shocker.org
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 home_mailbox = Maildir/
