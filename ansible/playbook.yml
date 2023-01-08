@@ -22,6 +22,7 @@
           - apt-listchanges
           - rsync
           - ruby
+          - unattended-upgrades
           - vim
     - name: Use VIM as the default editor
       command: update-alternatives --set editor /usr/bin/vim.basic
@@ -30,6 +31,16 @@
         path: /etc/apt/listchanges.conf
         regexp: "^frontend="
         line: "frontend=mail"
+    - name: Reboot automatically when package upgrade requires restart
+      lineinfile:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: "^(//)?Unattended-Upgrade::Automatic-Reboot "
+        line: "Unattended-Upgrade::Automatic-Reboot \"true\";"
+    - name: Send notification when packages upgraded automatically
+      lineinfile:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        regexp: "^(//)?Unattended-Upgrade::Mail "
+        line: "Unattended-Upgrade::Mail \"root\";"
     - name: "sudo: NOPASSWD"
       copy:
         src: etc/sudoers.d/sudo-nopasswd
