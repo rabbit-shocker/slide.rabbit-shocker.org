@@ -310,7 +310,8 @@ class Slide
 
     gem_reader.each do |path, content|
       if path == "config.yaml"
-        @config.merge!(YAML.load(content))
+        @config.merge!(YAML.safe_load(content,
+                                      permitted_classes: [Date, Symbol, Time]))
         break
       end
     end
