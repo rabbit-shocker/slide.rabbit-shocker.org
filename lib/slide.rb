@@ -341,7 +341,6 @@ class Slide
   end
 
   def unload_pdf
-    @spec = nil
     @pdf_content = nil
     @pdf = nil
   end

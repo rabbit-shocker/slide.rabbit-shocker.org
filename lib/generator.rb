@@ -73,12 +73,7 @@ class Generator
 
   def generate_index_html
     top_page = TopPage.new(@authors)
-    begin
-      @authors.each(&:load_pdf)
-      top_page.generate_html(@html_dir_path)
-    ensure
-      @authors.each(&:unload_pdf)
-    end
+    top_page.generate_html(@html_dir_path)
   end
 
   def generate_robots_txt
