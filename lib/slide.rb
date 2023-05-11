@@ -190,7 +190,7 @@ class Slide
   end
 
   def n_pages
-    @n_pages
+    @pdf.n_pages
   end
 
   def pages
@@ -331,7 +331,6 @@ class Slide
       @pdf_content = content
       begin
         @pdf = Poppler::Document.new(@pdf_content)
-        @n_pages = @pdf.n_pages
       rescue GLib::Error
         @pdf_content = nil
         puts("Failed to parse PDF: #{path}: #{$!.class}: #{$!}")

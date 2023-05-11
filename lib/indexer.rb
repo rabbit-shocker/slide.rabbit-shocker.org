@@ -38,7 +38,9 @@ class Indexer
     author_record.label = author.label
     author_record.email = author.email
     author.slides.each do |slide|
-      index_slide(slide)
+      slide.loading do
+        index_slide(slide)
+      end
     end
   end
 
