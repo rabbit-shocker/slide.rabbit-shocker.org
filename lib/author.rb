@@ -56,14 +56,22 @@ class Author
 
   def loading
     begin
-      slides.each do |slide|
-        slide.load_pdf
-      end
+      load_pdf
       yield
     ensure
-      slides.each do |slide|
-        slide.unload_pdf
-      end
+      unload_pdf
+    end
+  end
+
+  def load_pdf
+    slides.each do |slide|
+      slide.load_pdf
+    end
+  end
+
+  def unload_pdf
+    slides.each do |slide|
+      slide.unload_pdf
     end
   end
 
