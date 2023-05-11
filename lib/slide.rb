@@ -54,10 +54,11 @@ class Slide
   end
 
   def available?
-    load
-    return false if rubygems_user.nil?
-    return false if @pdf.nil?
-    true
+    loading do
+      return false if rubygems_user.nil?
+      return false if @pdf.nil?
+      true
+    end
   end
 
   def generate_html(author_dir_path)
@@ -301,8 +302,16 @@ class Slide
     compute_height(@pdf[0], @image_width)
   end
 
-  private
-  def load
+  def loading
+    begin
+      load_pdf
+      yield
+    ensure
+      unload_pdf
+    end
+  end
+
+  def load_pdf
     return unless @gem_path.exist?
 
     gem_reader = GemReader.new(@gem_path.to_s)
@@ -331,6 +340,13 @@ class Slide
     end
   end
 
+  def unload_pdf
+    @spec = nil
+    @pdf_content = nil
+    @pdf = nil
+  end
+
+  private
   def generate_index_html(slide_dir_path)
     (slide_dir_path + "index.html").open("w") do |slide_html|
       slide_html.print(to_html)

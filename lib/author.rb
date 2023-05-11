@@ -54,6 +54,19 @@ class Author
     extract_slide_config(slide)
   end
 
+  def loading
+    begin
+      slides.each do |slide|
+        slide.load_pdf
+      end
+      yield
+    ensure
+      slides.each do |slide|
+        slide.unload_pdf
+      end
+    end
+  end
+
   def generate_html(author_dir_path)
     mkdir_p(author_dir_path.to_s)
     generate_index_html(author_dir_path)
