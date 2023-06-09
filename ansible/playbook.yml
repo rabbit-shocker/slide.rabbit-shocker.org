@@ -91,26 +91,6 @@
           --domain taiyaki.club
       when: not certificate_taiyaki_club.stat.exists
 
-    # Let's Encrypt: taiyaki.ru
-    - name: "taiyaki.ru: Check Let's Encrypt certificate"
-      stat:
-        path: /etc/letsencrypt/live/taiyaki.ru/fullchain.pem
-      register: certificate_taiyaki_ru
-    - name: "Stop Apache before initializing Let's Encrypt certificate"
-      service:
-        name: apache2
-        state: stopped
-      when: (not certificate_taiyaki_ru.stat.exists)
-    - name: "taiyaki.ru: Initialize Let's Encrypt certificate"
-      shell: |
-        certbot certonly \
-          --standalone \
-          --non-interactive \
-          --agree-tos \
-          --email webmaster@taiyaki.ru \
-          --domain taiyaki.ru
-      when: not certificate_taiyaki_ru.stat.exists
-
     # Apache
     - name: Install Apache and related packages
       apt:
