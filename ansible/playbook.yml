@@ -207,7 +207,9 @@
     - name: Update gems
       become_user: rabbit-slide
       shell: |
-        bundle install --binstubs --path vendor/bundle
+        bundle config set --local path vendor/bundle
+        bundle install
+        bundle binstubs --all
       args:
         chdir: "{{ slide_site_directory }}/{{ item }}/"
       with_items:
