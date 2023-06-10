@@ -263,6 +263,72 @@
       notify:
         - Restart Dovecot
 
+    # milter
+    - name: Install milters
+      apt:
+        name:
+          - opendkim
+    - name: "OpenDKIM: Domain"
+      lineinfile:
+        path: /etc/opendkim.conf
+        regexp: "^#?Domain	"
+        line: "Domain	cozmixng.org, taiyaki.club, rabbit-shocker.org"
+      notify:
+        - Restart OpenDKIM
+    - name: "OpenDKIM: KeyFile"
+      lineinfile:
+        path: /etc/opendkim.conf
+        regexp: "^#?KeyFile	"
+        line: "KeyFile	/etc/dkimkeys/default.private"
+      notify:
+        - Restart OpenDKIM
+    - name: "OpenDKIM: Selector"
+      lineinfile:
+        path: /etc/opendkim.conf
+        regexp: "^#?Selector	"
+        line: "Selector	default"
+      notify:
+        - Restart OpenDKIM
+    - name: "OpenDKIM: Mode"
+      lineinfile:
+        path: /etc/opendkim.conf
+        regexp: "^#?Mode	"
+        line: "Mode	sv"
+      notify:
+        - Restart OpenDKIM
+    - name: "OpenDKIM: SubDomains"
+      lineinfile:
+        path: /etc/opendkim.conf
+        regexp: "^#?SubDomains	"
+        line: "SubDomains	yes"
+      notify:
+        - Restart OpenDKIM
+    - name: Check whether DKIM sign key exists
+      stat:
+        path: /etc/dkimkeys/default.private
+      register: dkim_sign_key
+    - name: Generate DKIM sing key
+      become_user: opendkim
+      shell: |
+        /usr/sbin/opendkim-genkey \
+          --directory /etc/dkimkeys \
+          --domain cozmixng.org \
+          --selector default \
+          --subdomains
+      vars:
+        ansible_ssh_pipelining: true
+      notify:
+        - Restart OpenDKIM
+      when: not dkim_sign_key.stat.exists
+    - name: Enable milters
+      systemd:
+        name: "{{ item }}"
+        enabled: yes
+      with_items:
+        - opendkim
+      notify:
+        - Restart milter manager
+
     # Postfix
     - name: Set /etc/aliases
       copy:
@@ -304,6 +370,14 @@
     - name: Restart Dovecot
       systemd:
         name: dovecot
+        state: restarted
+    - name: Restart OpenDKIM
+      systemd:
+        name: opendkim
+        state: restarted
+    - name: Restart milter manager
+      systemd:
+        name: milter-manager
         state: restarted
     - name: Restart Postfix
       systemd:
