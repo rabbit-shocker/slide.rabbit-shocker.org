@@ -2,8 +2,8 @@
   become: yes
   vars:
     ruby: ruby
-    ruby_api_version: 2.7.0
-    passenger_version: 6.0.17
+    ruby_api_version: 3.1.0
+    passenger_version: 6.0.26
     slide_site_directory_relative: work/slide.rabbit-shocker.org
     slide_site_directory: ~rabbit-slide/work/slide.rabbit-shocker.org
   vars_files:
