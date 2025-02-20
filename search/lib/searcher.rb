@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -55,8 +53,8 @@ class Searcher
 
     private
     def parse_query
-      @keywords = @request["query"].to_s.strip.split(/\s+/)
-      @tags = @request["tags"] || []
+      @keywords = @request.params["query"].to_s.strip.split(/\s+/)
+      @tags = @request.params["tags"] || []
       @tags = [@tags] if @tags.is_a?(String)
     end
 
@@ -174,11 +172,11 @@ class Searcher
     end
 
     def current_query
-      @current_query ||= @request["query"]
+      @current_query ||= @request.params["query"]
     end
 
     def current_tags
-      @current_tags ||= @request["tags"] || []
+      @current_tags ||= @request.params["tags"] || []
     end
 
     def tag_path(tag)
@@ -223,7 +221,7 @@ class Searcher
       sort_keys = [["_score", "desc"]]
       size = 12
       begin
-        page = Integer(@request["page"] || "1")
+        page = Integer(@request.params["page"] || "1")
       rescue ArgumentError
         page = 1
       end
