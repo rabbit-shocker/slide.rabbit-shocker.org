@@ -20,6 +20,7 @@ source "https://rubygems.org/"
 gem "rake"
 
 gem "gettext"
+gem "logger"
 gem "poppler"
 gem "rroonga"
 
