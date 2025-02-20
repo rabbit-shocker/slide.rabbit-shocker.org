@@ -43,7 +43,7 @@
         mode: 0400
     - name: Install Groonga APT repository
       apt:
-        deb: https://packages.groonga.org/debian/groonga-apt-source-latest-bullseye.deb
+        deb: https://packages.groonga.org/debian/groonga-apt-source-latest-bookworm.deb
     - name: Install Bundler
       gem:
         name: bundler
