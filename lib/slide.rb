@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,11 @@
 
 require "tempfile"
 
+require "kramdown"
+require "kramdown-parser-gfm"
 require "poppler"
+require "rd/rd2html-lib"
+require "rd/rdfmt"
 
 require "rabbit/slide-configuration"
 
@@ -103,6 +107,49 @@ class Slide
 
   def description
     @spec.description
+  end
+
+  def markup_language
+    markup_language = @spec.metadata["markup_language"]
+    return markup_language if markup_language
+
+    readme = @spec.files.find {|file| file.start_with?("README.")}
+    case File.extname(readme)
+    when ".rd"
+      "rd"
+    when ".md"
+      "md"
+    else
+      nil
+    end
+  end
+
+  def description_html
+    case markup_language
+    when "rd"
+      description_html_rd
+    when "md"
+      description_html_md
+    else
+      h(description)
+    end
+  end
+
+  private def description_html_rd
+    tree = RD::RDTree.new("=begin\n#{description}\n=end\n")
+    visitor = RD::RD2HTMLVisitor.new
+    def visitor.apply_to_DocumentElement(element, contents)
+      contents.join("\n")
+    end
+    visitor.visit(tree)
+  rescue Racc::ParseError
+    h(description)
+  end
+
+  private def description_html_md
+    document = Kramdown::Document.new(description, input: "GFM")
+    html, _warnings = Kramdown::Converter::Html.convert(document.root, {})
+    html
   end
 
   def presentation_date

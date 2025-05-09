@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2014-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2025  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,10 @@ source "https://rubygems.org/"
 gem "rake"
 
 gem "gettext"
+gem "kramdown-parser-gfm"
 gem "logger"
 gem "poppler"
+gem "rdtool"
 gem "rroonga"
 
 local_rabbit_dir = File.join(File.dirname(__FILE__), "..", "rabbit")

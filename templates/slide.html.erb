@@ -18,7 +18,7 @@
       <%= viewer -%>
       <section class="description">
         <h2><%= h(_("Description")) %></h2>
-        <p><%= h(description) %></p>
+        <div class="slide-description"><%= description_html %></div>
       </section>
       <div class="fb-comments"
            data-href="<%= h(url) %>"
