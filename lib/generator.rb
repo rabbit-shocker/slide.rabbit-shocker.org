@@ -127,7 +127,12 @@ Disallow: /search/
 
     def new_slides
       sorted_slides = slides.sort_by do |slide|
-        -slide.spec.date.to_i
+        epoch = slide.spec.date.to_i
+        # 315_619_200 == Gem::DEFAULT_SOURCE_DATE_EPOCH
+        if epoch == 315_619_200
+          epoch = slide.presentation_date&.to_i || epoch
+        end
+        -epoch
       end
       sorted_slides[0, 9]
     end
