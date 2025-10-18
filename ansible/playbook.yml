@@ -234,32 +234,10 @@
         dest: /etc/dovecot/passwd
       notify:
         - Restart Dovecot
-    - name: "dovecot: Enable auto-passwdfile"
-      lineinfile:
-        path: /etc/dovecot/conf.d/10-auth.conf
-        regexp: "^#!include auth-passwdfile.conf.ext"
-        line: "!include auth-passwdfile.conf.ext"
-      notify:
-        - Restart Dovecot
-    - name: "dovecot: Use maildir"
-      lineinfile:
-        path: /etc/dovecot/conf.d/10-mail.conf
-        regexp: "^mail_location ="
-        line: "mail_location = maildir:~/Maildir"
-      notify:
-        - Restart Dovecot
-    - name: "dovecot: ssl_cert"
-      lineinfile:
-        path: /etc/dovecot/conf.d/10-ssl.conf
-        regexp: "^ssl_cert ="
-        line: "ssl_cert = </etc/letsencrypt/live/mail.cozmixng.org/fullchain.pem"
-      notify:
-        - Restart Dovecot
-    - name: "dovecot: ssl_key"
-      lineinfile:
-        path: /etc/dovecot/conf.d/10-ssl.conf
-        regexp: "^ssl_key ="
-        line: "ssl_key = </etc/letsencrypt/live/mail.cozmixng.org/privkey.pem"
+    - name: "dovecot: Install /etc/dovecot/local.conf"
+      copy:
+        src: etc/dovecot/local.conf
+        dest: /etc/dovecot/local.conf
       notify:
         - Restart Dovecot
 
