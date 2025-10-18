@@ -245,7 +245,15 @@
     - name: Install milters
       apt:
         name:
+          - milter-greylist
           - opendkim
+    - name: "milter-greylist: subnetmatch"
+      lineinfile:
+        path: /etc/opendkim.conf
+        regexp: "^socket"
+        line: "socket \"/var/run/milter-greylist/milter-greylist.sock\" 660"
+      notify:
+        - Restart milter-greylist
     - name: "OpenDKIM: Domain"
       lineinfile:
         path: /etc/opendkim.conf
@@ -348,6 +356,10 @@
     - name: Restart Dovecot
       systemd:
         name: dovecot
+        state: restarted
+    - name: Restart milter-greylist
+      systemd:
+        name: milter-greylist
         state: restarted
     - name: Restart OpenDKIM
       systemd:
