@@ -249,7 +249,7 @@
           - opendkim
     - name: "milter-greylist: subnetmatch"
       lineinfile:
-        path: /etc/opendkim.conf
+        path: /etc/milter-greylist/greylist.conf
         regexp: "^socket"
         line: "socket \"/var/run/milter-greylist/milter-greylist.sock\" 660"
       notify:
