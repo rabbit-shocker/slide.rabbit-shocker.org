@@ -30,6 +30,8 @@ git pull --rebase --autostash
 PATH="/usr/local/bin:$PATH"
 
 HTML_DIR=$(echo ~/public_html)
+: "${TMPDIR:=/var/tmp}"
+export TMPDIR
 
 rm -f Gemfile.lock
 bundle install
