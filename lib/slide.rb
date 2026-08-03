@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2025  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2026  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -90,7 +90,8 @@ class Slide
   end
 
   def base_name
-    @config.base_name
+    # File.basename is for slides/slide.md case.
+    File.basename(@config.base_name)
   end
 
   def gem_name
@@ -375,6 +376,7 @@ class Slide
     @pdf_content = nil
     gem_reader.each do |path, content|
       next unless path.start_with?("pdf/")
+      next unless path.end_with?(".pdf")
       @pdf_content = content
       begin
         @pdf = Poppler::Document.new(@pdf_content)
